@@ -1,0 +1,477 @@
+openapi: 3.1.0
+info:
+  title: Risk Cloud Access Audit Redirect Path API
+  description: 'Welcome to the Risk Cloud API v2! This is a collection of new API-first and RESTful API endpoints to streamline the creation of custom integrations with the Risk Cloud.
+
+
+    For the API documentation of our legacy API v1 endpoints, reference [Risk Cloud API v1](https://docs.logicgate.com/v1/index.html).'
+  contact:
+    name: developer-relations@logicgate.com
+    email: developer-relations@logicgate.com
+  version: v2026.7.0
+servers:
+- url: https://{env}.logicgate.com
+  description: The LogicGate API application.
+  variables:
+    env:
+      default: qa
+security:
+- API Token: []
+- basic: []
+tags:
+- name: Redirect Path
+  description: A [Redirect Path](https://help.logicgate.com/hc/en-us/articles/4402683115156-Selected-Redirects) gives end users access to Redirect a Record to any Step in the Workflow other than the Default Path or any Conditional Edge Paths.
+paths:
+  /api/v2/paths/redirect:
+    get:
+      tags:
+      - Redirect Path
+      summary: List all redirect paths
+      description: Get a list of all redirect paths in the environment that are entitled to the current user. Build user privileges are required.
+      operationId: readRedirectPaths
+      parameters:
+      - name: step
+        in: query
+        description: Providing a step ID returns paths only to or from the identified step.
+        required: false
+        schema:
+          type: string
+          default: ''
+      - name: page
+        in: query
+        description: Results page you want to retrieve (0..N)
+      - name: size
+        in: query
+        description: Number of records per page.
+      - name: sort
+        in: query
+        description: 'Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.'
+      - name: Authorization
+        in: header
+        description: 'A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.
+
+
+          To obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).'
+        required: true
+        schema:
+          type: string
+        example: Bearer {TOKEN}
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageModelOutRedirectPathApiOut'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppBadRequestResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppBadRequestResponse'
+      x-beta: 'true'
+    post:
+      tags:
+      - Redirect Path
+      summary: Create a redirect path
+      description: '**Permissions:** [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)
+
+
+        Create a redirect path from a JSON request body.'
+      operationId: createRedirectPath
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.
+
+
+          To obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).'
+        required: true
+        schema:
+          type: string
+        example: Bearer {TOKEN}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RedirectApiCreateIn'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedirectPathApiOut'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppBadRequestResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppBadRequestResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppStatusResponse'
+      x-beta: 'true'
+  /api/v2/paths/redirect/{id}:
+    get:
+      tags:
+      - Redirect Path
+      summary: Retrieve a redirect path
+      description: Find a path by ID. Build user privileges are required.
+      operationId: readRedirectPath
+      parameters:
+      - name: id
+        in: path
+        description: The unique ID of the redirect path.
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: 'A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.
+
+
+          To obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).'
+        required: true
+        schema:
+          type: string
+        example: Bearer {TOKEN}
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedirectPathApiOut'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppBadRequestResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppBadRequestResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppStatusResponse'
+      x-beta: 'true'
+    delete:
+      tags:
+      - Redirect Path
+      summary: Delete a redirect path
+      description: Build user privileges are required.
+      operationId: deleteRedirectPath
+      parameters:
+      - name: id
+        in: path
+        description: The unique ID of the redirect path.
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: 'A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.
+
+
+          To obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).'
+        required: true
+        schema:
+          type: string
+        example: Bearer {TOKEN}
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppBadRequestResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppBadRequestResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppStatusResponse'
+      x-beta: 'true'
+    patch:
+      tags:
+      - Redirect Path
+      summary: Update a redirect path
+      description: User must be entitled to the path in question, meaning they must have build access and be entitled both the source and target steps.
+      operationId: updateRedirectPath
+      parameters:
+      - name: id
+        in: path
+        description: The unique ID of the redirect path.
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: 'A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.
+
+
+          To obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).'
+        required: true
+        schema:
+          type: string
+        example: Bearer {TOKEN}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PathApiUpdateIn'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedirectPathApiOut'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppBadRequestResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppBadRequestResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppStatusResponse'
+      x-beta: 'true'
+components:
+  schemas:
+    PageLinksOut:
+      type: object
+      properties:
+        first:
+          type: string
+          description: A URL path to the first page of requested data
+          example: /api/v2/resource?page=0&size=20
+        prev:
+          type: string
+          description: A URL path to the next page of requested data or `null` if currently on first page
+          example: /api/v2/resource?page=2&size=20
+        self:
+          type: string
+          description: A URL path to the current page of requested data
+          example: /api/v2/resource?page=3&size=20
+        next:
+          type: string
+          description: A URL link to the next page of requested data or `null` if currently on last page
+          example: /api/v2/resource?page=4&size=20
+        last:
+          type: string
+          description: A URL link to the last page of requested data
+          example: /api/v2/resource?page=6&size=20
+      title: Page Links
+    PageInfoOut:
+      type: object
+      properties:
+        size:
+          type: integer
+          format: int64
+          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
+          example: 20
+        totalElements:
+          type: integer
+          format: int64
+          description: The total number of items available
+          example: 50
+        totalPages:
+          type: integer
+          format: int64
+          description: The total number of pages available based on the size
+          example: 3
+        number:
+          type: integer
+          format: int64
+          description: The zero-indexed page number (must not be less than 0, defaults to 0)
+          example: 0
+      title: Page Info
+    PathApiUpdateIn:
+      type: object
+      description: Default next path (Update).
+      properties:
+        allowInternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to any user with access to the target step on submission.
+          example: false
+        allowExternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to external email addresses on submission.
+          example: false
+        allowCurrentAssignee:
+          type: boolean
+          description: Allow a step's current assignee to submit without assigning
+          example: false
+        description:
+          type: string
+          description: Description of the path.
+          example: This describes the path.
+        requireAssignee:
+          type: boolean
+          description: Require an assignee to be chosen
+          example: false
+    AppBadRequestResponse:
+      type: object
+      properties:
+        property:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+    AppStatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+    RedirectPathApiOut:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this Risk Cloud resource
+          example: a1b2c3d4
+        from:
+          type: string
+          description: The ID of the source step.
+          example: a1b2c3d4
+        to:
+          type: string
+          description: The ID of the destination step.
+          example: a1b2c3d4
+        allowInternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to any user with access to the target step on submission.
+          example: false
+        allowExternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to external email addresses on submission.
+          example: false
+        allowCurrentAssignee:
+          type: boolean
+          description: Allow a step's current assignee to submit without assigning
+          example: false
+        description:
+          type: string
+          description: Description of the path.
+          example: This describes the path.
+        requireAssignee:
+          type: boolean
+          description: Require an assignee to be chosen
+          example: false
+        object:
+          type: string
+          description: Identifies the type of object this data represents
+          example: redirect-path
+      title: Path (Response).
+    PageModelOutRedirectPathApiOut:
+      type: object
+      properties:
+        content:
+          type: array
+          description: A array of returned items
+          items:
+            $ref: '#/components/schemas/RedirectPathApiOut'
+        links:
+          $ref: '#/components/schemas/PageLinksOut'
+          description: A collection of page URL links for navigation and iteration
+        page:
+          $ref: '#/components/schemas/PageInfoOut'
+          description: A collection page metadata
+      title: Page (Response)
+    RedirectApiCreateIn:
+      type: object
+      description: Redirect path (Create).
+      properties:
+        from:
+          type: string
+          description: The ID of the source step.
+          example: a1b2c3d4
+        to:
+          type: string
+          description: The ID of the destination step.
+          example: a1b2c3d4
+        allowInternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to any user with access to the target step on submission.
+          example: false
+        allowExternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to external email addresses on submission.
+          example: false
+        allowCurrentAssignee:
+          type: boolean
+          description: Allow a step's current assignee to submit without assigning
+          example: false
+        description:
+          type: string
+          description: Description of the path.
+          example: This describes the path.
+        requireAssignee:
+          type: boolean
+          description: Require an assignee to be chosen
+          example: false
+      required:
+      - from
+      - to
+      title: Redirect path (Create).
+  securitySchemes:
+    API Token:
+      type: http
+      name: Authorization
+      in: header
+      scheme: bearer
+      bearerFormat: API Token
+    basic:
+      type: http
+      name: Authorization
+      in: header
+      scheme: basic
+      bearerFormat: basic
+externalDocs:
+  description: Developer Portal
+  url: https://www.logicgate.com/developer/

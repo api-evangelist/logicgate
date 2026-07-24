@@ -1,0 +1,454 @@
+openapi: 3.1.0
+info:
+  title: Risk Cloud Access Audit Next Path API
+  description: 'Welcome to the Risk Cloud API v2! This is a collection of new API-first and RESTful API endpoints to streamline the creation of custom integrations with the Risk Cloud.
+
+
+    For the API documentation of our legacy API v1 endpoints, reference [Risk Cloud API v1](https://docs.logicgate.com/v1/index.html).'
+  contact:
+    name: developer-relations@logicgate.com
+    email: developer-relations@logicgate.com
+  version: v2026.7.0
+servers:
+- url: https://{env}.logicgate.com
+  description: The LogicGate API application.
+  variables:
+    env:
+      default: qa
+security:
+- API Token: []
+- basic: []
+tags:
+- name: Next Path
+  description: API endpoints for determining the next path(s) in a workflow, including routing and step information.
+paths:
+  /api/v2/paths/next:
+    get:
+      tags:
+      - Next Path
+      summary: List all default next paths
+      description: Get a list of all default next paths in the environment that are entitled to the current user. Build user privileges are required.
+      operationId: readNextPaths
+      parameters:
+      - name: step
+        in: query
+        description: Providing a step ID returns paths only to or from the identified step.
+        required: false
+        schema:
+          type: string
+          default: ''
+        example: a1b2c3d4
+      - name: page
+        in: query
+        description: Results page you want to retrieve (0..N)
+      - name: size
+        in: query
+        description: Number of records per page.
+      - name: sort
+        in: query
+        description: 'Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.'
+      - name: Authorization
+        in: header
+        description: 'A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.
+
+
+          To obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).'
+        required: true
+        schema:
+          type: string
+        example: Bearer {TOKEN}
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageModelOutNextPathApiOut'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppBadRequestResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppBadRequestResponse'
+    post:
+      tags:
+      - Next Path
+      summary: Create a default next path
+      description: Build privileges and step access are required.
+      operationId: createNextPath
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.
+
+
+          To obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).'
+        required: true
+        schema:
+          type: string
+        example: Bearer {TOKEN}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NextApiCreateIn'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NextPathApiOut'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppBadRequestResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppBadRequestResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppStatusResponse'
+  /api/v2/paths/next/{id}:
+    patch:
+      tags:
+      - Next Path
+      summary: Update a default next path
+      description: User must be entitled to the path in question, meaning they must have build access and be entitled both the source and target steps.
+      operationId: updateNextPath
+      parameters:
+      - name: id
+        in: path
+        description: The unique ID of the default next path.
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: 'A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.
+
+
+          To obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).'
+        required: true
+        schema:
+          type: string
+        example: Bearer {TOKEN}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PathApiUpdateIn'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NextPathApiOut'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppBadRequestResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppBadRequestResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppStatusResponse'
+  /api/v2/paths/next/{next-path}:
+    get:
+      tags:
+      - Next Path
+      summary: Create a default next path
+      description: Build privileges and step access are required.
+      operationId: readNextPath
+      parameters:
+      - name: next-path
+        in: path
+        description: Providing a step ID returns paths only to or from the identified step.
+        required: true
+        schema:
+          type: string
+        example: a1b2c3d4
+      - name: Authorization
+        in: header
+        description: 'A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.
+
+
+          To obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).'
+        required: true
+        schema:
+          type: string
+        example: Bearer {TOKEN}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NextPathApiOut'
+    delete:
+      tags:
+      - Next Path
+      summary: Delete a default next path
+      description: Build user privileges are required.
+      operationId: deleteNextPath
+      parameters:
+      - name: next-path
+        in: path
+        description: The unique ID of the default next path.
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: 'A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.
+
+
+          To obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).'
+        required: true
+        schema:
+          type: string
+        example: Bearer {TOKEN}
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppBadRequestResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppBadRequestResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppStatusResponse'
+components:
+  schemas:
+    PageLinksOut:
+      type: object
+      properties:
+        first:
+          type: string
+          description: A URL path to the first page of requested data
+          example: /api/v2/resource?page=0&size=20
+        prev:
+          type: string
+          description: A URL path to the next page of requested data or `null` if currently on first page
+          example: /api/v2/resource?page=2&size=20
+        self:
+          type: string
+          description: A URL path to the current page of requested data
+          example: /api/v2/resource?page=3&size=20
+        next:
+          type: string
+          description: A URL link to the next page of requested data or `null` if currently on last page
+          example: /api/v2/resource?page=4&size=20
+        last:
+          type: string
+          description: A URL link to the last page of requested data
+          example: /api/v2/resource?page=6&size=20
+      title: Page Links
+    NextApiCreateIn:
+      type: object
+      description: Default next path (Create).
+      properties:
+        from:
+          type: string
+          description: The ID of the source step.
+          example: a1b2c3d4
+        to:
+          type: string
+          description: The ID of the destination step.
+          example: a1b2c3d4
+        allowInternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to any user with access to the target step on submission.
+          example: false
+        allowExternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to external email addresses on submission.
+          example: false
+        allowCurrentAssignee:
+          type: boolean
+          description: Allow a step's current assignee to submit without assigning
+          example: false
+        description:
+          type: string
+          description: Description of the path.
+          example: This describes the path.
+        requireAssignee:
+          type: boolean
+          description: Require an assignee to be chosen
+          example: false
+      required:
+      - from
+      - to
+      title: Default next path (Create).
+    PageModelOutNextPathApiOut:
+      type: object
+      properties:
+        content:
+          type: array
+          description: A array of returned items
+          items:
+            $ref: '#/components/schemas/NextPathApiOut'
+        links:
+          $ref: '#/components/schemas/PageLinksOut'
+          description: A collection of page URL links for navigation and iteration
+        page:
+          $ref: '#/components/schemas/PageInfoOut'
+          description: A collection page metadata
+      title: Page (Response)
+    PageInfoOut:
+      type: object
+      properties:
+        size:
+          type: integer
+          format: int64
+          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
+          example: 20
+        totalElements:
+          type: integer
+          format: int64
+          description: The total number of items available
+          example: 50
+        totalPages:
+          type: integer
+          format: int64
+          description: The total number of pages available based on the size
+          example: 3
+        number:
+          type: integer
+          format: int64
+          description: The zero-indexed page number (must not be less than 0, defaults to 0)
+          example: 0
+      title: Page Info
+    PathApiUpdateIn:
+      type: object
+      description: Default next path (Update).
+      properties:
+        allowInternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to any user with access to the target step on submission.
+          example: false
+        allowExternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to external email addresses on submission.
+          example: false
+        allowCurrentAssignee:
+          type: boolean
+          description: Allow a step's current assignee to submit without assigning
+          example: false
+        description:
+          type: string
+          description: Description of the path.
+          example: This describes the path.
+        requireAssignee:
+          type: boolean
+          description: Require an assignee to be chosen
+          example: false
+    AppBadRequestResponse:
+      type: object
+      properties:
+        property:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+    NextPathApiOut:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this Risk Cloud resource
+          example: a1b2c3d4
+        from:
+          type: string
+          description: The ID of the source step.
+          example: a1b2c3d4
+        to:
+          type: string
+          description: The ID of the destination step.
+          example: a1b2c3d4
+        allowInternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to any user with access to the target step on submission.
+          example: false
+        allowExternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to external email addresses on submission.
+          example: false
+        allowCurrentAssignee:
+          type: boolean
+          description: Allow a step's current assignee to submit without assigning
+          example: false
+        description:
+          type: string
+          description: Description of the path.
+          example: This describes the path.
+        requireAssignee:
+          type: boolean
+          description: Require an assignee to be chosen
+          example: false
+        object:
+          type: string
+          description: Identifies the type of object this data represents
+          example: next-path
+      title: Path (Response).
+    AppStatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    API Token:
+      type: http
+      name: Authorization
+      in: header
+      scheme: bearer
+      bearerFormat: API Token
+    basic:
+      type: http
+      name: Authorization
+      in: header
+      scheme: basic
+      bearerFormat: basic
+externalDocs:
+  description: Developer Portal
+  url: https://www.logicgate.com/developer/

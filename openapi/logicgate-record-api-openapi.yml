@@ -1,0 +1,652 @@
+openapi: 3.1.0
+info:
+  title: Risk Cloud Access Audit Record API
+  description: 'Welcome to the Risk Cloud API v2! This is a collection of new API-first and RESTful API endpoints to streamline the creation of custom integrations with the Risk Cloud.
+
+
+    For the API documentation of our legacy API v1 endpoints, reference [Risk Cloud API v1](https://docs.logicgate.com/v1/index.html).'
+  contact:
+    name: developer-relations@logicgate.com
+    email: developer-relations@logicgate.com
+  version: v2026.7.0
+servers:
+- url: https://{env}.logicgate.com
+  description: The LogicGate API application.
+  variables:
+    env:
+      default: qa
+security:
+- API Token: []
+- basic: []
+tags:
+- name: Record
+  description: A [Record](https://help.logicgate.com/hc/en-us/articles/4402683104020-Complete-a-Record) is a form that can capture information, store cataloged data, and link to other Records as it moves through each Step of a Workflow
+paths:
+  /api/v2/records:
+    get:
+      tags:
+      - Record
+      summary: Retrieve records
+      description: '**Permissions:** Authenticated User
+
+
+        Retrieve a page of all records that the current user has [Read or Write access](https://help.logicgate.com/hc/en-us/articles/4402683227156-Permission-Sets-) to.'
+      operationId: readAllRecords
+      parameters:
+      - name: application-id
+        in: query
+        description: The unique ID of an application where, if provided, the response will only contain records from the identified application
+        required: false
+        schema:
+          type: string
+          default: ''
+        example: a1b2c3d4
+      - name: workflow-id
+        in: query
+        description: The unique ID of a workflow where, if provided, the response will only contain records from the identified workflow
+        required: false
+        schema:
+          type: string
+          default: ''
+        example: a1b2c3d4
+      - name: step-id
+        in: query
+        description: The unique ID of a step where, if provided, the response will only contain records on the identified step
+        required: false
+        schema:
+          type: string
+          default: ''
+        example: a1b2c3d4
+      - name: updated-min
+        in: query
+        description: A timestamp measured in milliseconds since the Unix epoch where, if provided, the response will only contain records that have been modified since the given timestamp
+        required: false
+        schema:
+          type: integer
+          format: int64
+        example: 1672552800000
+      - name: page
+        in: query
+        description: The zero-indexed page number (must not be less than 0, defaults to 0)
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 0
+        example: 0
+      - name: size
+        in: query
+        description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+        example: 20
+      - name: Authorization
+        in: header
+        description: 'A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.
+
+
+          To obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).'
+        required: true
+        schema:
+          type: string
+        example: Bearer {TOKEN}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageModelOutRecordApiOut'
+      x-beta: 'true'
+  /api/v2/records/{id}:
+    get:
+      tags:
+      - Record
+      summary: Retrieve a record
+      description: '**Permissions:** [Read or Write access](https://help.logicgate.com/hc/en-us/articles/4402683227156-Permission-Sets-)
+
+
+        Retrieve a record specified by the ID in the URL path.'
+      operationId: readRecord
+      parameters:
+      - name: id
+        in: path
+        description: The unique identifier of the record
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: 'A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.
+
+
+          To obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).'
+        required: true
+        schema:
+          type: string
+        example: Bearer {TOKEN}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecordApiOut'
+      x-beta: 'true'
+  /api/v2/records/{id}/linked:
+    get:
+      tags:
+      - Record
+      summary: Retrieve all linked records
+      description: '**Permissions:** [Read or Write access](https://help.logicgate.com/hc/en-us/articles/4402683227156-Permission-Sets-)
+
+
+        Retrieve a page of all records that are linked to the record of the given record ID that the current user has [Read or Write access](https://help.logicgate.com/hc/en-us/articles/4402683227156-Permission-Sets-) to. The maximum depth of linked records to return with regards to the relationship between the records can be specified by the `depth` property, which defaults to 10.
+
+
+        This endpoint reflects the functionality of [Relationship Reports](https://help.logicgate.com/hc/en-us/articles/4402683133972-Display-Data-using-Relationship-Reports-) in the Risk Cloud.'
+      operationId: readAllLinkedRecords
+      parameters:
+      - name: id
+        in: path
+        description: The unique identifier of the record
+        required: true
+        schema:
+          type: string
+      - name: workflow-id
+        in: query
+        description: The unique ID of a workflow where, if provided, the response will only contain linked records from the identified workflow
+        required: true
+        schema:
+          type: string
+        example: a1b2c3d4
+      - name: depth
+        in: query
+        description: Specifies the maximum depth of linked records to return with regards to the relationship between the given record's workflow and the workflow specified by `workflow-id` (must not be less than 0, defaults to 10)
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+          minimum: 1
+        example: 10
+      - name: updated-min
+        in: query
+        description: A timestamp measured in milliseconds since the Unix epoch where, if provided, the response will only contain records that have been modified since the given timestamp
+        required: false
+        schema:
+          type: integer
+          format: int64
+        example: 1672552800000
+      - name: page
+        in: query
+        description: The zero-indexed page number (must not be less than 0, defaults to 0)
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 0
+        example: 0
+      - name: size
+        in: query
+        description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+        example: 20
+      - name: Authorization
+        in: header
+        description: 'A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.
+
+
+          To obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).'
+        required: true
+        schema:
+          type: string
+        example: Bearer {TOKEN}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageModelOutRecordApiOut'
+      x-beta: 'true'
+components:
+  schemas:
+    PageLinksOut:
+      type: object
+      properties:
+        first:
+          type: string
+          description: A URL path to the first page of requested data
+          example: /api/v2/resource?page=0&size=20
+        prev:
+          type: string
+          description: A URL path to the next page of requested data or `null` if currently on first page
+          example: /api/v2/resource?page=2&size=20
+        self:
+          type: string
+          description: A URL path to the current page of requested data
+          example: /api/v2/resource?page=3&size=20
+        next:
+          type: string
+          description: A URL link to the next page of requested data or `null` if currently on last page
+          example: /api/v2/resource?page=4&size=20
+        last:
+          type: string
+          description: A URL link to the last page of requested data
+          example: /api/v2/resource?page=6&size=20
+      title: Page Links
+    ValuePropertyApiOut:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this Risk Cloud resource
+          example: a1b2c3d4
+        type:
+          type: string
+          description: The type of the value
+          enum:
+          - NUMBER
+          - CALCULATION
+          - ATTACHMENT
+          - DATE
+          - OPTION
+          - USER
+          - TEXT
+          - OTHER
+          example: OPTION
+        textValue:
+          type: string
+          description: 'The text representation of the record value, with the format varying by value type:
+
+            - `NUMBER`: a string representation of the number, with currency if specified on the field (example: `"42"`)
+
+            - `CALCULATION`: a string representation of the label if specified on the field, otherwise the number (example: `"Highest Risk"`)
+
+            - `ATTACHMENT`: the name of the attachment file (example: `"my-evidence.pdf"`)
+
+            - `DATE`: the date formatted according to the requesting user''s settings (example: `"1/1/23, 12:00 PM"`)
+
+            - `OPTION`: the text value of the option (example: `"Medium Risk"`)
+
+            - `USER`: the full name and email of the user (example: `"First Last (first.last@example.com)"`)
+
+            - `TEXT`: the text value (example: `"Data Theft"`)'
+          example: Medium Risk
+        numericValue:
+          type: number
+          format: double
+          description: 'The numeric representation of the record value, with the format varying by value type:
+
+            - `NUMBER`: the numeric value of the number (example: `42.0`)
+
+            - `CALCULATION`: the numeric value of the calculation (example: `42.0`)
+
+            - `ATTACHMENT`: the version count of the attachment (example: `2.0`)
+
+            - `DATE`: the date measured in milliseconds since the Unix epoch (example: `1672552800000.0`)
+
+            - `OPTION`: the numeric value of the option (example: `2.0`)
+
+            - `USER`: a null value (example: `null`)
+
+            - `TEXT`: a null value (example: `null`)'
+          example: 2.0
+        object:
+          type: string
+          description: Identifies the type of object this data represents
+          example: value
+      title: Value (Property)
+    PageModelOutRecordApiOut:
+      type: object
+      properties:
+        content:
+          type: array
+          description: A array of returned items
+          items:
+            $ref: '#/components/schemas/RecordApiOut'
+        links:
+          $ref: '#/components/schemas/PageLinksOut'
+          description: A collection of page URL links for navigation and iteration
+        page:
+          $ref: '#/components/schemas/PageInfoOut'
+          description: A collection page metadata
+      title: Page (Response)
+    PageInfoOut:
+      type: object
+      properties:
+        size:
+          type: integer
+          format: int64
+          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
+          example: 20
+        totalElements:
+          type: integer
+          format: int64
+          description: The total number of items available
+          example: 50
+        totalPages:
+          type: integer
+          format: int64
+          description: The total number of pages available based on the size
+          example: 3
+        number:
+          type: integer
+          format: int64
+          description: The zero-indexed page number (must not be less than 0, defaults to 0)
+          example: 0
+      title: Page Info
+    StepPropertyApiOut:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this Risk Cloud resource
+          example: a1b2c3d4
+        name:
+          type: string
+          description: The name of the step
+          example: Identify Risk
+        type:
+          type: string
+          description: The type of the step
+          enum:
+          - ORIGIN
+          - CHAIN
+          - END
+          example: ORIGIN
+        object:
+          type: string
+          description: Identifies the type of object this data represents
+          example: step
+      title: Step (Property)
+    ApplicationPropertyApiOut:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this Risk Cloud resource
+          example: a1b2c3d4
+        name:
+          type: string
+          description: The name of the application
+          example: Cyber Risk Management Application
+        type:
+          type: string
+          description: The type of Risk Cloud application
+          enum:
+          - ACCESS_MANAGEMENT
+          - AML_KYC
+          - ASSET_MANAGEMENT
+          - AUDIT_MANAGEMENT
+          - BUSINESS_CONTINUITY_PLANNING
+          - CHANGE_MANAGEMENT
+          - COMPLAINT_MANAGEMENT
+          - COMPLIANCE_MANAGEMENT
+          - CONTRACT_MANAGEMENT
+          - CONTROLS_COMPLIANCE
+          - CONTROLS_MANAGEMENT
+          - CRISIS_MANAGEMENT
+          - CUSTOM
+          - CUSTOM_GRC_USE_CASE
+          - CYBER_RISK_MANAGEMENT
+          - DATA_PRIVACY_MANAGEMENT
+          - EMPLOYEE_COMPLIANCE
+          - ENTERPRISE_RISK_MANAGEMENT
+          - ESG
+          - INCIDENT_MANAGEMENT
+          - INTERNAL_AUDIT_MANAGEMENT
+          - IT_RISK_MANAGEMENT
+          - NONE
+          - OPERATIONAL_RESILIENCY
+          - OTHER
+          - POLICY_AND_PROCEDURE_MANAGEMENT
+          - POLICY_MANAGEMENT
+          - PRIVACY_MANAGEMENT
+          - QUANTIFY
+          - REGULATORY_COMPLIANCE
+          - REPOSITORY
+          - RISK_QUANTIFICATION
+          - SOX_TESTING
+          - STANDARDS_REGULATIONS
+          - SURVEY
+          - THIRD_PARTY_RISK_MANAGEMENT
+          example: CONTROLS_COMPLIANCE
+        object:
+          type: string
+          description: Identifies the type of object this data represents
+          example: application
+      title: Application (Property)
+    RecordDatesApiOut:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+          description: The moment this Risk Cloud resource was created measured in milliseconds since the Unix epoch.
+          example: 1672552800000
+        dueDate:
+          type: string
+          format: date-time
+          description: The due date of this record and step SLA measured in milliseconds since the Unix epoch
+          example: 1672552800000
+        recordDueDate:
+          type: string
+          format: date-time
+          description: The due date of this record measured in milliseconds since the Unix epoch
+          example: 1672552800000
+        daysUntilDue:
+          type: integer
+          format: int64
+          description: The number of days until this record is due
+          example: 3
+        updated:
+          type: string
+          format: date-time
+          description: The moment this Risk Cloud resource was last updated measured in milliseconds since the Unix epoch.
+          example: 1672552800000
+        completed:
+          type: string
+          format: date-time
+          description: The moment this record was completed if the record is currently in an end step measured in milliseconds since the Unix epoch
+          example: 1672552800000
+        lastCompleted:
+          type: string
+          format: date-time
+          description: The moment this record was last completed regardless of if the record has transitioned from an end step measured in milliseconds since the Unix epoch
+          example: 1672552800000
+      title: Record Dates
+    FieldRecordApiOut:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this Risk Cloud resource
+          example: a1b2c3d4
+        name:
+          type: string
+          description: The name of the field
+          example: Risk Severity
+        label:
+          type: string
+          description: The label of the field as shown on the record
+          example: Enter the Risk Severity based on your assessment
+        global:
+          type: boolean
+          description: Whether the field is global
+          example: false
+        type:
+          type: string
+          description: The type of the field
+          enum:
+          - DATE
+          - USER
+          - EXTERNAL_USER
+          - TEXT
+          - TEXT_AREA
+          - NUMBER
+          - E_SIGNATURE
+          - CHECKBOX
+          - MULTI_SELECT
+          - RADIO
+          - SELECT
+          - ATTACHMENT
+          - CALCULATION
+          - TEXT_CONCATENATION
+          - LINKED_RECORDS_COUNT
+          - DATE_CALCULATION
+          - OTHER
+          example: SELECT
+          title: Field Type
+        valueType:
+          type: string
+          description: The type of the field value
+          enum:
+          - NUMBER
+          - CALCULATION
+          - ATTACHMENT
+          - DATE
+          - OPTION
+          - USER
+          - TEXT
+          - OTHER
+          example: OPTION
+        required:
+          type: boolean
+          description: Whether the field is required for the current step
+          example: false
+        values:
+          type: array
+          description: The values of the record field
+          items:
+            $ref: '#/components/schemas/ValuePropertyApiOut'
+        object:
+          type: string
+          description: Identifies the type of object this data represents
+          example: field
+      title: Field (Record)
+    UserPropertyApiOut:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this Risk Cloud resource
+          example: a1b2c3d4
+        name:
+          type: string
+          description: The name of the user
+          example: Jane Doe
+        email:
+          type: string
+          description: The email of the user
+          example: jane.doe@example.com
+        object:
+          type: string
+          description: Identifies the type of object this data represents
+          example: user
+      title: User (Property)
+    RecordApiOut:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this Risk Cloud resource
+          example: a1b2c3d4
+        recordName:
+          type: string
+          description: The workflow prefix and sequence number of the record
+          example: Assessment-7
+        name:
+          type: string
+          description: The text value of the primary field of the record, otherwise the workflow prefix and sequence number of the record
+          example: Medium Risk
+        status:
+          type: string
+          description: The status of the record
+          enum:
+          - INACTIVE
+          - NOT_ASSIGNED
+          - ASSIGNED
+          - IN_PROGRESS
+          - COMPLETE
+          example: IN_PROGRESS
+        sequenceNumber:
+          type: integer
+          format: int64
+          description: The sequence number of the record
+          example: 7
+        dates:
+          $ref: '#/components/schemas/RecordDatesApiOut'
+          description: Date information associated with the record
+        assignee:
+          $ref: '#/components/schemas/UserPropertyApiOut'
+          description: The current assignee of the record
+        creator:
+          $ref: '#/components/schemas/UserPropertyApiOut'
+          description: The creator of the record
+        application:
+          $ref: '#/components/schemas/ApplicationPropertyApiOut'
+          description: The parent application of the record
+        workflow:
+          $ref: '#/components/schemas/WorkflowPropertyApiOut'
+          description: The parent workflow of the record
+        currentStep:
+          $ref: '#/components/schemas/StepPropertyApiOut'
+          description: The current step of the record
+        originStep:
+          $ref: '#/components/schemas/StepPropertyApiOut'
+          description: The origin step of the record
+        fields:
+          type: array
+          description: The fields and values of the record
+          items:
+            $ref: '#/components/schemas/FieldRecordApiOut'
+        object:
+          type: string
+          description: Identifies the type of object this data represents
+          example: application
+      title: Record (Response)
+    WorkflowPropertyApiOut:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this Risk Cloud resource
+          example: a1b2c3d4
+        name:
+          type: string
+          description: The name of the workflow
+          example: Risk Assessments
+        recordPrefix:
+          type: string
+          description: The prefix to be used in the name of every record created from this workflow
+          example: Assessment
+        object:
+          type: string
+          description: Identifies the type of object this data represents
+          example: workflow
+      title: Workflow (Property)
+  securitySchemes:
+    API Token:
+      type: http
+      name: Authorization
+      in: header
+      scheme: bearer
+      bearerFormat: API Token
+    basic:
+      type: http
+      name: Authorization
+      in: header
+      scheme: basic
+      bearerFormat: basic
+externalDocs:
+  description: Developer Portal
+  url: https://www.logicgate.com/developer/

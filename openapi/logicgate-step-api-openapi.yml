@@ -1,0 +1,552 @@
+openapi: 3.1.0
+info:
+  title: Risk Cloud Access Audit Step API
+  description: 'Welcome to the Risk Cloud API v2! This is a collection of new API-first and RESTful API endpoints to streamline the creation of custom integrations with the Risk Cloud.
+
+
+    For the API documentation of our legacy API v1 endpoints, reference [Risk Cloud API v1](https://docs.logicgate.com/v1/index.html).'
+  contact:
+    name: developer-relations@logicgate.com
+    email: developer-relations@logicgate.com
+  version: v2026.7.0
+servers:
+- url: https://{env}.logicgate.com
+  description: The LogicGate API application.
+  variables:
+    env:
+      default: qa
+security:
+- API Token: []
+- basic: []
+tags:
+- name: Step
+  description: A [Step](https://help.logicgate.com/hc/en-us/articles/4402674059668-Create-a-Step) lives in a Workflow and is configured with a set of Sections, Subsections and Fields to create a form
+paths:
+  /api/v2/steps:
+    get:
+      tags:
+      - Step
+      summary: Retrieve steps
+      description: '**Permissions:** [Build Access](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)
+
+
+        Retrieve a page of all steps that the current user has [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications) to.'
+      operationId: readAllSteps
+      parameters:
+      - name: workflow-id
+        in: query
+        description: The unique ID of a workflow where, if provided, the response will only contain steps from the identified workflow
+        required: false
+        schema:
+          type: string
+          default: ''
+        example: a1b2c3d4
+      - name: page
+        in: query
+        description: The zero-indexed page number (must not be less than 0, defaults to 0)
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 0
+        example: 0
+      - name: size
+        in: query
+        description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
+        required: false
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+        example: 20
+      - name: Authorization
+        in: header
+        description: 'A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.
+
+
+          To obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).'
+        required: true
+        schema:
+          type: string
+        example: Bearer {TOKEN}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageModelOutStepApiOut'
+      x-beta: 'true'
+    post:
+      tags:
+      - Step
+      summary: Create a step
+      description: '**Permissions:** [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)
+
+
+        Create a step from a JSON request body.'
+      operationId: createStep
+      parameters:
+      - name: Authorization
+        in: header
+        description: 'A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.
+
+
+          To obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).'
+        required: true
+        schema:
+          type: string
+        example: Bearer {TOKEN}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StepApiCreateIn'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StepApiOut'
+      x-beta: 'true'
+  /api/v2/steps/{id}:
+    get:
+      tags:
+      - Step
+      summary: Retrieve a step
+      description: '**Permissions:** [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)
+
+
+        Retrieve a step specified by the ID in the URL path.'
+      operationId: readStep
+      parameters:
+      - name: id
+        in: path
+        description: The unique ID of the step
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: 'A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.
+
+
+          To obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).'
+        required: true
+        schema:
+          type: string
+        example: Bearer {TOKEN}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StepApiOut'
+      x-beta: 'true'
+    delete:
+      tags:
+      - Step
+      summary: Delete a step
+      description: '**Permissions:** [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)
+
+
+        Delete a step specified by the ID in the URL path.'
+      operationId: deleteStep
+      parameters:
+      - name: id
+        in: path
+        description: The unique ID of the step
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: 'A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.
+
+
+          To obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).'
+        required: true
+        schema:
+          type: string
+        example: Bearer {TOKEN}
+      responses:
+        '204':
+          description: No Content
+      x-beta: 'true'
+    patch:
+      tags:
+      - Step
+      summary: Update a step
+      description: '**Permissions:** [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)
+
+
+        Update a step specified by the ID in the URL path from a JSON request body. Only present properties with non-empty values are updated.'
+      operationId: update
+      parameters:
+      - name: id
+        in: path
+        description: The unique ID of the step
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: 'A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.
+
+
+          To obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).'
+        required: true
+        schema:
+          type: string
+        example: Bearer {TOKEN}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StepApiUpdateIn'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StepApiOut'
+      x-beta: 'true'
+  /api/v2/steps/{id}/position:
+    patch:
+      tags:
+      - Step
+      summary: Update a step's canvas position
+      description: '**Permissions:** [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)
+
+
+        Update a step''s canvas position specified by the ID in the URL path.'
+      operationId: updatePosition
+      parameters:
+      - name: id
+        in: path
+        description: The unique ID of the step
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: 'A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.
+
+
+          To obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).'
+        required: true
+        schema:
+          type: string
+        example: Bearer {TOKEN}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StepPositionUpdateIn'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StepApiOut'
+      x-beta: 'true'
+components:
+  schemas:
+    PageLinksOut:
+      type: object
+      properties:
+        first:
+          type: string
+          description: A URL path to the first page of requested data
+          example: /api/v2/resource?page=0&size=20
+        prev:
+          type: string
+          description: A URL path to the next page of requested data or `null` if currently on first page
+          example: /api/v2/resource?page=2&size=20
+        self:
+          type: string
+          description: A URL path to the current page of requested data
+          example: /api/v2/resource?page=3&size=20
+        next:
+          type: string
+          description: A URL link to the next page of requested data or `null` if currently on last page
+          example: /api/v2/resource?page=4&size=20
+        last:
+          type: string
+          description: A URL link to the last page of requested data
+          example: /api/v2/resource?page=6&size=20
+      title: Page Links
+    PageModelOutStepApiOut:
+      type: object
+      properties:
+        content:
+          type: array
+          description: A array of returned items
+          items:
+            $ref: '#/components/schemas/StepApiOut'
+        links:
+          $ref: '#/components/schemas/PageLinksOut'
+          description: A collection of page URL links for navigation and iteration
+        page:
+          $ref: '#/components/schemas/PageInfoOut'
+          description: A collection page metadata
+      title: Page (Response)
+    StepApiCreateIn:
+      type: object
+      description: Step (Create)
+      properties:
+        name:
+          type: string
+          description: The name of the step
+          example: Identify Risk
+          minLength: 1
+        workflowId:
+          type: string
+          description: The unique ID of the parent workflow of the step
+          example: a1b2c3d4
+          minLength: 1
+        xpos:
+          type: integer
+          format: int32
+          description: The x-coordinate of the step in the application builder (must not be less than 0, defaults to 0)
+          example: 20
+          minimum: 0
+        ypos:
+          type: integer
+          format: int32
+          description: The y-coordinate of the step in the application builder (must not be less than 0, defaults to 0)
+          example: 20
+          minimum: 0
+        type:
+          type: string
+          description: The type of the step
+          enum:
+          - ORIGIN
+          - CHAIN
+          - END
+          example: ORIGIN
+        description:
+          type: string
+          description: The description of the step
+          example: This is a description of the step
+        enableComments:
+          type: boolean
+          description: Whether comments are displayed on a step (defaults to false)
+          example: false
+        assignableUserType:
+          type: string
+          description: Indicates which users are allowed to be assigned this step on a record (defaults to APP_USERS)
+          enum:
+          - APP_AND_EXTERNAL_USERS
+          - APP_USERS
+          - EXTERNAL_USERS
+          example: APP_USERS
+        externalUserMfaRequired:
+          type: boolean
+          description: Whether MFA is required for external users to access this step. (defaults to false)
+          example: false
+        autofillEnabled:
+          type: boolean
+          description: Whether or not to enable autofill on the step.
+          example: false
+      required:
+      - name
+      - workflowId
+      title: Step (Create)
+    StepApiOut:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this Risk Cloud resource
+          example: a1b2c3d4
+        name:
+          type: string
+          description: The name of the step
+          example: Identify Risk
+        description:
+          type: string
+          description: The description of the step
+          example: This is a description of the step
+        xpos:
+          type: integer
+          format: int32
+          description: The x-coordinate of the step in the application builder
+          example: 20
+        ypos:
+          type: integer
+          format: int32
+          description: The y-coordinate of the step in the application builder
+          example: 20
+        type:
+          type: string
+          description: The type of the step
+          enum:
+          - ORIGIN
+          - CHAIN
+          - END
+          example: ORIGIN
+        enableComments:
+          type: boolean
+          description: Whether comments are displayed on a step
+          example: false
+        assignableUserType:
+          type: string
+          description: Indicates which users are allowed to be assigned this step on a record
+          enum:
+          - APP_AND_EXTERNAL_USERS
+          - APP_USERS
+          - EXTERNAL_USERS
+          example: APP_USERS
+        externalUserMfaRequired:
+          type: boolean
+          description: Whether MFA is required for external users to access this step.
+          example: false
+        autofillEnabled:
+          type: boolean
+          description: Whether or not to enable autofill on the step.
+          example: false
+        workflow:
+          $ref: '#/components/schemas/WorkflowPropertyApiOut'
+          description: The parent workflow of the step
+        object:
+          type: string
+          description: Identifies the type of object this data represents
+          example: step
+      title: Step (Response)
+    PageInfoOut:
+      type: object
+      properties:
+        size:
+          type: integer
+          format: int64
+          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
+          example: 20
+        totalElements:
+          type: integer
+          format: int64
+          description: The total number of items available
+          example: 50
+        totalPages:
+          type: integer
+          format: int64
+          description: The total number of pages available based on the size
+          example: 3
+        number:
+          type: integer
+          format: int64
+          description: The zero-indexed page number (must not be less than 0, defaults to 0)
+          example: 0
+      title: Page Info
+    StepPositionUpdateIn:
+      type: object
+      description: Step (Update)
+      properties:
+        xpos:
+          type: integer
+          format: int32
+          description: The x-coordinate of the step in the application builder (must not be less than 0)
+          example: 20
+        ypos:
+          type: integer
+          format: int32
+          description: The y-coordinate of the step in the application builder (must not be less than 0)
+          example: 20
+      required:
+      - xpos
+      - ypos
+      title: Step Position (Update)
+    StepApiUpdateIn:
+      type: object
+      description: Step (Update)
+      properties:
+        name:
+          type: string
+          description: The name of the step
+          example: Identify Risk
+        description:
+          type: string
+          description: The description of the step
+          example: This is a description of the step
+        xpos:
+          type: integer
+          format: int32
+          description: The x-coordinate of the step in the application builder (must not be less than 0)
+          example: 20
+        ypos:
+          type: integer
+          format: int32
+          description: The y-coordinate of the step in the application builder (must not be less than 0)
+          example: 20
+        type:
+          type: string
+          description: The type of the step (for END steps, this property cannot be updated since there would be no outgoing default next paths)
+          enum:
+          - ORIGIN
+          - CHAIN
+          - END
+          example: ORIGIN
+        enableComments:
+          type: boolean
+          description: Whether comments are displayed on a step
+          example: false
+        assignableUserType:
+          type: string
+          description: Indicates which users are allowed to be assigned this step on a record
+          enum:
+          - APP_AND_EXTERNAL_USERS
+          - APP_USERS
+          - EXTERNAL_USERS
+          example: APP_USERS
+        externalUserMfaRequired:
+          type: boolean
+          description: Whether MFA is required for external users to access this step.
+          example: false
+        autofillEnabled:
+          type: boolean
+          description: Whether or not to enable autofill on the step.
+          example: false
+      title: Step (Update)
+    WorkflowPropertyApiOut:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this Risk Cloud resource
+          example: a1b2c3d4
+        name:
+          type: string
+          description: The name of the workflow
+          example: Risk Assessments
+        recordPrefix:
+          type: string
+          description: The prefix to be used in the name of every record created from this workflow
+          example: Assessment
+        object:
+          type: string
+          description: Identifies the type of object this data represents
+          example: workflow
+      title: Workflow (Property)
+  securitySchemes:
+    API Token:
+      type: http
+      name: Authorization
+      in: header
+      scheme: bearer
+      bearerFormat: API Token
+    basic:
+      type: http
+      name: Authorization
+      in: header
+      scheme: basic
+      bearerFormat: basic
+externalDocs:
+  description: Developer Portal
+  url: https://www.logicgate.com/developer/
