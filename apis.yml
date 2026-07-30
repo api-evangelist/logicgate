@@ -1,7 +1,16 @@
 aid: logicgate
 name: LogicGate
-description: LogicGate is a company surfaced as a portfolio company of techstars and added to the API
-  Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  LogicGate is the maker of Risk Cloud, a no-code governance, risk, and compliance
+  (GRC) platform that lets teams design, automate, and connect their risk and
+  compliance programs. The Risk Cloud API v2 is an API-first, RESTful interface for
+  managing the building blocks of a Risk Cloud environment - Applications, Workflows,
+  Workflow Maps, Steps, Paths (edge/next/redirect), Fields, Records, and Access
+  Audits - so organizations can integrate, automate, and build custom workflows
+  against their risk data. Authentication is an HTTP bearer "API Token" minted via
+  HTTP basic against the token endpoint, and API access requires the paid API Access
+  add-on. The v2 OpenAPI 3.1 specification is published on GitHub as the single
+  source of truth, alongside a Postman collection and interactive documentation.
 url: https://raw.githubusercontent.com/api-evangelist/logicgate/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -9,17 +18,277 @@ x-backed-by:
 - techstars
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
+image: https://www.logicgate.com/wp-content/uploads/img-grid-01.png
 tags:
 - Company
-apis: []
+- GRC
+- Governance Risk and Compliance
+- Risk Management
+- Compliance
+- Workflow Automation
+- Audit
+- No-Code
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: logicgate:logicgate-access-audit-api
+  name: LogicGate Access Audit API
+  description: >-
+    An Access Audit captures information about access related events such as logins and logouts associated
+    with a user.
+  humanURL: https://docs.logicgate.com/v2/index.html
+  baseURL: https://logicgate.com
+  tags:
+  - Access Audit
+  properties:
+  - type: OpenAPI
+    url: openapi/logicgate-access-audit-api-openapi.yml
+  - type: Documentation
+    url: https://docs.logicgate.com/v2/index.html
+  - type: Postman
+    url: https://www.postman.com/logicgate-postman/logicgate-risk-cloud-api/overview
+- aid: logicgate:logicgate-application-api
+  name: LogicGate Application API
+  description: >-
+    An [Application](https://help.logicgate.com/hc/en-us/articles/4402674055572-Create-a-new-Application)
+    is a collection of Workflows, Steps, and logic that collectively solve a business use case
+  humanURL: https://docs.logicgate.com/v2/index.html
+  baseURL: https://logicgate.com
+  tags:
+  - Application
+  properties:
+  - type: OpenAPI
+    url: openapi/logicgate-application-api-openapi.yml
+  - type: Documentation
+    url: https://docs.logicgate.com/v2/index.html
+  - type: Postman
+    url: https://www.postman.com/logicgate-postman/logicgate-risk-cloud-api/overview
+- aid: logicgate:logicgate-authentication-api
+  name: LogicGate Authentication API
+  description: >-
+    Getting Started: How to create an [API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/)
+    to begin integrating with the Risk Cloud API
+  humanURL: https://docs.logicgate.com/v2/index.html
+  baseURL: https://logicgate.com
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/logicgate-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://docs.logicgate.com/v2/index.html
+  - type: Postman
+    url: https://www.postman.com/logicgate-postman/logicgate-risk-cloud-api/overview
+- aid: logicgate:logicgate-edge-path-api
+  name: LogicGate Edge Path API
+  description: >-
+    A [Conditional Edge Path](https://help.logicgate.com/hc/en-us/articles/4402683114004-Work-with-Paths#conditional-edge-paths)
+    defines an alternative route that a Record might need to follow if specific conditions are met.
+  humanURL: https://docs.logicgate.com/v2/index.html
+  baseURL: https://logicgate.com
+  tags:
+  - Edge Path
+  properties:
+  - type: OpenAPI
+    url: openapi/logicgate-edge-path-api-openapi.yml
+  - type: Documentation
+    url: https://docs.logicgate.com/v2/index.html
+  - type: Postman
+    url: https://www.postman.com/logicgate-postman/logicgate-risk-cloud-api/overview
+- aid: logicgate:logicgate-field-api
+  name: LogicGate Field API
+  description: >-
+    A [Field](https://help.logicgate.com/hc/en-us/articles/4402674064020-Create-Fields) is used to capture
+    information from and display information to users in a Workflow
+  humanURL: https://docs.logicgate.com/v2/index.html
+  baseURL: https://logicgate.com
+  tags:
+  - Field
+  properties:
+  - type: OpenAPI
+    url: openapi/logicgate-field-api-openapi.yml
+  - type: Documentation
+    url: https://docs.logicgate.com/v2/index.html
+  - type: Postman
+    url: https://www.postman.com/logicgate-postman/logicgate-risk-cloud-api/overview
+- aid: logicgate:logicgate-next-path-api
+  name: LogicGate Next Path API
+  description: >-
+    API endpoints for determining the next path(s) in a workflow, including routing and step information.
+  humanURL: https://docs.logicgate.com/v2/index.html
+  baseURL: https://logicgate.com
+  tags:
+  - Next Path
+  properties:
+  - type: OpenAPI
+    url: openapi/logicgate-next-path-api-openapi.yml
+  - type: Documentation
+    url: https://docs.logicgate.com/v2/index.html
+  - type: Postman
+    url: https://www.postman.com/logicgate-postman/logicgate-risk-cloud-api/overview
+- aid: logicgate:logicgate-record-api
+  name: LogicGate Record API
+  description: >-
+    A [Record](https://help.logicgate.com/hc/en-us/articles/4402683104020-Complete-a-Record) is a form
+    that can capture information, store cataloged data, and link to other Records as it moves through
+    each Step of a Workflow
+  humanURL: https://docs.logicgate.com/v2/index.html
+  baseURL: https://logicgate.com
+  tags:
+  - Record
+  properties:
+  - type: OpenAPI
+    url: openapi/logicgate-record-api-openapi.yml
+  - type: Documentation
+    url: https://docs.logicgate.com/v2/index.html
+  - type: Postman
+    url: https://www.postman.com/logicgate-postman/logicgate-risk-cloud-api/overview
+- aid: logicgate:logicgate-redirect-path-api
+  name: LogicGate Redirect Path API
+  description: >-
+    A [Redirect Path](https://help.logicgate.com/hc/en-us/articles/4402683115156-Selected-Redirects) gives
+    end users access to Redirect a Record to any Step in the Workflow other than the Default Path or any
+    Conditional Edge Paths.
+  humanURL: https://docs.logicgate.com/v2/index.html
+  baseURL: https://logicgate.com
+  tags:
+  - Redirect Path
+  properties:
+  - type: OpenAPI
+    url: openapi/logicgate-redirect-path-api-openapi.yml
+  - type: Documentation
+    url: https://docs.logicgate.com/v2/index.html
+  - type: Postman
+    url: https://www.postman.com/logicgate-postman/logicgate-risk-cloud-api/overview
+- aid: logicgate:logicgate-step-api
+  name: LogicGate Step API
+  description: >-
+    A [Step](https://help.logicgate.com/hc/en-us/articles/4402674059668-Create-a-Step) lives in a Workflow
+    and is configured with a set of Sections, Subsections and Fields to create a form
+  humanURL: https://docs.logicgate.com/v2/index.html
+  baseURL: https://logicgate.com
+  tags:
+  - Step
+  properties:
+  - type: OpenAPI
+    url: openapi/logicgate-step-api-openapi.yml
+  - type: Documentation
+    url: https://docs.logicgate.com/v2/index.html
+  - type: Postman
+    url: https://www.postman.com/logicgate-postman/logicgate-risk-cloud-api/overview
+- aid: logicgate:logicgate-workflow-api
+  name: LogicGate Workflow API
+  description: >-
+    A [Workflow](https://help.logicgate.com/hc/en-us/articles/4402683108756-Create-a-new-Workflow) is
+    a combination of Steps, Paths, Fields, and routing logic that combine to form a system in an Application
+  humanURL: https://docs.logicgate.com/v2/index.html
+  baseURL: https://logicgate.com
+  tags:
+  - Workflow
+  properties:
+  - type: OpenAPI
+    url: openapi/logicgate-workflow-api-openapi.yml
+  - type: Documentation
+    url: https://docs.logicgate.com/v2/index.html
+  - type: Postman
+    url: https://www.postman.com/logicgate-postman/logicgate-risk-cloud-api/overview
+- aid: logicgate:logicgate-workflow-map-api
+  name: LogicGate Workflow Map API
+  description: >-
+    A [Workflow Map](https://help.logicgate.com/hc/en-us/articles/4402683117588) represents a relationship
+    between two Workflows
+  humanURL: https://docs.logicgate.com/v2/index.html
+  baseURL: https://logicgate.com
+  tags:
+  - Workflow Map
+  properties:
+  - type: OpenAPI
+    url: openapi/logicgate-workflow-map-api-openapi.yml
+  - type: Documentation
+    url: https://docs.logicgate.com/v2/index.html
+  - type: Postman
+    url: https://www.postman.com/logicgate-postman/logicgate-risk-cloud-api/overview
 common:
+- type: DeveloperPortal
+  url: https://www.logicgate.com/developer/
+- type: Documentation
+  url: https://docs.logicgate.com/v2/index.html
+- type: APIReference
+  url: https://docs.logicgate.com/v2/index.html
+- type: GettingStarted
+  url: https://www.logicgate.com/developer/risk-cloud-api-getting-started/
+- type: Support
+  url: https://help.logicgate.com/
+- type: GitHubOrganization
+  url: https://github.com/LogicGateTech
+- type: Postman
+  url: https://www.postman.com/logicgate-postman/logicgate-risk-cloud-api/overview
+- type: Pricing
+  url: https://www.logicgate.com/pricing/
+- type: PrivacyPolicy
+  url: https://www.logicgate.com/privacy-policy/
+- type: OpenAPI
+  url: openapi/logicgate-risk-cloud-openapi-original.json
+- type: Authentication
+  url: authentication/logicgate-authentication.yml
+- type: Conventions
+  url: conventions/logicgate-conventions.yml
+- type: ErrorCatalog
+  url: errors/logicgate-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/logicgate-lifecycle.yml
+- type: ChangeLog
+  url: changelog/logicgate-changelog.yml
+- type: DataModel
+  url: data-model/logicgate-data-model.yml
+- type: Conformance
+  url: conformance/logicgate-conformance.yml
+- type: Compliance
+  url: https://trust.logicgate.com/
+- type: Overlay
+  url: overlays/logicgate-risk-cloud-overlay.yaml
+- type: MCPServer
+  url: mcp/logicgate-mcp.yml
+- type: LLMsTxt
+  url: llms/logicgate-llms.txt
+- type: AgenticAccess
+  url: agentic-access/logicgate-agentic-access.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: WellKnown
+  url: well-known/logicgate-well-known.yml
+- type: SecurityTxt
+  url: well-known/logicgate-security.txt
+- type: TrustCenter
+  url: security/logicgate-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/logicgate-vulnerability-disclosure.yml
+- type: Security
+  url: https://www.logicgate.com/vulnerability-disclosure
+- type: DomainSecurity
+  url: security/logicgate-domain-security.yml
 - type: Website
   url: https://logicgate.com/
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v1
