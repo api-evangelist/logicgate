@@ -1,0 +1,73 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/logicgate-risk-cloud-openapi-original.json
+note: Entity-relationship graph derived from Risk Cloud API v2 OpenAPI schema $refs
+  and id-reference fields. Risk Cloud is a graph of Applications that contain Workflows;
+  Workflows contain Steps connected by Paths (edge/next/redirect); Records are workflow
+  instances holding Field values.
+entities:
+- name: Application
+  schema: ApplicationApiOut
+- name: Workflow
+  schema: WorkflowApiOut
+- name: WorkflowMap
+  schema: WorkflowMapApiOut
+- name: Step
+  schema: StepApiOut
+- name: Field
+  schema: FieldApiOut
+- name: Record
+  schema: RecordApiOut
+- name: RedirectPath
+  schema: RedirectPathApiOut
+- name: NextPath
+  schema: NextPathApiOut
+- name: EdgePath
+  schema: EdgePathApiOut
+- name: AccessAudit
+  schema: AccessAuditApiOut
+relationships:
+- from: Workflow
+  to: Application
+  kind: belongs_to
+  via: applicationId
+- from: Step
+  to: Workflow
+  kind: belongs_to
+  via: workflow
+- from: Field
+  to: Application
+  kind: belongs_to
+  via: application
+- from: Field
+  to: Workflow
+  kind: belongs_to
+  via: workflow
+- from: Field
+  to: ValueProperty
+  kind: has_many
+  via: optionValues
+- from: Field
+  to: ValueProperty
+  kind: has_many
+  via: defaultValues
+- from: Field
+  to: Crossflow (Response)
+  kind: has_many
+  via: fieldInputs
+- from: Record
+  to: Application
+  kind: belongs_to
+  via: application
+- from: Record
+  to: Workflow
+  kind: belongs_to
+  via: workflow
+- from: Record
+  to: FieldRecord
+  kind: has_many
+  via: fields
+- from: EdgePath
+  to: Field
+  kind: belongs_to
+  via: field

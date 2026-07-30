@@ -1,0 +1,39 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.logicgate.com/v2/index.html + openapi/logicgate-risk-cloud-openapi-original.json
+authentication:
+  style: HTTP bearer token (API Token) or HTTP basic
+  token_endpoint: POST /api/v1/account/token
+  header: 'Authorization: Bearer {access_token}'
+  token_ttl: ~1 year
+  scope: read write
+  docs: https://www.logicgate.com/developer/risk-cloud-api-authentication/
+  see: authentication/logicgate-authentication.yml
+idempotency:
+  supported: false
+  note: No idempotency-key header documented in the v2 OpenAPI or docs.
+pagination:
+  style: page-number
+  params:
+  - page (zero-indexed, default 0)
+  - size (default 20, min 1)
+  response_envelope: PageModelOut{content[], links{first,prev,self,next,last}, page{size,totalElements,totalPages,number}}
+  note: All v2 collection endpoints return a paged envelope with HATEOAS-style navigation
+    links.
+filtering:
+  note: Select list endpoints accept resource-scoping query params, e.g. workflows
+    accept application-id and include-jira-workflows.
+versioning:
+  style: uri-path (/api/v1, /api/v2) + calendar release (vYYYY.M)
+  see: lifecycle/logicgate-lifecycle.yml
+error_envelope:
+  general: AppStatusResponse{status,message}
+  validation: AppBadRequestResponse{property,value,message}
+  format: JSON (not RFC 9457)
+  see: errors/logicgate-problem-types.yml
+rate_limiting:
+  signaling: none documented
+  note: No rate-limit headers present in the v2 OpenAPI.
+media_types:
+  request: application/json
+  response: application/json (some v1 exports support CSV/XLSX)

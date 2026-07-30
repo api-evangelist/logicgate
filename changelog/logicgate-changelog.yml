@@ -1,0 +1,27 @@
+generated: '2026-07-20'
+method: searched
+source: https://github.com/LogicGateTech/openapi/blob/main/CHANGELOG.md
+release_notes: https://www.logicgate.com/developer/
+scheme: calendar (vYYYY.M.patch)
+current_version: v2026.7.0
+note: Risk Cloud ships monthly calendar releases; the OpenAPI CHANGELOG.md tracks
+  per-release API changes and frequently records "No API updates" for releases with
+  no public v2 endpoint change.
+entries:
+- version: v2026.7.0
+  date: 2026-07
+  type: release
+  highlights:
+  - Current published Risk Cloud API v2 OpenAPI version.
+- version: v2026.6.0
+  date: 2026-06
+  type: release
+  breaking: false
+  highlights:
+  - No public API updates.
+- version: v2025.11.0
+  date: 2025-11
+  type: release
+  breaking: false
+  highlights:
+  - API changes noted in the OpenAPI changelog (most recent "What's Changed" entry).

@@ -1,0 +1,19 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for LogicGate Risk Cloud API
+  version: 1.0.0
+extends: openapi/logicgate-risk-cloud-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-20'
+    x-apievangelist-provider: logicgate
+    x-apievangelist-auth: HTTP bearer (API Token) or HTTP basic; obtain token via
+      POST /api/v1/account/token
+    x-apievangelist-pagination: page/size query params (zero-indexed); PageModelOut
+      envelope with links + page metadata
+    x-apievangelist-error-envelope: AppStatusResponse {status,message}; AppBadRequestResponse
+      {property,value,message}
+- target: $.info
+  update:
+    x-apievangelist-docs: https://docs.logicgate.com/v2/index.html

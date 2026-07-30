@@ -1,0 +1,48 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/logicgate-risk-cloud-openapi-original.json
+format: custom
+envelope:
+  note: Errors are returned as JSON. General failures use AppStatusResponse {status,
+    message}; validation (400) failures use AppBadRequestResponse {property, value,
+    message}. Not RFC 9457 problem+json.
+  schemas:
+  - AppStatusResponse
+  - AppBadRequestResponse
+problems:
+- status: 400
+  title: Bad Request
+  description: Bad Request
+  remediation: Validate the request body/parameters. On validation failures the response
+    body identifies the offending property, value, and message (AppBadRequestResponse).
+  source_operations:
+  - openapi/logicgate-risk-cloud-openapi-original.json#createApplication
+  - openapi/logicgate-risk-cloud-openapi-original.json#createEdgePath
+  - openapi/logicgate-risk-cloud-openapi-original.json#createNextPath
+  - openapi/logicgate-risk-cloud-openapi-original.json#createRedirectPath
+  - openapi/logicgate-risk-cloud-openapi-original.json#createWorkflow
+  - openapi/logicgate-risk-cloud-openapi-original.json#createWorkflowMap
+- status: 403
+  title: Forbidden
+  description: Forbidden
+  remediation: Ensure the API Access add-on is enabled and the bearer token has read/write
+    scope and permission to the target application/workflow.
+  source_operations:
+  - openapi/logicgate-risk-cloud-openapi-original.json#createEdgePath
+  - openapi/logicgate-risk-cloud-openapi-original.json#createNextPath
+  - openapi/logicgate-risk-cloud-openapi-original.json#createRedirectPath
+  - openapi/logicgate-risk-cloud-openapi-original.json#createWorkflow
+  - openapi/logicgate-risk-cloud-openapi-original.json#createWorkflowMap
+  - openapi/logicgate-risk-cloud-openapi-original.json#deleteApplication
+- status: 404
+  title: Not Found
+  description: Not Found
+  remediation: Verify the resource id exists and is visible to the authenticated service
+    account.
+  source_operations:
+  - openapi/logicgate-risk-cloud-openapi-original.json#createEdgePath
+  - openapi/logicgate-risk-cloud-openapi-original.json#createNextPath
+  - openapi/logicgate-risk-cloud-openapi-original.json#createRedirectPath
+  - openapi/logicgate-risk-cloud-openapi-original.json#deleteApplication
+  - openapi/logicgate-risk-cloud-openapi-original.json#deleteEdgePath
+  - openapi/logicgate-risk-cloud-openapi-original.json#deleteNextPath

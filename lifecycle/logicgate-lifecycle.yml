@@ -1,0 +1,24 @@
+generated: '2026-07-20'
+method: searched
+source: https://github.com/LogicGateTech/openapi + https://www.logicgate.com/developer/
+versioning:
+  scheme: uri-path + calendar
+  current: v2 (release v2026.7.0)
+  legacy: v1
+  v1_docs: https://docs.logicgate.com/v1/index.html
+  v2_docs: https://docs.logicgate.com/v2/index.html
+  note: 'Two concurrent API generations: v1 (legacy, /api/v1) and v2 (API-first, /api/v2).
+    Releases are calendar-versioned (vYYYY.M.patch).'
+release_notes: https://www.logicgate.com/developer/
+changelog: https://github.com/LogicGateTech/openapi/blob/main/CHANGELOG.md
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: v1 is described as legacy but no formal dated deprecation/sunset policy or
+    Sunset/Deprecation header support was found.
+sla:
+  url: null
+status_page: null
+note: No public status page (status.logicgate.com does not resolve); operational/security
+  posture is published via the Trust Center (trust.logicgate.com) instead.
+deprecated_operations: []

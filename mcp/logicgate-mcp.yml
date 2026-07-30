@@ -1,0 +1,139 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: openapi/logicgate-risk-cloud-openapi-original.json
+note: Candidate tool list derived from Risk Cloud API v2 OpenAPI operations. LogicGate
+  publishes no official hosted MCP server as of this pass.
+server:
+  name: logicgate-risk-cloud
+  transport: http
+tools:
+- name: readAllWorkflows
+  description: Retrieve workflows
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#readAllWorkflows
+- name: createWorkflow
+  description: Create a workflow
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#createWorkflow
+- name: readAllWorkflowMaps
+  description: Retrieve workflow maps
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#readAllWorkflowMaps
+- name: createWorkflowMap
+  description: Create a workflow map
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#createWorkflowMap
+- name: readAllSteps
+  description: Retrieve steps
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#readAllSteps
+- name: createStep
+  description: Create a step
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#createStep
+- name: readRedirectPaths
+  description: List all redirect paths
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#readRedirectPaths
+- name: createRedirectPath
+  description: Create a redirect path
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#createRedirectPath
+- name: readNextPaths
+  description: List all default next paths
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#readNextPaths
+- name: createNextPath
+  description: Create a default next path
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#createNextPath
+- name: readEdgePaths
+  description: List all conditional edge paths
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#readEdgePaths
+- name: createEdgePath
+  description: Create a conditional edge path
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#createEdgePath
+- name: readAllApplications
+  description: Retrieve applications
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#readAllApplications
+- name: createApplication
+  description: Create an application
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#createApplication
+- name: refreshApiToken
+  description: Refresh an API token
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#refreshApiToken
+- name: getApiToken
+  description: Create an API Access Token
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#getApiToken
+- name: readWorkflow
+  description: Retrieve a workflow
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#readWorkflow
+- name: deleteWorkflow
+  description: Delete a workflow
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#deleteWorkflow
+- name: updateWorkflow
+  description: Update a workflow
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#updateWorkflow
+- name: readWorkflowMap
+  description: Retrieve a workflow map
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#readWorkflowMap
+- name: deleteWorkflowMap
+  description: Delete a workflow map
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#deleteWorkflowMap
+- name: updateWorkflowMap
+  description: Update a workflow map
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#updateWorkflowMap
+- name: readStep
+  description: Retrieve a step
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#readStep
+- name: deleteStep
+  description: Delete a step
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#deleteStep
+- name: update
+  description: Update a step
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#update
+- name: updatePosition
+  description: Update a step's canvas position
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#updatePosition
+- name: readRedirectPath
+  description: Retrieve a redirect path
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#readRedirectPath
+- name: deleteRedirectPath
+  description: Delete a redirect path
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#deleteRedirectPath
+- name: updateRedirectPath
+  description: Update a redirect path
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#updateRedirectPath
+- name: updateNextPath
+  description: Update a default next path
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#updateNextPath
+- name: readEdgePath
+  description: Retrieve a conditional edge path
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#readEdgePath
+- name: deleteEdgePath
+  description: Delete a conditional edge path
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#deleteEdgePath
+- name: updateEdgePath
+  description: Update a conditional edge path
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#updateEdgePath
+- name: readApplication
+  description: Retrieve an application
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#readApplication
+- name: deleteApplication
+  description: Delete an application
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#deleteApplication
+- name: update_1
+  description: Update an application
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#update_1
+- name: readAllRecords
+  description: Retrieve records
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#readAllRecords
+- name: readRecord
+  description: Retrieve a record
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#readRecord
+- name: readAllLinkedRecords
+  description: Retrieve all linked records
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#readAllLinkedRecords
+- name: readNextPath
+  description: Create a default next path
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#readNextPath
+- name: deleteNextPath
+  description: Delete a default next path
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#deleteNextPath
+- name: readAllFields
+  description: Retrieve fields
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#readAllFields
+- name: readAllAccessAudits
+  description: Retrieve access audits
+  source_operation: openapi/logicgate-risk-cloud-openapi-original.json#readAllAccessAudits

@@ -1,0 +1,34 @@
+{
+  "provider": "logicgate",
+  "sources": [
+    "logicgate-access-audit-api-openapi.yml",
+    "logicgate-application-api-openapi.yml",
+    "logicgate-authentication-api-openapi.yml",
+    "logicgate-edge-path-api-openapi.yml",
+    "logicgate-field-api-openapi.yml",
+    "logicgate-next-path-api-openapi.yml",
+    "logicgate-record-api-openapi.yml",
+    "logicgate-redirect-path-api-openapi.yml",
+    "logicgate-step-api-openapi.yml",
+    "logicgate-workflow-api-openapi.yml",
+    "logicgate-workflow-map-api-openapi.yml"
+  ],
+  "outputs": [
+    "logicgate-access-audit-api-openapi.yml",
+    "logicgate-application-api-openapi.yml",
+    "logicgate-authentication-api-openapi.yml",
+    "logicgate-edge-path-api-openapi.yml",
+    "logicgate-field-api-openapi.yml",
+    "logicgate-next-path-api-openapi.yml",
+    "logicgate-record-api-openapi.yml",
+    "logicgate-redirect-path-api-openapi.yml",
+    "logicgate-step-api-openapi.yml",
+    "logicgate-workflow-api-openapi.yml",
+    "logicgate-workflow-map-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

@@ -1,0 +1,33 @@
+# LogicGate Risk Cloud API
+
+> LogicGate Risk Cloud is a no-code GRC (governance, risk, and compliance) platform. The Risk Cloud API v2 is an API-first, RESTful interface for managing the building blocks of a Risk Cloud environment — Applications, Workflows, Workflow Maps, Steps, Paths (edge/next/redirect), Fields, Records, and Access Audits — so teams can automate and integrate their risk and compliance programs. Authentication is an HTTP bearer "API Token" (minted via HTTP basic against the token endpoint); API access requires the paid API Access add-on.
+
+## APIs
+- [Risk Cloud API v2 (OpenAPI 3.1)](https://github.com/LogicGateTech/openapi): API-first RESTful endpoints for Applications, Workflows, Steps, Paths, Fields, and Records
+- [Risk Cloud API v2 docs](https://docs.logicgate.com/v2/index.html): interactive reference for the v2 endpoints
+- [Risk Cloud API v1 docs](https://docs.logicgate.com/v1/index.html): legacy endpoints (records, fields, users, exports)
+
+## Specs & artifacts
+- [OpenAPI (original)](openapi/logicgate-risk-cloud-openapi-original.json)
+- [Authentication profile](authentication/logicgate-authentication.yml)
+- [API conventions](conventions/logicgate-conventions.yml)
+- [Error catalog](errors/logicgate-problem-types.yml)
+- [Data model / ERD](data-model/logicgate-data-model.yml)
+- [Lifecycle & versioning](lifecycle/logicgate-lifecycle.yml)
+- [Changelog](changelog/logicgate-changelog.yml)
+- [Conformance](conformance/logicgate-conformance.yml)
+- [MCP candidate tools](mcp/logicgate-mcp.yml)
+- [Agentic access contracts](agentic-access/logicgate-agentic-access.yml)
+
+## Docs
+- [Developer Portal](https://www.logicgate.com/developer/)
+- [Getting Started](https://www.logicgate.com/developer/risk-cloud-api-getting-started/)
+- [Authentication guide](https://www.logicgate.com/developer/risk-cloud-api-authentication/)
+- [Postman collection](https://www.postman.com/logicgate-postman/logicgate-risk-cloud-api/overview)
+- [Help Center](https://help.logicgate.com/)
+
+## Security & trust
+- [security.txt](well-known/logicgate-security.txt)
+- [Vulnerability disclosure policy](https://www.logicgate.com/vulnerability-disclosure)
+- [Trust Center](https://trust.logicgate.com/) — SOC 2 Type II, ISO 27001/27017/27018, HIPAA, GDPR
+- [Privacy Policy](https://www.logicgate.com/privacy-policy/)

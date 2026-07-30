@@ -1,0 +1,5565 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Risk Cloud API",
+    "description": "Welcome to the Risk Cloud API v2! This is a collection of new API-first and RESTful API endpoints to streamline the creation of custom integrations with the Risk Cloud.\n\nFor the API documentation of our legacy API v1 endpoints, reference [Risk Cloud API v1](https://docs.logicgate.com/v1/index.html).",
+    "contact": {
+      "name": "developer-relations@logicgate.com",
+      "email": "developer-relations@logicgate.com"
+    },
+    "version": "v2026.7.0"
+  },
+  "externalDocs": {
+    "description": "Developer Portal",
+    "url": "https://www.logicgate.com/developer/"
+  },
+  "servers": [
+    {
+      "url": "https://{env}.logicgate.com",
+      "description": "The LogicGate API application.",
+      "variables": {
+        "env": {
+          "default": "qa"
+        }
+      }
+    }
+  ],
+  "security": [
+    {
+      "API Token": []
+    },
+    {
+      "basic": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "Getting Started: How to create an [API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) to begin integrating with the Risk Cloud API"
+    },
+    {
+      "name": "Access Audit",
+      "description": "An Access Audit captures information about access related events such as logins and logouts associated with a user."
+    },
+    {
+      "name": "Application",
+      "description": "An [Application](https://help.logicgate.com/hc/en-us/articles/4402674055572-Create-a-new-Application) is a collection of Workflows, Steps, and logic that collectively solve a business use case"
+    },
+    {
+      "name": "Edge Path",
+      "description": "A [Conditional Edge Path](https://help.logicgate.com/hc/en-us/articles/4402683114004-Work-with-Paths#conditional-edge-paths) defines an alternative route that a Record might need to follow if specific conditions are met."
+    },
+    {
+      "name": "Field",
+      "description": "A [Field](https://help.logicgate.com/hc/en-us/articles/4402674064020-Create-Fields) is used to capture information from and display information to users in a Workflow"
+    },
+    {
+      "name": "Next Path",
+      "description": "API endpoints for determining the next path(s) in a workflow, including routing and step information."
+    },
+    {
+      "name": "Record",
+      "description": "A [Record](https://help.logicgate.com/hc/en-us/articles/4402683104020-Complete-a-Record) is a form that can capture information, store cataloged data, and link to other Records as it moves through each Step of a Workflow"
+    },
+    {
+      "name": "Redirect Path",
+      "description": "A [Redirect Path](https://help.logicgate.com/hc/en-us/articles/4402683115156-Selected-Redirects) gives end users access to Redirect a Record to any Step in the Workflow other than the Default Path or any Conditional Edge Paths."
+    },
+    {
+      "name": "Step",
+      "description": "A [Step](https://help.logicgate.com/hc/en-us/articles/4402674059668-Create-a-Step) lives in a Workflow and is configured with a set of Sections, Subsections and Fields to create a form"
+    },
+    {
+      "name": "Workflow",
+      "description": "A [Workflow](https://help.logicgate.com/hc/en-us/articles/4402683108756-Create-a-new-Workflow) is a combination of Steps, Paths, Fields, and routing logic that combine to form a system in an Application"
+    },
+    {
+      "name": "Workflow Map",
+      "description": "A [Workflow Map](https://help.logicgate.com/hc/en-us/articles/4402683117588) represents a relationship between two Workflows"
+    }
+  ],
+  "paths": {
+    "/api/v2/workflows": {
+      "get": {
+        "tags": [
+          "Workflow"
+        ],
+        "summary": "Retrieve workflows",
+        "description": "**Permissions:** [Build Access](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nRetrieve a page of all workflows that the current user has [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications) to.",
+        "operationId": "readAllWorkflows",
+        "parameters": [
+          {
+            "name": "application-id",
+            "in": "query",
+            "description": "The unique ID of a parent application where, if provided, the response will only contain workflows from the identified application",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "a1b2c3d4"
+          },
+          {
+            "name": "include-jira-workflows",
+            "in": "query",
+            "description": "Whether [Jira workflows](https://help.logicgate.com/hc/en-us) are to be included in the response in addition to regular workflows (defaults to true)",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            },
+            "example": false
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The zero-indexed page number (must not be less than 0, defaults to 0)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            },
+            "example": 0
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1
+            },
+            "example": 20
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageModelOutWorkflowApiOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      },
+      "post": {
+        "tags": [
+          "Workflow"
+        ],
+        "summary": "Create a workflow",
+        "description": "**Permissions:** [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nCreate a workflow from a JSON request body. The workflow will contain a Default Origin step and a Default End step.",
+        "operationId": "createWorkflow",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkflowApiCreateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowApiOut"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      }
+    },
+    "/api/v2/workflow-maps": {
+      "get": {
+        "tags": [
+          "Workflow Map"
+        ],
+        "summary": "Retrieve workflow maps",
+        "description": "**Permissions:** [Build Access](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nRetrieve a page of all workflow maps that the current user has [Build Access to a parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications) to.",
+        "operationId": "readAllWorkflowMaps",
+        "parameters": [
+          {
+            "name": "workflow-id",
+            "in": "query",
+            "description": "The unique ID of a workflow where, if provided, the response will only contain workflow maps from the identified workflow",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "a1b2c3d4"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The zero-indexed page number (must not be less than 0, defaults to 0)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            },
+            "example": 0
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1
+            },
+            "example": 20
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageModelOutWorkflowMapApiOut"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      },
+      "post": {
+        "tags": [
+          "Workflow Map"
+        ],
+        "summary": "Create a workflow map",
+        "description": "**Permissions:** [Build Access to parent applications](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nCreate a workflow map from a JSON request body.",
+        "operationId": "createWorkflowMap",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkflowMapApiCreateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowMapApiOut"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      }
+    },
+    "/api/v2/steps": {
+      "get": {
+        "tags": [
+          "Step"
+        ],
+        "summary": "Retrieve steps",
+        "description": "**Permissions:** [Build Access](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nRetrieve a page of all steps that the current user has [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications) to.",
+        "operationId": "readAllSteps",
+        "parameters": [
+          {
+            "name": "workflow-id",
+            "in": "query",
+            "description": "The unique ID of a workflow where, if provided, the response will only contain steps from the identified workflow",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "example": "a1b2c3d4"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The zero-indexed page number (must not be less than 0, defaults to 0)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            },
+            "example": 0
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1
+            },
+            "example": 20
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageModelOutStepApiOut"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      },
+      "post": {
+        "tags": [
+          "Step"
+        ],
+        "summary": "Create a step",
+        "description": "**Permissions:** [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nCreate a step from a JSON request body.",
+        "operationId": "createStep",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StepApiCreateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StepApiOut"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      }
+    },
+    "/api/v2/paths/redirect": {
+      "get": {
+        "tags": [
+          "Redirect Path"
+        ],
+        "summary": "List all redirect paths",
+        "description": "Get a list of all redirect paths in the environment that are entitled to the current user. Build user privileges are required.",
+        "operationId": "readRedirectPaths",
+        "parameters": [
+          {
+            "name": "step",
+            "in": "query",
+            "description": "Providing a step ID returns paths only to or from the identified step.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Results page you want to retrieve (0..N)"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Number of records per page."
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageModelOutRedirectPathApiOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      },
+      "post": {
+        "tags": [
+          "Redirect Path"
+        ],
+        "summary": "Create a redirect path",
+        "description": "**Permissions:** [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nCreate a redirect path from a JSON request body.",
+        "operationId": "createRedirectPath",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RedirectApiCreateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RedirectPathApiOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      }
+    },
+    "/api/v2/paths/next": {
+      "get": {
+        "tags": [
+          "Next Path"
+        ],
+        "summary": "List all default next paths",
+        "description": "Get a list of all default next paths in the environment that are entitled to the current user. Build user privileges are required.",
+        "operationId": "readNextPaths",
+        "parameters": [
+          {
+            "name": "step",
+            "in": "query",
+            "description": "Providing a step ID returns paths only to or from the identified step.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "example": "a1b2c3d4"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Results page you want to retrieve (0..N)"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Number of records per page."
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageModelOutNextPathApiOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Next Path"
+        ],
+        "summary": "Create a default next path",
+        "description": "Build privileges and step access are required.",
+        "operationId": "createNextPath",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NextApiCreateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NextPathApiOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppStatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/paths/edge": {
+      "get": {
+        "tags": [
+          "Edge Path"
+        ],
+        "summary": "List all conditional edge paths",
+        "description": "Get a list of all conditional edge paths in the environment that are entitled to the current user. Build user privileges are required.",
+        "operationId": "readEdgePaths",
+        "parameters": [
+          {
+            "name": "step",
+            "in": "query",
+            "description": "Providing a step ID returns paths only to or from the identified step.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Results page you want to retrieve (0..N)"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Number of records per page."
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageModelOutEdgePathApiOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      },
+      "post": {
+        "tags": [
+          "Edge Path"
+        ],
+        "summary": "Create a conditional edge path",
+        "description": "**Permissions:** [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nCreate a conditional edge path from a JSON request body.",
+        "operationId": "createEdgePath",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EdgeApiCreateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EdgePathApiOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      }
+    },
+    "/api/v2/applications": {
+      "get": {
+        "tags": [
+          "Application"
+        ],
+        "summary": "Retrieve applications",
+        "description": "**Permissions:** [Build Access](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nRetrieve a page of all applications that the current user has [Build Access](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications) to.",
+        "operationId": "readAllApplications",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The zero-indexed page number (must not be less than 0, defaults to 0)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            },
+            "example": 0
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1
+            },
+            "example": 20
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageModelOutApplicationApiOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      },
+      "post": {
+        "tags": [
+          "Application"
+        ],
+        "summary": "Create an application",
+        "description": "**Permissions:** [Build Access](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nCreate an application from a JSON request body.",
+        "operationId": "createApplication",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplicationApiCreateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationApiOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      }
+    },
+    "/api/v2/account/token": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Refresh an API token",
+        "description": "Issue a fresh access token and rotated refresh token for a previously-created named API token. The presented refresh token is invalidated.",
+        "operationId": "refreshApiToken",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A basic authorization header containing a Risk Cloud API access token in the format `Authorization: Basic {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Basic {ENCODED}"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiTokenRefreshedOut"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          }
+        ]
+      }
+    },
+    "/api/v1/account/token": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Create an API Access Token",
+        "description": "**Permissions:** Authenticated User\n\nGenerates a new, expiring access token from the provided Client and Secret keys.",
+        "operationId": "getApiToken",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A basic authorization header containing a Risk Cloud API access token in the format `Authorization: Basic {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Basic {ENCODED}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LegacyApiTokenOut"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "basic": []
+          }
+        ]
+      }
+    },
+    "/api/v2/workflows/{id}": {
+      "get": {
+        "tags": [
+          "Workflow"
+        ],
+        "summary": "Retrieve a workflow",
+        "description": "**Permissions:** [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nRetrieve a workflow specified by the ID in the URL path.",
+        "operationId": "readWorkflow",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the workflow",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowApiOut"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      },
+      "delete": {
+        "tags": [
+          "Workflow"
+        ],
+        "summary": "Delete a workflow",
+        "description": "**Permissions:** [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nDelete a workflow specified by the ID in the URL path.",
+        "operationId": "deleteWorkflow",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the workflow",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppStatusResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Workflow"
+        ],
+        "summary": "Update a workflow",
+        "description": "**Permissions:** [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nUpdate a workflow specified by the ID in the URL path from a JSON request body. Only present properties with non-empty values are updated.",
+        "operationId": "updateWorkflow",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the workflow",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkflowApiUpdateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowApiOut"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/workflow-maps/{id}": {
+      "get": {
+        "tags": [
+          "Workflow Map"
+        ],
+        "summary": "Retrieve a workflow map",
+        "description": "**Permissions:** [Build Access to a parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nRetrieve a workflow map specified by the ID in the URL path.",
+        "operationId": "readWorkflowMap",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the workflow map",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowMapApiOut"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      },
+      "delete": {
+        "tags": [
+          "Workflow Map"
+        ],
+        "summary": "Delete a workflow map",
+        "description": "**Permissions:** [Build Access to a parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nDelete a workflow map specified by the ID in the URL path.",
+        "operationId": "deleteWorkflowMap",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the workflow map",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      },
+      "patch": {
+        "tags": [
+          "Workflow Map"
+        ],
+        "summary": "Update a workflow map",
+        "description": "**Permissions:** [Build Access to a parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nUpdate a workflow map specified by the ID in the URL path from a JSON request body. Only present properties with non-empty values are updated.",
+        "operationId": "updateWorkflowMap",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the workflow map",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkflowMapApiUpdateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkflowMapApiOut"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      }
+    },
+    "/api/v2/steps/{id}": {
+      "get": {
+        "tags": [
+          "Step"
+        ],
+        "summary": "Retrieve a step",
+        "description": "**Permissions:** [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nRetrieve a step specified by the ID in the URL path.",
+        "operationId": "readStep",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the step",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StepApiOut"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      },
+      "delete": {
+        "tags": [
+          "Step"
+        ],
+        "summary": "Delete a step",
+        "description": "**Permissions:** [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nDelete a step specified by the ID in the URL path.",
+        "operationId": "deleteStep",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the step",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "x-beta": "true"
+      },
+      "patch": {
+        "tags": [
+          "Step"
+        ],
+        "summary": "Update a step",
+        "description": "**Permissions:** [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nUpdate a step specified by the ID in the URL path from a JSON request body. Only present properties with non-empty values are updated.",
+        "operationId": "update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the step",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StepApiUpdateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StepApiOut"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      }
+    },
+    "/api/v2/steps/{id}/position": {
+      "patch": {
+        "tags": [
+          "Step"
+        ],
+        "summary": "Update a step\u0027s canvas position",
+        "description": "**Permissions:** [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nUpdate a step\u0027s canvas position specified by the ID in the URL path.",
+        "operationId": "updatePosition",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the step",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StepPositionUpdateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StepApiOut"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      }
+    },
+    "/api/v2/paths/redirect/{id}": {
+      "get": {
+        "tags": [
+          "Redirect Path"
+        ],
+        "summary": "Retrieve a redirect path",
+        "description": "Find a path by ID. Build user privileges are required.",
+        "operationId": "readRedirectPath",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the redirect path.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RedirectPathApiOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      },
+      "delete": {
+        "tags": [
+          "Redirect Path"
+        ],
+        "summary": "Delete a redirect path",
+        "description": "Build user privileges are required.",
+        "operationId": "deleteRedirectPath",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the redirect path.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      },
+      "patch": {
+        "tags": [
+          "Redirect Path"
+        ],
+        "summary": "Update a redirect path",
+        "description": "User must be entitled to the path in question, meaning they must have build access and be entitled both the source and target steps.",
+        "operationId": "updateRedirectPath",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the redirect path.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PathApiUpdateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RedirectPathApiOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      }
+    },
+    "/api/v2/paths/next/{id}": {
+      "patch": {
+        "tags": [
+          "Next Path"
+        ],
+        "summary": "Update a default next path",
+        "description": "User must be entitled to the path in question, meaning they must have build access and be entitled both the source and target steps.",
+        "operationId": "updateNextPath",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the default next path.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PathApiUpdateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NextPathApiOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppStatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/paths/edge/{id}": {
+      "get": {
+        "tags": [
+          "Edge Path"
+        ],
+        "summary": "Retrieve a conditional edge path",
+        "description": "Find a path by ID. Build user privileges are required.",
+        "operationId": "readEdgePath",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the conditional edge path.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EdgePathApiOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      },
+      "delete": {
+        "tags": [
+          "Edge Path"
+        ],
+        "summary": "Delete a conditional edge path",
+        "description": "Build user privileges are required.",
+        "operationId": "deleteEdgePath",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the conditional edge path.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      },
+      "patch": {
+        "tags": [
+          "Edge Path"
+        ],
+        "summary": "Update a conditional edge path",
+        "description": "User must be entitled to the path in question, meaning they must have build access and be entitled both the source and target steps.",
+        "operationId": "updateEdgePath",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the conditional edge path.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EdgePathApiUpdateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EdgePathApiOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      }
+    },
+    "/api/v2/applications/{id}": {
+      "get": {
+        "tags": [
+          "Application"
+        ],
+        "summary": "Retrieve an application",
+        "description": "**Permissions:** [Build Access to application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nRetrieve an application specified by the ID in the URL path.",
+        "operationId": "readApplication",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the application",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationApiOut"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      },
+      "delete": {
+        "tags": [
+          "Application"
+        ],
+        "summary": "Delete an application",
+        "description": "**Permissions:** [Build Access to application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nDelete an application specified by the ID in the URL path.",
+        "operationId": "deleteApplication",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the application",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      },
+      "patch": {
+        "tags": [
+          "Application"
+        ],
+        "summary": "Update an application",
+        "description": "**Permissions:** [Build Access to application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nUpdate an application specified by the ID in the URL path from a JSON request body. Only present properties with non-empty values are updated.",
+        "operationId": "update_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique ID of the application",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplicationApiUpdateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplicationApiOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      }
+    },
+    "/api/v2/records": {
+      "get": {
+        "tags": [
+          "Record"
+        ],
+        "summary": "Retrieve records",
+        "description": "**Permissions:** Authenticated User\n\nRetrieve a page of all records that the current user has [Read or Write access](https://help.logicgate.com/hc/en-us/articles/4402683227156-Permission-Sets-) to.",
+        "operationId": "readAllRecords",
+        "parameters": [
+          {
+            "name": "application-id",
+            "in": "query",
+            "description": "The unique ID of an application where, if provided, the response will only contain records from the identified application",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "example": "a1b2c3d4"
+          },
+          {
+            "name": "workflow-id",
+            "in": "query",
+            "description": "The unique ID of a workflow where, if provided, the response will only contain records from the identified workflow",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "example": "a1b2c3d4"
+          },
+          {
+            "name": "step-id",
+            "in": "query",
+            "description": "The unique ID of a step where, if provided, the response will only contain records on the identified step",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "example": "a1b2c3d4"
+          },
+          {
+            "name": "updated-min",
+            "in": "query",
+            "description": "A timestamp measured in milliseconds since the Unix epoch where, if provided, the response will only contain records that have been modified since the given timestamp",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1672552800000
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The zero-indexed page number (must not be less than 0, defaults to 0)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            },
+            "example": 0
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1
+            },
+            "example": 20
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageModelOutRecordApiOut"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      }
+    },
+    "/api/v2/records/{id}": {
+      "get": {
+        "tags": [
+          "Record"
+        ],
+        "summary": "Retrieve a record",
+        "description": "**Permissions:** [Read or Write access](https://help.logicgate.com/hc/en-us/articles/4402683227156-Permission-Sets-)\n\nRetrieve a record specified by the ID in the URL path.",
+        "operationId": "readRecord",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the record",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecordApiOut"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      }
+    },
+    "/api/v2/records/{id}/linked": {
+      "get": {
+        "tags": [
+          "Record"
+        ],
+        "summary": "Retrieve all linked records",
+        "description": "**Permissions:** [Read or Write access](https://help.logicgate.com/hc/en-us/articles/4402683227156-Permission-Sets-)\n\nRetrieve a page of all records that are linked to the record of the given record ID that the current user has [Read or Write access](https://help.logicgate.com/hc/en-us/articles/4402683227156-Permission-Sets-) to. The maximum depth of linked records to return with regards to the relationship between the records can be specified by the `depth` property, which defaults to 10.\n\nThis endpoint reflects the functionality of [Relationship Reports](https://help.logicgate.com/hc/en-us/articles/4402683133972-Display-Data-using-Relationship-Reports-) in the Risk Cloud.",
+        "operationId": "readAllLinkedRecords",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the record",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workflow-id",
+            "in": "query",
+            "description": "The unique ID of a workflow where, if provided, the response will only contain linked records from the identified workflow",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "a1b2c3d4"
+          },
+          {
+            "name": "depth",
+            "in": "query",
+            "description": "Specifies the maximum depth of linked records to return with regards to the relationship between the given record\u0027s workflow and the workflow specified by `workflow-id` (must not be less than 0, defaults to 10)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10,
+              "minimum": 1
+            },
+            "example": 10
+          },
+          {
+            "name": "updated-min",
+            "in": "query",
+            "description": "A timestamp measured in milliseconds since the Unix epoch where, if provided, the response will only contain records that have been modified since the given timestamp",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1672552800000
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The zero-indexed page number (must not be less than 0, defaults to 0)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            },
+            "example": 0
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1
+            },
+            "example": 20
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageModelOutRecordApiOut"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      }
+    },
+    "/api/v2/paths/next/{next-path}": {
+      "get": {
+        "tags": [
+          "Next Path"
+        ],
+        "summary": "Create a default next path",
+        "description": "Build privileges and step access are required.",
+        "operationId": "readNextPath",
+        "parameters": [
+          {
+            "name": "next-path",
+            "in": "path",
+            "description": "Providing a step ID returns paths only to or from the identified step.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "a1b2c3d4"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NextPathApiOut"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Next Path"
+        ],
+        "summary": "Delete a default next path",
+        "description": "Build user privileges are required.",
+        "operationId": "deleteNextPath",
+        "parameters": [
+          {
+            "name": "next-path",
+            "in": "path",
+            "description": "The unique ID of the default next path.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppStatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/fields": {
+      "get": {
+        "tags": [
+          "Field"
+        ],
+        "summary": "Retrieve fields",
+        "description": "**Permissions:** [Build Access](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nRetrieve a page of all fields whose parent application the current user has [Build Access](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications) to.",
+        "operationId": "readAllFields",
+        "parameters": [
+          {
+            "name": "application-id",
+            "in": "query",
+            "description": "The unique ID of an application where, if provided, the response will only contain fields from the identified application",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "example": "a1b2c3d4"
+          },
+          {
+            "name": "workflow-id",
+            "in": "query",
+            "description": "The unique ID of a workflow where, if provided, the response will only contain fields from the identified workflow",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "example": "a1b2c3d4"
+          },
+          {
+            "name": "step-id",
+            "in": "query",
+            "description": "The unique ID of a step where, if provided, the response will only contain fields from the identified step",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "example": "a1b2c3d4"
+          },
+          {
+            "name": "field-type",
+            "in": "query",
+            "description": "A field type where, if provided, the response will only contain fields of the identified field type",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "string",
+                "enum": [
+                  "DATE",
+                  "USER",
+                  "EXTERNAL_USER",
+                  "TEXT",
+                  "TEXT_AREA",
+                  "NUMBER",
+                  "E_SIGNATURE",
+                  "CHECKBOX",
+                  "MULTI_SELECT",
+                  "RADIO",
+                  "SELECT",
+                  "ATTACHMENT",
+                  "CALCULATION",
+                  "TEXT_CONCATENATION",
+                  "DATE_CALCULATION"
+                ],
+                "title": "Field Type (Filter)"
+              }
+            },
+            "example": "SELECT"
+          },
+          {
+            "name": "scope",
+            "in": "query",
+            "description": "A scope where, if provided, the response will only contain fields that have either global or workflow scopes (defaults to ALL)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "ALL",
+              "enum": [
+                "ALL",
+                "GLOBAL",
+                "WORKFLOW"
+              ],
+              "title": "Field Scope (Filter)"
+            },
+            "example": "GLOBAL"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The zero-indexed page number (must not be less than 0, defaults to 0)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            },
+            "example": 0
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1
+            },
+            "example": 20
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageModelOutFieldApiOut"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      }
+    },
+    "/api/v2/audits/access": {
+      "get": {
+        "tags": [
+          "Access Audit"
+        ],
+        "summary": "Retrieve access audits",
+        "description": "**Permissions:** [Productivity Entitlement](https://help.logicgate.com/hc/en-us/articles/4402683139348-Module-Entitlements-for-Roles)\n\nRetrieve a page of all access audits.",
+        "operationId": "readAllAccessAudits",
+        "parameters": [
+          {
+            "name": "user-id",
+            "in": "query",
+            "description": "Filter by user ID associated with the access audit entry.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "a1b2c3d4"
+          },
+          {
+            "name": "user-email",
+            "in": "query",
+            "description": "Filter by email address associated with the access audit entry.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "jane.doe@logicgate.com"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Filter by type of access event (LOGIN, LOGOUT, LOGIN_FAILED, CREDENTIALS_ROLLED, TOKEN_ROLLED).",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "LOGIN",
+                "LOGOUT",
+                "LOGIN_FAILED",
+                "CREDENTIALS_ROLLED",
+                "TOKEN_ROLLED",
+                "OTHER"
+              ],
+              "title": "Access Audit Type"
+            },
+            "example": "LOGIN"
+          },
+          {
+            "name": "created-min",
+            "in": "query",
+            "description": "Minimum created timestamp of the access audit in milliseconds since the Unix epoch (inclusive).",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1672552800000
+          },
+          {
+            "name": "created-max",
+            "in": "query",
+            "description": "Maximum created timestamp of the access audit in milliseconds since the Unix epoch (inclusive).",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "example": 1672552800000
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The zero-indexed page number (must not be less than 0, defaults to 0)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            },
+            "example": 0
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1
+            },
+            "example": 20
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer {TOKEN}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageModelOutAccessAuditApiOut"
+                }
+              }
+            }
+          }
+        },
+        "x-beta": "true"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "WorkflowApiCreateIn": {
+        "type": "object",
+        "description": "Workflow (Create)",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the workflow",
+            "example": "Risk Assessments",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the workflow",
+            "example": "Risk Assessment Description Text"
+          },
+          "recordPrefix": {
+            "type": "string",
+            "description": "The prefix to be used in the name of every record created from this workflow",
+            "example": "Assessment",
+            "minLength": 1
+          },
+          "applicationId": {
+            "type": "string",
+            "description": "The unique ID of the parent application of the workflow",
+            "example": "a1b2c3d4",
+            "minLength": 1
+          },
+          "xpos": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The x-coordinate of the workflow in the application builder (must not be less than 0, defaults to 0)",
+            "example": 20,
+            "minimum": 0
+          },
+          "ypos": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The y-coordinate of the workflow in the application builder (must not be less than 0, defaults to 0)",
+            "example": 20,
+            "minimum": 0
+          }
+        },
+        "required": [
+          "applicationId",
+          "name",
+          "recordPrefix"
+        ],
+        "title": "Workflow (Create)"
+      },
+      "WorkflowApiOut": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID of this Risk Cloud resource",
+            "example": "a1b2c3d4"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the workflow",
+            "example": "Risk Assessments"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the workflow",
+            "example": "Risk Assessment Description Text"
+          },
+          "recordPrefix": {
+            "type": "string",
+            "description": "The prefix to be used in the name of every record created from this workflow",
+            "example": "Assessment"
+          },
+          "applicationId": {
+            "type": "string",
+            "description": "The unique ID of the parent application of the workflow",
+            "example": "a1b2c3d4"
+          },
+          "xpos": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The x-coordinate of the workflow in the application builder",
+            "example": 20
+          },
+          "ypos": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The y-coordinate of the workflow in the application builder",
+            "example": 20
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of workflow",
+            "enum": [
+              "WORKFLOW",
+              "JIRA_WORKFLOW",
+              "CONTROL_WORKFLOW",
+              "ANALYSIS_WORKFLOW"
+            ],
+            "example": "WORKFLOW"
+          },
+          "object": {
+            "type": "string",
+            "description": "Identifies the type of object this data represents",
+            "example": "workflow"
+          }
+        },
+        "title": "Workflow (Response)"
+      },
+      "AppBadRequestResponse": {
+        "type": "object",
+        "properties": {
+          "property": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "WorkflowMapApiCreateIn": {
+        "type": "object",
+        "description": "Workflow Map (Create)",
+        "properties": {
+          "from": {
+            "type": "string",
+            "description": "The unique ID of the source workflow of the workflow map relationship",
+            "example": "a1b2c3d4",
+            "minLength": 1
+          },
+          "to": {
+            "type": "string",
+            "description": "The unique ID of the destination workflow of the workflow map relationship",
+            "example": "a1b2c3d4",
+            "minLength": 1
+          },
+          "relationship": {
+            "type": "string",
+            "description": "The type of the relationship between workflows",
+            "enum": [
+              "OneToOne",
+              "OneToMany",
+              "ManyToOne",
+              "ManyToMany"
+            ],
+            "example": "ONE_TO_MANY"
+          }
+        },
+        "required": [
+          "from",
+          "relationship",
+          "to"
+        ],
+        "title": "Workflow Map (Create)"
+      },
+      "WorkflowMapApiOut": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID of this Risk Cloud resource",
+            "example": "a1b2c3d4"
+          },
+          "from": {
+            "type": "string",
+            "description": "The unique ID of the source workflow of the workflow map relationship",
+            "example": "a1b2c3d4"
+          },
+          "to": {
+            "type": "string",
+            "description": "The unique ID of the destination workflow of the workflow map relationship",
+            "example": "a1b2c3d4"
+          },
+          "relationship": {
+            "type": "string",
+            "description": "The type of the relationship between workflows",
+            "enum": [
+              "OneToOne",
+              "OneToMany",
+              "ManyToOne",
+              "ManyToMany"
+            ],
+            "example": "ONE_TO_MANY"
+          },
+          "object": {
+            "type": "string",
+            "description": "Identifies the type of object this data represents",
+            "example": "workflow-map"
+          }
+        },
+        "title": "Workflow Map (Response)"
+      },
+      "StepApiCreateIn": {
+        "type": "object",
+        "description": "Step (Create)",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the step",
+            "example": "Identify Risk",
+            "minLength": 1
+          },
+          "workflowId": {
+            "type": "string",
+            "description": "The unique ID of the parent workflow of the step",
+            "example": "a1b2c3d4",
+            "minLength": 1
+          },
+          "xpos": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The x-coordinate of the step in the application builder (must not be less than 0, defaults to 0)",
+            "example": 20,
+            "minimum": 0
+          },
+          "ypos": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The y-coordinate of the step in the application builder (must not be less than 0, defaults to 0)",
+            "example": 20,
+            "minimum": 0
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the step",
+            "enum": [
+              "ORIGIN",
+              "CHAIN",
+              "END"
+            ],
+            "example": "ORIGIN"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the step",
+            "example": "This is a description of the step"
+          },
+          "enableComments": {
+            "type": "boolean",
+            "description": "Whether comments are displayed on a step (defaults to false)",
+            "example": false
+          },
+          "assignableUserType": {
+            "type": "string",
+            "description": "Indicates which users are allowed to be assigned this step on a record (defaults to APP_USERS)",
+            "enum": [
+              "APP_AND_EXTERNAL_USERS",
+              "APP_USERS",
+              "EXTERNAL_USERS"
+            ],
+            "example": "APP_USERS"
+          },
+          "externalUserMfaRequired": {
+            "type": "boolean",
+            "description": "Whether MFA is required for external users to access this step. (defaults to false)",
+            "example": false
+          },
+          "autofillEnabled": {
+            "type": "boolean",
+            "description": "Whether or not to enable autofill on the step.",
+            "example": false
+          }
+        },
+        "required": [
+          "name",
+          "workflowId"
+        ],
+        "title": "Step (Create)"
+      },
+      "StepApiOut": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID of this Risk Cloud resource",
+            "example": "a1b2c3d4"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the step",
+            "example": "Identify Risk"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the step",
+            "example": "This is a description of the step"
+          },
+          "xpos": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The x-coordinate of the step in the application builder",
+            "example": 20
+          },
+          "ypos": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The y-coordinate of the step in the application builder",
+            "example": 20
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the step",
+            "enum": [
+              "ORIGIN",
+              "CHAIN",
+              "END"
+            ],
+            "example": "ORIGIN"
+          },
+          "enableComments": {
+            "type": "boolean",
+            "description": "Whether comments are displayed on a step",
+            "example": false
+          },
+          "assignableUserType": {
+            "type": "string",
+            "description": "Indicates which users are allowed to be assigned this step on a record",
+            "enum": [
+              "APP_AND_EXTERNAL_USERS",
+              "APP_USERS",
+              "EXTERNAL_USERS"
+            ],
+            "example": "APP_USERS"
+          },
+          "externalUserMfaRequired": {
+            "type": "boolean",
+            "description": "Whether MFA is required for external users to access this step.",
+            "example": false
+          },
+          "autofillEnabled": {
+            "type": "boolean",
+            "description": "Whether or not to enable autofill on the step.",
+            "example": false
+          },
+          "workflow": {
+            "$ref": "#/components/schemas/WorkflowPropertyApiOut",
+            "description": "The parent workflow of the step"
+          },
+          "object": {
+            "type": "string",
+            "description": "Identifies the type of object this data represents",
+            "example": "step"
+          }
+        },
+        "title": "Step (Response)"
+      },
+      "WorkflowPropertyApiOut": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID of this Risk Cloud resource",
+            "example": "a1b2c3d4"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the workflow",
+            "example": "Risk Assessments"
+          },
+          "recordPrefix": {
+            "type": "string",
+            "description": "The prefix to be used in the name of every record created from this workflow",
+            "example": "Assessment"
+          },
+          "object": {
+            "type": "string",
+            "description": "Identifies the type of object this data represents",
+            "example": "workflow"
+          }
+        },
+        "title": "Workflow (Property)"
+      },
+      "RedirectApiCreateIn": {
+        "type": "object",
+        "description": "Redirect path (Create).",
+        "properties": {
+          "from": {
+            "type": "string",
+            "description": "The ID of the source step.",
+            "example": "a1b2c3d4"
+          },
+          "to": {
+            "type": "string",
+            "description": "The ID of the destination step.",
+            "example": "a1b2c3d4"
+          },
+          "allowInternal": {
+            "type": "boolean",
+            "description": "Whether a step\u0027s current assignee may assign this record to any user with access to the target step on submission.",
+            "example": false
+          },
+          "allowExternal": {
+            "type": "boolean",
+            "description": "Whether a step\u0027s current assignee may assign this record to external email addresses on submission.",
+            "example": false
+          },
+          "allowCurrentAssignee": {
+            "type": "boolean",
+            "description": "Allow a step\u0027s current assignee to submit without assigning",
+            "example": false
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the path.",
+            "example": "This describes the path."
+          },
+          "requireAssignee": {
+            "type": "boolean",
+            "description": "Require an assignee to be chosen",
+            "example": false
+          }
+        },
+        "required": [
+          "from",
+          "to"
+        ],
+        "title": "Redirect path (Create)."
+      },
+      "RedirectPathApiOut": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID of this Risk Cloud resource",
+            "example": "a1b2c3d4"
+          },
+          "from": {
+            "type": "string",
+            "description": "The ID of the source step.",
+            "example": "a1b2c3d4"
+          },
+          "to": {
+            "type": "string",
+            "description": "The ID of the destination step.",
+            "example": "a1b2c3d4"
+          },
+          "allowInternal": {
+            "type": "boolean",
+            "description": "Whether a step\u0027s current assignee may assign this record to any user with access to the target step on submission.",
+            "example": false
+          },
+          "allowExternal": {
+            "type": "boolean",
+            "description": "Whether a step\u0027s current assignee may assign this record to external email addresses on submission.",
+            "example": false
+          },
+          "allowCurrentAssignee": {
+            "type": "boolean",
+            "description": "Allow a step\u0027s current assignee to submit without assigning",
+            "example": false
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the path.",
+            "example": "This describes the path."
+          },
+          "requireAssignee": {
+            "type": "boolean",
+            "description": "Require an assignee to be chosen",
+            "example": false
+          },
+          "object": {
+            "type": "string",
+            "description": "Identifies the type of object this data represents",
+            "example": "redirect-path"
+          }
+        },
+        "title": "Path (Response)."
+      },
+      "AppStatusResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "NextApiCreateIn": {
+        "type": "object",
+        "description": "Default next path (Create).",
+        "properties": {
+          "from": {
+            "type": "string",
+            "description": "The ID of the source step.",
+            "example": "a1b2c3d4"
+          },
+          "to": {
+            "type": "string",
+            "description": "The ID of the destination step.",
+            "example": "a1b2c3d4"
+          },
+          "allowInternal": {
+            "type": "boolean",
+            "description": "Whether a step\u0027s current assignee may assign this record to any user with access to the target step on submission.",
+            "example": false
+          },
+          "allowExternal": {
+            "type": "boolean",
+            "description": "Whether a step\u0027s current assignee may assign this record to external email addresses on submission.",
+            "example": false
+          },
+          "allowCurrentAssignee": {
+            "type": "boolean",
+            "description": "Allow a step\u0027s current assignee to submit without assigning",
+            "example": false
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the path.",
+            "example": "This describes the path."
+          },
+          "requireAssignee": {
+            "type": "boolean",
+            "description": "Require an assignee to be chosen",
+            "example": false
+          }
+        },
+        "required": [
+          "from",
+          "to"
+        ],
+        "title": "Default next path (Create)."
+      },
+      "NextPathApiOut": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID of this Risk Cloud resource",
+            "example": "a1b2c3d4"
+          },
+          "from": {
+            "type": "string",
+            "description": "The ID of the source step.",
+            "example": "a1b2c3d4"
+          },
+          "to": {
+            "type": "string",
+            "description": "The ID of the destination step.",
+            "example": "a1b2c3d4"
+          },
+          "allowInternal": {
+            "type": "boolean",
+            "description": "Whether a step\u0027s current assignee may assign this record to any user with access to the target step on submission.",
+            "example": false
+          },
+          "allowExternal": {
+            "type": "boolean",
+            "description": "Whether a step\u0027s current assignee may assign this record to external email addresses on submission.",
+            "example": false
+          },
+          "allowCurrentAssignee": {
+            "type": "boolean",
+            "description": "Allow a step\u0027s current assignee to submit without assigning",
+            "example": false
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the path.",
+            "example": "This describes the path."
+          },
+          "requireAssignee": {
+            "type": "boolean",
+            "description": "Require an assignee to be chosen",
+            "example": false
+          },
+          "object": {
+            "type": "string",
+            "description": "Identifies the type of object this data represents",
+            "example": "next-path"
+          }
+        },
+        "title": "Path (Response)."
+      },
+      "EdgeApiCreateIn": {
+        "type": "object",
+        "description": "Conditional edge path (Create).",
+        "properties": {
+          "from": {
+            "type": "string",
+            "description": "The ID of the source step.",
+            "example": "a1b2c3d4"
+          },
+          "to": {
+            "type": "string",
+            "description": "The ID of the destination step.",
+            "example": "a1b2c3d4"
+          },
+          "allowInternal": {
+            "type": "boolean",
+            "description": "Whether a step\u0027s current assignee may assign this record to any user with access to the target step on submission.",
+            "example": false
+          },
+          "allowExternal": {
+            "type": "boolean",
+            "description": "Whether a step\u0027s current assignee may assign this record to external email addresses on submission.",
+            "example": false
+          },
+          "allowCurrentAssignee": {
+            "type": "boolean",
+            "description": "Allow a step\u0027s current assignee to submit without assigning",
+            "example": false
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the path.",
+            "example": "This describes the path."
+          },
+          "requireAssignee": {
+            "type": "boolean",
+            "description": "Require an assignee to be chosen",
+            "example": false
+          },
+          "operator": {
+            "type": "string",
+            "description": "Type of operator for an edge path.",
+            "enum": [
+              "EQUALS",
+              "NOT_EQUALS",
+              "IS",
+              "IS_NOT",
+              "GREATER_THAN",
+              "GREATER_THAN_EQUALS",
+              "LESS_THAN",
+              "LESS_THAN_EQUALS",
+              "CONTAINS",
+              "DOES_NOT_CONTAIN",
+              "NULL",
+              "NOT_NULL",
+              "DATE_RANGE",
+              "NUMERIC_RANGE"
+            ],
+            "example": "EQUALS"
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Determines which edge path should be invoked first. Priority is in descending order with 0 being the first edge.",
+            "example": 0
+          },
+          "field": {
+            "type": "string",
+            "description": "Field that is to be evaluated for the edge.",
+            "example": "a1b2c3d4"
+          },
+          "option": {
+            "$ref": "#/components/schemas/FieldOptionCreateIn",
+            "description": "Value to be compared against."
+          }
+        },
+        "required": [
+          "from",
+          "to"
+        ],
+        "title": "Conditional edge path (Create)."
+      },
+      "FieldOptionCreateIn": {
+        "type": "object",
+        "properties": {
+          "textValue": {
+            "type": "string",
+            "description": "The text representation of the record value, with the format varying by value type:\n- `NUMBER`: a string representation of the number, with currency if specified on the field (example: `\"42\"`)\n- `CALCULATION`: a string representation of the label if specified on the field, otherwise the number (example: `\"Highest Risk\"`)\n- `ATTACHMENT`: the name of the attachment file (example: `\"my-evidence.pdf\"`)\n- `DATE`: the date formatted according to the requesting user\u0027s settings (example: `\"1/1/23, 12:00 PM\"`)\n- `OPTION`: the text value of the option (example: `\"Medium Risk\"`)\n- `USER`: the full name and email of the user (example: `\"First Last (first.last@example.com)\"`)\n- `TEXT`: the text value (example: `\"Data Theft\"`)",
+            "example": "Medium Risk"
+          },
+          "numericValue": {
+            "type": "number",
+            "format": "double",
+            "description": "The numeric representation of the record value, with the format varying by value type:\n- `NUMBER`: the numeric value of the number (example: `42.0`)\n- `CALCULATION`: the numeric value of the calculation (example: `42.0`)\n- `ATTACHMENT`: the version count of the attachment (example: `2.0`)\n- `DATE`: the date measured in milliseconds since the Unix epoch (example: `1672552800000.0`)\n- `OPTION`: the numeric value of the option (example: `2.0`)\n- `USER`: a null value (example: `null`)\n- `TEXT`: a null value (example: `null`)",
+            "example": 2.0
+          }
+        },
+        "title": "Field (Create)"
+      },
+      "ApplicationPropertyApiOut": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID of this Risk Cloud resource",
+            "example": "a1b2c3d4"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the application",
+            "example": "Cyber Risk Management Application"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of Risk Cloud application",
+            "enum": [
+              "ACCESS_MANAGEMENT",
+              "AML_KYC",
+              "ASSET_MANAGEMENT",
+              "AUDIT_MANAGEMENT",
+              "BUSINESS_CONTINUITY_PLANNING",
+              "CHANGE_MANAGEMENT",
+              "COMPLAINT_MANAGEMENT",
+              "COMPLIANCE_MANAGEMENT",
+              "CONTRACT_MANAGEMENT",
+              "CONTROLS_COMPLIANCE",
+              "CONTROLS_MANAGEMENT",
+              "CRISIS_MANAGEMENT",
+              "CUSTOM",
+              "CUSTOM_GRC_USE_CASE",
+              "CYBER_RISK_MANAGEMENT",
+              "DATA_PRIVACY_MANAGEMENT",
+              "EMPLOYEE_COMPLIANCE",
+              "ENTERPRISE_RISK_MANAGEMENT",
+              "ESG",
+              "INCIDENT_MANAGEMENT",
+              "INTERNAL_AUDIT_MANAGEMENT",
+              "IT_RISK_MANAGEMENT",
+              "NONE",
+              "OPERATIONAL_RESILIENCY",
+              "OTHER",
+              "POLICY_AND_PROCEDURE_MANAGEMENT",
+              "POLICY_MANAGEMENT",
+              "PRIVACY_MANAGEMENT",
+              "QUANTIFY",
+              "REGULATORY_COMPLIANCE",
+              "REPOSITORY",
+              "RISK_QUANTIFICATION",
+              "SOX_TESTING",
+              "STANDARDS_REGULATIONS",
+              "SURVEY",
+              "THIRD_PARTY_RISK_MANAGEMENT"
+            ],
+            "example": "CONTROLS_COMPLIANCE"
+          },
+          "object": {
+            "type": "string",
+            "description": "Identifies the type of object this data represents",
+            "example": "application"
+          }
+        },
+        "title": "Application (Property)"
+      },
+      "Crossflow (Response)": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID of this Risk Cloud resource"
+          },
+          "crossflowReducer": {
+            "type": "string",
+            "enum": [
+              "NEWEST",
+              "OLDEST",
+              "MOST_RECENTLY_LINKED",
+              "LEAST_RECENTLY_LINKED",
+              "SUM",
+              "AVERAGE",
+              "HIGHEST",
+              "LOWEST"
+            ]
+          },
+          "calcSpecificToStep": {
+            "type": "boolean"
+          },
+          "calcStep": {
+            "$ref": "#/components/schemas/StepApiOut"
+          },
+          "systemField": {
+            "type": "string",
+            "enum": [
+              "NAME",
+              "STATUS",
+              "CREATED",
+              "ENTERED_STEP_DATE",
+              "USER_DATE",
+              "EFFECTIVE_DUE_DATE",
+              "STEP_DUE_DATE",
+              "CURRENT_DATE",
+              "DUE_DATE",
+              "DAYS_UNTIL_DUE",
+              "SIMILARITY",
+              "RATIONALE",
+              "MATCH_CONFIDENCE",
+              "COMPLETED_DATE",
+              "LAST_COMPLETED_DATE",
+              "ID",
+              "SEQUENCE",
+              "ASSESSMENT_COUNT",
+              "USER_NAME",
+              "USER_ID",
+              "CREATOR_NAME",
+              "USER_GROUP",
+              "STEP_NAME",
+              "STEP_ID",
+              "ORIGIN_NAME",
+              "ORIGIN_ID",
+              "WORKFLOW_NAME",
+              "WORKFLOW_RECORD_PREFIX",
+              "WORKFLOW_ID",
+              "PRIMARY_FIELD",
+              "STATE"
+            ]
+          },
+          "fieldWorkflow": {
+            "$ref": "#/components/schemas/WorkflowPropertyApiOut"
+          },
+          "fieldWorkflowId": {
+            "type": "string"
+          },
+          "customField": {
+            "$ref": "#/components/schemas/FieldPropertyApiOut"
+          },
+          "customFieldId": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "EdgePathApiOut": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID of this Risk Cloud resource",
+            "example": "a1b2c3d4"
+          },
+          "from": {
+            "type": "string",
+            "description": "The ID of the source step.",
+            "example": "a1b2c3d4"
+          },
+          "to": {
+            "type": "string",
+            "description": "The ID of the destination step.",
+            "example": "a1b2c3d4"
+          },
+          "allowInternal": {
+            "type": "boolean",
+            "description": "Whether a step\u0027s current assignee may assign this record to any user with access to the target step on submission.",
+            "example": false
+          },
+          "allowExternal": {
+            "type": "boolean",
+            "description": "Whether a step\u0027s current assignee may assign this record to external email addresses on submission.",
+            "example": false
+          },
+          "allowCurrentAssignee": {
+            "type": "boolean",
+            "description": "Allow a step\u0027s current assignee to submit without assigning",
+            "example": false
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the path.",
+            "example": "This describes the path."
+          },
+          "requireAssignee": {
+            "type": "boolean",
+            "description": "Require an assignee to be chosen",
+            "example": false
+          },
+          "object": {
+            "type": "string",
+            "description": "Identifies the type of object this data represents",
+            "example": "edge-path"
+          },
+          "operator": {
+            "type": "string",
+            "description": "Type of operator for an edge path.",
+            "enum": [
+              "EQUALS",
+              "NOT_EQUALS",
+              "IS",
+              "IS_NOT",
+              "GREATER_THAN",
+              "GREATER_THAN_EQUALS",
+              "LESS_THAN",
+              "LESS_THAN_EQUALS",
+              "CONTAINS",
+              "DOES_NOT_CONTAIN",
+              "NULL",
+              "NOT_NULL",
+              "DATE_RANGE",
+              "NUMERIC_RANGE"
+            ],
+            "example": "EQUALS"
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Determines which edge path should be invoked first. Priority is in descending order with 0 being the first edge.",
+            "example": 0
+          },
+          "field": {
+            "$ref": "#/components/schemas/FieldApiOut",
+            "description": "Field that is to be evaluated for the edge."
+          },
+          "option": {
+            "$ref": "#/components/schemas/ValuePropertyApiOut",
+            "description": "Value to be compared against."
+          }
+        },
+        "title": "Path (Response)."
+      },
+      "FieldApiOut": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID of this Risk Cloud resource",
+            "example": "a1b2c3d4"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the field",
+            "example": "Risk Severity"
+          },
+          "application": {
+            "$ref": "#/components/schemas/ApplicationPropertyApiOut",
+            "description": "The parent application of the field, or null for global fields"
+          },
+          "workflow": {
+            "$ref": "#/components/schemas/WorkflowPropertyApiOut",
+            "description": "The parent workflow of the field, or null for global fields"
+          },
+          "label": {
+            "type": "string",
+            "description": "The label of the field as shown on the record",
+            "example": "Enter the Risk Severity based on your assessment"
+          },
+          "global": {
+            "type": "boolean",
+            "description": "Whether the field is global",
+            "example": false
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Whether the field is required for the current step",
+            "example": false
+          },
+          "tooltip": {
+            "type": "string",
+            "description": "The tooltip information of the field",
+            "example": "Select the Risk Severity"
+          },
+          "helpText": {
+            "type": "string",
+            "description": "The help text of the field to supply necessary context for filling out the field",
+            "example": "Determine the Risk Severity from your assessment"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the field",
+            "enum": [
+              "DATE",
+              "USER",
+              "EXTERNAL_USER",
+              "TEXT",
+              "TEXT_AREA",
+              "NUMBER",
+              "E_SIGNATURE",
+              "CHECKBOX",
+              "MULTI_SELECT",
+              "RADIO",
+              "SELECT",
+              "ATTACHMENT",
+              "CALCULATION",
+              "TEXT_CONCATENATION",
+              "LINKED_RECORDS_COUNT",
+              "DATE_CALCULATION",
+              "OTHER"
+            ],
+            "example": "SELECT",
+            "title": "Field Type"
+          },
+          "valueType": {
+            "type": "string",
+            "description": "The type of the field value",
+            "enum": [
+              "NUMBER",
+              "CALCULATION",
+              "ATTACHMENT",
+              "DATE",
+              "OPTION",
+              "USER",
+              "TEXT",
+              "OTHER"
+            ],
+            "example": "OPTION"
+          },
+          "optionValues": {
+            "type": "array",
+            "description": "The option values of the field for Select, Multi-Select, Radio, Checkbox, and E-Signature field types",
+            "items": {
+              "$ref": "#/components/schemas/ValuePropertyApiOut"
+            }
+          },
+          "defaultValues": {
+            "type": "array",
+            "description": "The default values of the field",
+            "items": {
+              "$ref": "#/components/schemas/ValuePropertyApiOut"
+            }
+          },
+          "pattern": {
+            "type": "string",
+            "description": "The regular expression used to validate field input.",
+            "example": "[0-9]{3}-[0-9]{3}-[0-9]{4}$"
+          },
+          "message": {
+            "type": "string",
+            "description": "The text that displays in a Field when no value has been input yet."
+          },
+          "expression": {
+            "type": "string",
+            "description": "The mathematical expression used to calculate a value for a Calculation Field.",
+            "example": "%f + %f"
+          },
+          "nullStrategy": {
+            "type": "string",
+            "description": "The way in which null values are handled for a calculation.",
+            "example": "Available options are: null, 0, 1, N/A, a blank space, and an empty String."
+          },
+          "logicalHandling": {
+            "type": "string",
+            "description": "The comparison operator used to define label range boundaries for a calculation field. Determines whether ranges are created for values greater than or less than the baseline number.",
+            "enum": [
+              "EQUALS",
+              "NOT_EQUALS",
+              "IS",
+              "IS_NOT",
+              "GREATER_THAN",
+              "GREATER_THAN_EQUALS",
+              "LESS_THAN",
+              "LESS_THAN_EQUALS",
+              "CONTAINS",
+              "DOES_NOT_CONTAIN",
+              "NULL",
+              "NOT_NULL",
+              "DATE_RANGE",
+              "NUMERIC_RANGE"
+            ],
+            "example": "Some examples are: EQUALS, NOT_EQUALS, GREATER_THAN, GREATER_THAN_EQUALS, etc."
+          },
+          "labelsEnabled": {
+            "type": "boolean",
+            "description": "A true or false describing if labels are enabled.",
+            "example": true
+          },
+          "fieldInputs": {
+            "type": "array",
+            "description": "The Fields that are used by a calculation as input.",
+            "items": {
+              "$ref": "#/components/schemas/Crossflow (Response)"
+            }
+          },
+          "linkDepth": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The number of relationship hops from the source Record that the Linked Records Count calculation counts. Value between 1 and 10."
+          },
+          "object": {
+            "type": "string",
+            "description": "Identifies the type of object this data represents",
+            "example": "field"
+          }
+        },
+        "title": "Field (Response)"
+      },
+      "FieldPropertyApiOut": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID of this Risk Cloud resource",
+            "example": "a1b2c3d4"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the field",
+            "example": "Risk Severity"
+          },
+          "label": {
+            "type": "string",
+            "description": "The label of the field as shown on the record",
+            "example": "Enter the Risk Severity based on your assessment"
+          },
+          "global": {
+            "type": "boolean",
+            "description": "Whether the field is global",
+            "example": false
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Whether the field is required for the current step",
+            "example": false
+          },
+          "tooltip": {
+            "type": "string",
+            "description": "The tooltip information of the field",
+            "example": "Select the Risk Severity"
+          },
+          "helpText": {
+            "type": "string",
+            "description": "The help text of the field to supply necessary context for filling out the field",
+            "example": "Determine the Risk Severity from your assessment"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the field",
+            "enum": [
+              "DATE",
+              "USER",
+              "EXTERNAL_USER",
+              "TEXT",
+              "TEXT_AREA",
+              "NUMBER",
+              "E_SIGNATURE",
+              "CHECKBOX",
+              "MULTI_SELECT",
+              "RADIO",
+              "SELECT",
+              "ATTACHMENT",
+              "CALCULATION",
+              "TEXT_CONCATENATION",
+              "LINKED_RECORDS_COUNT",
+              "DATE_CALCULATION",
+              "OTHER"
+            ],
+            "example": "SELECT",
+            "title": "Field Type"
+          },
+          "valueType": {
+            "type": "string",
+            "description": "The type of the field value",
+            "enum": [
+              "NUMBER",
+              "CALCULATION",
+              "ATTACHMENT",
+              "DATE",
+              "OPTION",
+              "USER",
+              "TEXT",
+              "OTHER"
+            ],
+            "example": "OPTION"
+          },
+          "pattern": {
+            "type": "string",
+            "description": "The regular expression used to validate field input.",
+            "example": "[0-9]{3}-[0-9]{3}-[0-9]{4}$"
+          },
+          "message": {
+            "type": "string",
+            "description": "The text that displays in a Field when no value has been input yet."
+          },
+          "expression": {
+            "type": "string",
+            "description": "The mathematical expression used to calculate a value for a Calculation Field.",
+            "example": "%f + %f"
+          },
+          "nullStrategy": {
+            "type": "string",
+            "description": "The way in which null values are handled for a calculation.",
+            "example": "Available options are: null, 0, 1, N/A, a blank space, and an empty String."
+          },
+          "logicalHandling": {
+            "type": "string",
+            "description": "The comparison operator used to define label range boundaries for a calculation field. Determines whether ranges are created for values greater than or less than the baseline number.",
+            "enum": [
+              "EQUALS",
+              "NOT_EQUALS",
+              "IS",
+              "IS_NOT",
+              "GREATER_THAN",
+              "GREATER_THAN_EQUALS",
+              "LESS_THAN",
+              "LESS_THAN_EQUALS",
+              "CONTAINS",
+              "DOES_NOT_CONTAIN",
+              "NULL",
+              "NOT_NULL",
+              "DATE_RANGE",
+              "NUMERIC_RANGE"
+            ],
+            "example": "Some examples are: EQUALS, NOT_EQUALS, GREATER_THAN, GREATER_THAN_EQUALS, etc."
+          },
+          "labelsEnabled": {
+            "type": "boolean",
+            "description": "A true or false describing if labels are enabled.",
+            "example": true
+          },
+          "linkDepth": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The number of relationship hops from the source Record that the Linked Records Count calculation counts. Value between 1 and 10."
+          },
+          "object": {
+            "type": "string",
+            "description": "Identifies the type of object this data represents",
+            "example": "field"
+          }
+        },
+        "title": "Field (Response)"
+      },
+      "ValuePropertyApiOut": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID of this Risk Cloud resource",
+            "example": "a1b2c3d4"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the value",
+            "enum": [
+              "NUMBER",
+              "CALCULATION",
+              "ATTACHMENT",
+              "DATE",
+              "OPTION",
+              "USER",
+              "TEXT",
+              "OTHER"
+            ],
+            "example": "OPTION"
+          },
+          "textValue": {
+            "type": "string",
+            "description": "The text representation of the record value, with the format varying by value type:\n- `NUMBER`: a string representation of the number, with currency if specified on the field (example: `\"42\"`)\n- `CALCULATION`: a string representation of the label if specified on the field, otherwise the number (example: `\"Highest Risk\"`)\n- `ATTACHMENT`: the name of the attachment file (example: `\"my-evidence.pdf\"`)\n- `DATE`: the date formatted according to the requesting user\u0027s settings (example: `\"1/1/23, 12:00 PM\"`)\n- `OPTION`: the text value of the option (example: `\"Medium Risk\"`)\n- `USER`: the full name and email of the user (example: `\"First Last (first.last@example.com)\"`)\n- `TEXT`: the text value (example: `\"Data Theft\"`)",
+            "example": "Medium Risk"
+          },
+          "numericValue": {
+            "type": "number",
+            "format": "double",
+            "description": "The numeric representation of the record value, with the format varying by value type:\n- `NUMBER`: the numeric value of the number (example: `42.0`)\n- `CALCULATION`: the numeric value of the calculation (example: `42.0`)\n- `ATTACHMENT`: the version count of the attachment (example: `2.0`)\n- `DATE`: the date measured in milliseconds since the Unix epoch (example: `1672552800000.0`)\n- `OPTION`: the numeric value of the option (example: `2.0`)\n- `USER`: a null value (example: `null`)\n- `TEXT`: a null value (example: `null`)",
+            "example": 2.0
+          },
+          "object": {
+            "type": "string",
+            "description": "Identifies the type of object this data represents",
+            "example": "value"
+          }
+        },
+        "title": "Value (Property)"
+      },
+      "ApplicationApiCreateIn": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the application",
+            "example": "Cyber Risk Management Application",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the application",
+            "example": "Cyber Risk Management Description Text"
+          },
+          "color": {
+            "type": "string",
+            "description": "The hex representation of the icon color of the application (defaults to #00a3de)",
+            "example": "#00a3de"
+          },
+          "icon": {
+            "type": "string",
+            "description": "The icon type of the application (defaults to CUBES)",
+            "enum": [
+              "BOOKMARK",
+              "BOLT",
+              "BULLHORN",
+              "CERTIFICATE",
+              "CHECK_SQUARE_O",
+              "CLOUD",
+              "COMMENTS",
+              "CUBES",
+              "DOLLAR",
+              "EXCLAMATION_TRIANGLE",
+              "TEXT_O",
+              "FOLDER",
+              "GIFT",
+              "GLOBE",
+              "HEARTBEAT",
+              "LEAF",
+              "LEGAL",
+              "LIFE_RING",
+              "MEDKIT",
+              "MONEY",
+              "PERCENT",
+              "ROCKET",
+              "SIGNAL",
+              "UNIVERSITY",
+              "USER_CIRCLE"
+            ],
+            "example": "CUBES"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of Risk Cloud application (defaults to NONE)",
+            "enum": [
+              "ACCESS_MANAGEMENT",
+              "AML_KYC",
+              "ASSET_MANAGEMENT",
+              "AUDIT_MANAGEMENT",
+              "BUSINESS_CONTINUITY_PLANNING",
+              "CHANGE_MANAGEMENT",
+              "COMPLAINT_MANAGEMENT",
+              "COMPLIANCE_MANAGEMENT",
+              "CONTRACT_MANAGEMENT",
+              "CONTROLS_COMPLIANCE",
+              "CONTROLS_MANAGEMENT",
+              "CRISIS_MANAGEMENT",
+              "CUSTOM",
+              "CUSTOM_GRC_USE_CASE",
+              "CYBER_RISK_MANAGEMENT",
+              "DATA_PRIVACY_MANAGEMENT",
+              "EMPLOYEE_COMPLIANCE",
+              "ENTERPRISE_RISK_MANAGEMENT",
+              "ESG",
+              "INCIDENT_MANAGEMENT",
+              "INTERNAL_AUDIT_MANAGEMENT",
+              "IT_RISK_MANAGEMENT",
+              "NONE",
+              "OPERATIONAL_RESILIENCY",
+              "OTHER",
+              "POLICY_AND_PROCEDURE_MANAGEMENT",
+              "POLICY_MANAGEMENT",
+              "PRIVACY_MANAGEMENT",
+              "QUANTIFY",
+              "REGULATORY_COMPLIANCE",
+              "REPOSITORY",
+              "RISK_QUANTIFICATION",
+              "SOX_TESTING",
+              "STANDARDS_REGULATIONS",
+              "SURVEY",
+              "THIRD_PARTY_RISK_MANAGEMENT"
+            ],
+            "example": "CONTROLS_COMPLIANCE"
+          },
+          "shortCode": {
+            "type": "string",
+            "description": "Short display code for the application",
+            "example": "TPRM",
+            "pattern": "^(?! +$)[a-zA-Z0-9 ]{1,10}$"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "Application (Create)"
+      },
+      "ApplicationApiOut": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID of this Risk Cloud resource",
+            "example": "a1b2c3d4"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the application",
+            "example": "Cyber Risk Management Application"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the application",
+            "example": "Cyber Risk Management Description Text"
+          },
+          "color": {
+            "type": "string",
+            "description": "The hex representation of the icon color of the application",
+            "example": "#00a3de"
+          },
+          "icon": {
+            "type": "string",
+            "description": "The icon type of the application",
+            "enum": [
+              "BOOKMARK",
+              "BOLT",
+              "BULLHORN",
+              "CERTIFICATE",
+              "CHECK_SQUARE_O",
+              "CLOUD",
+              "COMMENTS",
+              "CUBES",
+              "DOLLAR",
+              "EXCLAMATION_TRIANGLE",
+              "TEXT_O",
+              "FOLDER",
+              "GIFT",
+              "GLOBE",
+              "HEARTBEAT",
+              "LEAF",
+              "LEGAL",
+              "LIFE_RING",
+              "MEDKIT",
+              "MONEY",
+              "PERCENT",
+              "ROCKET",
+              "SIGNAL",
+              "UNIVERSITY",
+              "USER_CIRCLE"
+            ],
+            "example": "CUBES"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of Risk Cloud application",
+            "enum": [
+              "ACCESS_MANAGEMENT",
+              "AML_KYC",
+              "ASSET_MANAGEMENT",
+              "AUDIT_MANAGEMENT",
+              "BUSINESS_CONTINUITY_PLANNING",
+              "CHANGE_MANAGEMENT",
+              "COMPLAINT_MANAGEMENT",
+              "COMPLIANCE_MANAGEMENT",
+              "CONTRACT_MANAGEMENT",
+              "CONTROLS_COMPLIANCE",
+              "CONTROLS_MANAGEMENT",
+              "CRISIS_MANAGEMENT",
+              "CUSTOM",
+              "CUSTOM_GRC_USE_CASE",
+              "CYBER_RISK_MANAGEMENT",
+              "DATA_PRIVACY_MANAGEMENT",
+              "EMPLOYEE_COMPLIANCE",
+              "ENTERPRISE_RISK_MANAGEMENT",
+              "ESG",
+              "INCIDENT_MANAGEMENT",
+              "INTERNAL_AUDIT_MANAGEMENT",
+              "IT_RISK_MANAGEMENT",
+              "NONE",
+              "OPERATIONAL_RESILIENCY",
+              "OTHER",
+              "POLICY_AND_PROCEDURE_MANAGEMENT",
+              "POLICY_MANAGEMENT",
+              "PRIVACY_MANAGEMENT",
+              "QUANTIFY",
+              "REGULATORY_COMPLIANCE",
+              "REPOSITORY",
+              "RISK_QUANTIFICATION",
+              "SOX_TESTING",
+              "STANDARDS_REGULATIONS",
+              "SURVEY",
+              "THIRD_PARTY_RISK_MANAGEMENT"
+            ],
+            "example": "CONTROLS_COMPLIANCE"
+          },
+          "live": {
+            "type": "boolean",
+            "description": "Whether the application is live",
+            "example": false
+          },
+          "restrictBuildAccess": {
+            "type": "boolean",
+            "description": "Whether users with the Build entitlement must be explicitly granted permission to edit this application",
+            "example": false
+          },
+          "shortCode": {
+            "type": "string",
+            "description": "Short display code for the application",
+            "example": "TPRM"
+          },
+          "object": {
+            "type": "string",
+            "description": "Identifies the type of object this data represents",
+            "example": "application"
+          }
+        },
+        "title": "Application (Response)"
+      },
+      "ApiTokenRefreshedOut": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "description": "An API access token to be used within the bearer authorization header of subsequent Risk Cloud API requests"
+          },
+          "refresh_token": {
+            "type": "string",
+            "description": "A rotated refresh token. The previously-presented refresh token is invalidated; this new refresh token must be stored by the caller for the next refresh cycle."
+          },
+          "token_type": {
+            "type": "string",
+            "description": "The token type, expected to be \"bearer\" for the Risk Cloud API"
+          },
+          "expires_in": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The remaining time in seconds until the token expires"
+          },
+          "scope": {
+            "type": "string",
+            "description": "The privilege scope of the token, expected to be \"read write\" for the Risk Cloud API"
+          }
+        },
+        "title": "Refreshed Api Token"
+      },
+      "RefreshTokenIn": {
+        "type": "object",
+        "description": "Refresh-token-bearing request to issue a fresh access token.",
+        "properties": {
+          "refresh_token": {
+            "type": "string",
+            "description": "The refresh token plaintext returned at token creation time.",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "refresh_token"
+        ],
+        "title": "Refresh Token Request"
+      },
+      "LegacyApiTokenOut": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "description": "An API access token to be used within the bearer authorization header of subsequent Risk Cloud API requests"
+          },
+          "token_type": {
+            "type": "string",
+            "description": "The token type, expected to be \"bearer\" for the Risk Cloud API"
+          },
+          "expires_in": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The remaining time in seconds until the token expires"
+          },
+          "scope": {
+            "type": "string",
+            "description": "The privilege scope of the token, expected to be \"read write\" for the Risk Cloud API"
+          }
+        },
+        "title": "Api Token"
+      },
+      "WorkflowApiUpdateIn": {
+        "type": "object",
+        "description": "Workflow (Update)",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the workflow",
+            "example": "Risk Assessments"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the workflow",
+            "example": "Risk Assessment Description Text"
+          },
+          "recordPrefix": {
+            "type": "string",
+            "description": "The prefix to be used in the name of every record created from this workflow",
+            "example": "Assessment"
+          },
+          "xpos": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The x-coordinate of the workflow in the application builder (must not be less than 0)",
+            "example": 20,
+            "minimum": 0
+          },
+          "ypos": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The y-coordinate of the workflow in the application builder (must not be less than 0)",
+            "example": 20,
+            "minimum": 0
+          }
+        },
+        "title": "Workflow (Update)"
+      },
+      "WorkflowMapApiUpdateIn": {
+        "type": "object",
+        "description": "Workflow (Update)",
+        "properties": {
+          "relationship": {
+            "type": "string",
+            "description": "The type of the relationship between workflows",
+            "enum": [
+              "OneToOne",
+              "OneToMany",
+              "ManyToOne",
+              "ManyToMany"
+            ],
+            "example": "ONE_TO_MANY"
+          }
+        },
+        "required": [
+          "relationship"
+        ],
+        "title": "Workflow Map (Update)"
+      },
+      "StepApiUpdateIn": {
+        "type": "object",
+        "description": "Step (Update)",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the step",
+            "example": "Identify Risk"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the step",
+            "example": "This is a description of the step"
+          },
+          "xpos": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The x-coordinate of the step in the application builder (must not be less than 0)",
+            "example": 20
+          },
+          "ypos": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The y-coordinate of the step in the application builder (must not be less than 0)",
+            "example": 20
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the step (for END steps, this property cannot be updated since there would be no outgoing default next paths)",
+            "enum": [
+              "ORIGIN",
+              "CHAIN",
+              "END"
+            ],
+            "example": "ORIGIN"
+          },
+          "enableComments": {
+            "type": "boolean",
+            "description": "Whether comments are displayed on a step",
+            "example": false
+          },
+          "assignableUserType": {
+            "type": "string",
+            "description": "Indicates which users are allowed to be assigned this step on a record",
+            "enum": [
+              "APP_AND_EXTERNAL_USERS",
+              "APP_USERS",
+              "EXTERNAL_USERS"
+            ],
+            "example": "APP_USERS"
+          },
+          "externalUserMfaRequired": {
+            "type": "boolean",
+            "description": "Whether MFA is required for external users to access this step.",
+            "example": false
+          },
+          "autofillEnabled": {
+            "type": "boolean",
+            "description": "Whether or not to enable autofill on the step.",
+            "example": false
+          }
+        },
+        "title": "Step (Update)"
+      },
+      "StepPositionUpdateIn": {
+        "type": "object",
+        "description": "Step (Update)",
+        "properties": {
+          "xpos": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The x-coordinate of the step in the application builder (must not be less than 0)",
+            "example": 20
+          },
+          "ypos": {
+            "type": "integer",
+            "format": "int32",
+            "description": "The y-coordinate of the step in the application builder (must not be less than 0)",
+            "example": 20
+          }
+        },
+        "required": [
+          "xpos",
+          "ypos"
+        ],
+        "title": "Step Position (Update)"
+      },
+      "PathApiUpdateIn": {
+        "type": "object",
+        "description": "Default next path (Update).",
+        "properties": {
+          "allowInternal": {
+            "type": "boolean",
+            "description": "Whether a step\u0027s current assignee may assign this record to any user with access to the target step on submission.",
+            "example": false
+          },
+          "allowExternal": {
+            "type": "boolean",
+            "description": "Whether a step\u0027s current assignee may assign this record to external email addresses on submission.",
+            "example": false
+          },
+          "allowCurrentAssignee": {
+            "type": "boolean",
+            "description": "Allow a step\u0027s current assignee to submit without assigning",
+            "example": false
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the path.",
+            "example": "This describes the path."
+          },
+          "requireAssignee": {
+            "type": "boolean",
+            "description": "Require an assignee to be chosen",
+            "example": false
+          }
+        }
+      },
+      "EdgePathApiUpdateIn": {
+        "type": "object",
+        "description": "Conditional edge path (Update).",
+        "properties": {
+          "allowInternal": {
+            "type": "boolean",
+            "description": "Whether a step\u0027s current assignee may assign this record to any user with access to the target step on submission.",
+            "example": false
+          },
+          "allowExternal": {
+            "type": "boolean",
+            "description": "Whether a step\u0027s current assignee may assign this record to external email addresses on submission.",
+            "example": false
+          },
+          "allowCurrentAssignee": {
+            "type": "boolean",
+            "description": "Allow a step\u0027s current assignee to submit without assigning",
+            "example": false
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the path.",
+            "example": "This describes the path."
+          },
+          "requireAssignee": {
+            "type": "boolean",
+            "description": "Require an assignee to be chosen",
+            "example": false
+          },
+          "operator": {
+            "type": "string",
+            "description": "Type of operator for an edge path.",
+            "enum": [
+              "EQUALS",
+              "NOT_EQUALS",
+              "IS",
+              "IS_NOT",
+              "GREATER_THAN",
+              "GREATER_THAN_EQUALS",
+              "LESS_THAN",
+              "LESS_THAN_EQUALS",
+              "CONTAINS",
+              "DOES_NOT_CONTAIN",
+              "NULL",
+              "NOT_NULL",
+              "DATE_RANGE",
+              "NUMERIC_RANGE"
+            ],
+            "example": "EQUALS"
+          },
+          "priority": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Determines which edge path should be invoked first. Priority is in descending order with 0 being the first edge.",
+            "example": 0
+          }
+        },
+        "title": "Conditional edge path (Update)."
+      },
+      "ApplicationApiUpdateIn": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the application",
+            "example": "Cyber Risk Management Application"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the application",
+            "example": "Cyber Risk Management Description Text"
+          },
+          "color": {
+            "type": "string",
+            "description": "The hex representation of the icon color of the application",
+            "example": "#00a3de"
+          },
+          "icon": {
+            "type": "string",
+            "description": "The icon type of the application",
+            "enum": [
+              "BOOKMARK",
+              "BOLT",
+              "BULLHORN",
+              "CERTIFICATE",
+              "CHECK_SQUARE_O",
+              "CLOUD",
+              "COMMENTS",
+              "CUBES",
+              "DOLLAR",
+              "EXCLAMATION_TRIANGLE",
+              "TEXT_O",
+              "FOLDER",
+              "GIFT",
+              "GLOBE",
+              "HEARTBEAT",
+              "LEAF",
+              "LEGAL",
+              "LIFE_RING",
+              "MEDKIT",
+              "MONEY",
+              "PERCENT",
+              "ROCKET",
+              "SIGNAL",
+              "UNIVERSITY",
+              "USER_CIRCLE"
+            ],
+            "example": "CUBES"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of Risk Cloud application",
+            "enum": [
+              "ACCESS_MANAGEMENT",
+              "AML_KYC",
+              "ASSET_MANAGEMENT",
+              "AUDIT_MANAGEMENT",
+              "BUSINESS_CONTINUITY_PLANNING",
+              "CHANGE_MANAGEMENT",
+              "COMPLAINT_MANAGEMENT",
+              "COMPLIANCE_MANAGEMENT",
+              "CONTRACT_MANAGEMENT",
+              "CONTROLS_COMPLIANCE",
+              "CONTROLS_MANAGEMENT",
+              "CRISIS_MANAGEMENT",
+              "CUSTOM",
+              "CUSTOM_GRC_USE_CASE",
+              "CYBER_RISK_MANAGEMENT",
+              "DATA_PRIVACY_MANAGEMENT",
+              "EMPLOYEE_COMPLIANCE",
+              "ENTERPRISE_RISK_MANAGEMENT",
+              "ESG",
+              "INCIDENT_MANAGEMENT",
+              "INTERNAL_AUDIT_MANAGEMENT",
+              "IT_RISK_MANAGEMENT",
+              "NONE",
+              "OPERATIONAL_RESILIENCY",
+              "OTHER",
+              "POLICY_AND_PROCEDURE_MANAGEMENT",
+              "POLICY_MANAGEMENT",
+              "PRIVACY_MANAGEMENT",
+              "QUANTIFY",
+              "REGULATORY_COMPLIANCE",
+              "REPOSITORY",
+              "RISK_QUANTIFICATION",
+              "SOX_TESTING",
+              "STANDARDS_REGULATIONS",
+              "SURVEY",
+              "THIRD_PARTY_RISK_MANAGEMENT"
+            ],
+            "example": "CONTROLS_COMPLIANCE"
+          },
+          "live": {
+            "type": "boolean",
+            "description": "Whether the application is live",
+            "example": false
+          },
+          "restrictBuildAccess": {
+            "type": "boolean",
+            "description": "Whether users with the Build entitlement must be explicitly granted permission to edit this application",
+            "example": false
+          },
+          "shortCode": {
+            "type": "string",
+            "description": "Short display code for the application",
+            "example": "TPRM",
+            "pattern": "^(?! +$)[a-zA-Z0-9 ]{1,10}$"
+          }
+        },
+        "title": "Application (Update)"
+      },
+      "PageInfoOut": {
+        "type": "object",
+        "properties": {
+          "size": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)",
+            "example": 20
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The total number of items available",
+            "example": 50
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The total number of pages available based on the size",
+            "example": 3
+          },
+          "number": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The zero-indexed page number (must not be less than 0, defaults to 0)",
+            "example": 0
+          }
+        },
+        "title": "Page Info"
+      },
+      "PageLinksOut": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "string",
+            "description": "A URL path to the first page of requested data",
+            "example": "/api/v2/resource?page\u003d0\u0026size\u003d20"
+          },
+          "prev": {
+            "type": "string",
+            "description": "A URL path to the next page of requested data or `null` if currently on first page",
+            "example": "/api/v2/resource?page\u003d2\u0026size\u003d20"
+          },
+          "self": {
+            "type": "string",
+            "description": "A URL path to the current page of requested data",
+            "example": "/api/v2/resource?page\u003d3\u0026size\u003d20"
+          },
+          "next": {
+            "type": "string",
+            "description": "A URL link to the next page of requested data or `null` if currently on last page",
+            "example": "/api/v2/resource?page\u003d4\u0026size\u003d20"
+          },
+          "last": {
+            "type": "string",
+            "description": "A URL link to the last page of requested data",
+            "example": "/api/v2/resource?page\u003d6\u0026size\u003d20"
+          }
+        },
+        "title": "Page Links"
+      },
+      "PageModelOutWorkflowApiOut": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "description": "A array of returned items",
+            "items": {
+              "$ref": "#/components/schemas/WorkflowApiOut"
+            }
+          },
+          "links": {
+            "$ref": "#/components/schemas/PageLinksOut",
+            "description": "A collection of page URL links for navigation and iteration"
+          },
+          "page": {
+            "$ref": "#/components/schemas/PageInfoOut",
+            "description": "A collection page metadata"
+          }
+        },
+        "title": "Page (Response)"
+      },
+      "PageModelOutWorkflowMapApiOut": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "description": "A array of returned items",
+            "items": {
+              "$ref": "#/components/schemas/WorkflowMapApiOut"
+            }
+          },
+          "links": {
+            "$ref": "#/components/schemas/PageLinksOut",
+            "description": "A collection of page URL links for navigation and iteration"
+          },
+          "page": {
+            "$ref": "#/components/schemas/PageInfoOut",
+            "description": "A collection page metadata"
+          }
+        },
+        "title": "Page (Response)"
+      },
+      "PageModelOutStepApiOut": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "description": "A array of returned items",
+            "items": {
+              "$ref": "#/components/schemas/StepApiOut"
+            }
+          },
+          "links": {
+            "$ref": "#/components/schemas/PageLinksOut",
+            "description": "A collection of page URL links for navigation and iteration"
+          },
+          "page": {
+            "$ref": "#/components/schemas/PageInfoOut",
+            "description": "A collection page metadata"
+          }
+        },
+        "title": "Page (Response)"
+      },
+      "FieldRecordApiOut": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID of this Risk Cloud resource",
+            "example": "a1b2c3d4"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the field",
+            "example": "Risk Severity"
+          },
+          "label": {
+            "type": "string",
+            "description": "The label of the field as shown on the record",
+            "example": "Enter the Risk Severity based on your assessment"
+          },
+          "global": {
+            "type": "boolean",
+            "description": "Whether the field is global",
+            "example": false
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the field",
+            "enum": [
+              "DATE",
+              "USER",
+              "EXTERNAL_USER",
+              "TEXT",
+              "TEXT_AREA",
+              "NUMBER",
+              "E_SIGNATURE",
+              "CHECKBOX",
+              "MULTI_SELECT",
+              "RADIO",
+              "SELECT",
+              "ATTACHMENT",
+              "CALCULATION",
+              "TEXT_CONCATENATION",
+              "LINKED_RECORDS_COUNT",
+              "DATE_CALCULATION",
+              "OTHER"
+            ],
+            "example": "SELECT",
+            "title": "Field Type"
+          },
+          "valueType": {
+            "type": "string",
+            "description": "The type of the field value",
+            "enum": [
+              "NUMBER",
+              "CALCULATION",
+              "ATTACHMENT",
+              "DATE",
+              "OPTION",
+              "USER",
+              "TEXT",
+              "OTHER"
+            ],
+            "example": "OPTION"
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Whether the field is required for the current step",
+            "example": false
+          },
+          "values": {
+            "type": "array",
+            "description": "The values of the record field",
+            "items": {
+              "$ref": "#/components/schemas/ValuePropertyApiOut"
+            }
+          },
+          "object": {
+            "type": "string",
+            "description": "Identifies the type of object this data represents",
+            "example": "field"
+          }
+        },
+        "title": "Field (Record)"
+      },
+      "PageModelOutRecordApiOut": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "description": "A array of returned items",
+            "items": {
+              "$ref": "#/components/schemas/RecordApiOut"
+            }
+          },
+          "links": {
+            "$ref": "#/components/schemas/PageLinksOut",
+            "description": "A collection of page URL links for navigation and iteration"
+          },
+          "page": {
+            "$ref": "#/components/schemas/PageInfoOut",
+            "description": "A collection page metadata"
+          }
+        },
+        "title": "Page (Response)"
+      },
+      "RecordApiOut": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID of this Risk Cloud resource",
+            "example": "a1b2c3d4"
+          },
+          "recordName": {
+            "type": "string",
+            "description": "The workflow prefix and sequence number of the record",
+            "example": "Assessment-7"
+          },
+          "name": {
+            "type": "string",
+            "description": "The text value of the primary field of the record, otherwise the workflow prefix and sequence number of the record",
+            "example": "Medium Risk"
+          },
+          "status": {
+            "type": "string",
+            "description": "The status of the record",
+            "enum": [
+              "INACTIVE",
+              "NOT_ASSIGNED",
+              "ASSIGNED",
+              "IN_PROGRESS",
+              "COMPLETE"
+            ],
+            "example": "IN_PROGRESS"
+          },
+          "sequenceNumber": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The sequence number of the record",
+            "example": 7
+          },
+          "dates": {
+            "$ref": "#/components/schemas/RecordDatesApiOut",
+            "description": "Date information associated with the record"
+          },
+          "assignee": {
+            "$ref": "#/components/schemas/UserPropertyApiOut",
+            "description": "The current assignee of the record"
+          },
+          "creator": {
+            "$ref": "#/components/schemas/UserPropertyApiOut",
+            "description": "The creator of the record"
+          },
+          "application": {
+            "$ref": "#/components/schemas/ApplicationPropertyApiOut",
+            "description": "The parent application of the record"
+          },
+          "workflow": {
+            "$ref": "#/components/schemas/WorkflowPropertyApiOut",
+            "description": "The parent workflow of the record"
+          },
+          "currentStep": {
+            "$ref": "#/components/schemas/StepPropertyApiOut",
+            "description": "The current step of the record"
+          },
+          "originStep": {
+            "$ref": "#/components/schemas/StepPropertyApiOut",
+            "description": "The origin step of the record"
+          },
+          "fields": {
+            "type": "array",
+            "description": "The fields and values of the record",
+            "items": {
+              "$ref": "#/components/schemas/FieldRecordApiOut"
+            }
+          },
+          "object": {
+            "type": "string",
+            "description": "Identifies the type of object this data represents",
+            "example": "application"
+          }
+        },
+        "title": "Record (Response)"
+      },
+      "RecordDatesApiOut": {
+        "type": "object",
+        "properties": {
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The moment this Risk Cloud resource was created measured in milliseconds since the Unix epoch.",
+            "example": 1672552800000
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The due date of this record and step SLA measured in milliseconds since the Unix epoch",
+            "example": 1672552800000
+          },
+          "recordDueDate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The due date of this record measured in milliseconds since the Unix epoch",
+            "example": 1672552800000
+          },
+          "daysUntilDue": {
+            "type": "integer",
+            "format": "int64",
+            "description": "The number of days until this record is due",
+            "example": 3
+          },
+          "updated": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The moment this Risk Cloud resource was last updated measured in milliseconds since the Unix epoch.",
+            "example": 1672552800000
+          },
+          "completed": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The moment this record was completed if the record is currently in an end step measured in milliseconds since the Unix epoch",
+            "example": 1672552800000
+          },
+          "lastCompleted": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The moment this record was last completed regardless of if the record has transitioned from an end step measured in milliseconds since the Unix epoch",
+            "example": 1672552800000
+          }
+        },
+        "title": "Record Dates"
+      },
+      "StepPropertyApiOut": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID of this Risk Cloud resource",
+            "example": "a1b2c3d4"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the step",
+            "example": "Identify Risk"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the step",
+            "enum": [
+              "ORIGIN",
+              "CHAIN",
+              "END"
+            ],
+            "example": "ORIGIN"
+          },
+          "object": {
+            "type": "string",
+            "description": "Identifies the type of object this data represents",
+            "example": "step"
+          }
+        },
+        "title": "Step (Property)"
+      },
+      "UserPropertyApiOut": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID of this Risk Cloud resource",
+            "example": "a1b2c3d4"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the user",
+            "example": "Jane Doe"
+          },
+          "email": {
+            "type": "string",
+            "description": "The email of the user",
+            "example": "jane.doe@example.com"
+          },
+          "object": {
+            "type": "string",
+            "description": "Identifies the type of object this data represents",
+            "example": "user"
+          }
+        },
+        "title": "User (Property)"
+      },
+      "PageModelOutRedirectPathApiOut": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "description": "A array of returned items",
+            "items": {
+              "$ref": "#/components/schemas/RedirectPathApiOut"
+            }
+          },
+          "links": {
+            "$ref": "#/components/schemas/PageLinksOut",
+            "description": "A collection of page URL links for navigation and iteration"
+          },
+          "page": {
+            "$ref": "#/components/schemas/PageInfoOut",
+            "description": "A collection page metadata"
+          }
+        },
+        "title": "Page (Response)"
+      },
+      "PageModelOutNextPathApiOut": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "description": "A array of returned items",
+            "items": {
+              "$ref": "#/components/schemas/NextPathApiOut"
+            }
+          },
+          "links": {
+            "$ref": "#/components/schemas/PageLinksOut",
+            "description": "A collection of page URL links for navigation and iteration"
+          },
+          "page": {
+            "$ref": "#/components/schemas/PageInfoOut",
+            "description": "A collection page metadata"
+          }
+        },
+        "title": "Page (Response)"
+      },
+      "PageModelOutEdgePathApiOut": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "description": "A array of returned items",
+            "items": {
+              "$ref": "#/components/schemas/EdgePathApiOut"
+            }
+          },
+          "links": {
+            "$ref": "#/components/schemas/PageLinksOut",
+            "description": "A collection of page URL links for navigation and iteration"
+          },
+          "page": {
+            "$ref": "#/components/schemas/PageInfoOut",
+            "description": "A collection page metadata"
+          }
+        },
+        "title": "Page (Response)"
+      },
+      "PageModelOutFieldApiOut": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "description": "A array of returned items",
+            "items": {
+              "$ref": "#/components/schemas/FieldApiOut"
+            }
+          },
+          "links": {
+            "$ref": "#/components/schemas/PageLinksOut",
+            "description": "A collection of page URL links for navigation and iteration"
+          },
+          "page": {
+            "$ref": "#/components/schemas/PageInfoOut",
+            "description": "A collection page metadata"
+          }
+        },
+        "title": "Page (Response)"
+      },
+      "AccessAuditApiOut": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique ID of this Risk Cloud resource",
+            "example": "a1b2c3d4"
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of access event that was logged, such as LOGIN, LOGOUT, or LOGIN_FAILED.",
+            "enum": [
+              "LOGIN",
+              "LOGOUT",
+              "LOGIN_FAILED",
+              "CREDENTIALS_ROLLED",
+              "TOKEN_ROLLED",
+              "OTHER"
+            ],
+            "example": "LOGIN",
+            "title": "Access Audit Type"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserPropertyApiOut",
+            "description": "The user associated with the access event, including their ID, name, and email address."
+          },
+          "remoteAddress": {
+            "type": "string",
+            "description": "The remote address or host from which the user attempted to access the system.",
+            "example": "192.168.1.1"
+          },
+          "details": {
+            "type": "string",
+            "description": "Additional context or information about the access event.",
+            "example": "Login succeeded"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The created timestamp of the audit measured in milliseconds since the Unix epoch",
+            "example": 1672552800000
+          },
+          "object": {
+            "type": "string",
+            "description": "Identifies the type of object this data represents",
+            "example": "access_audit"
+          }
+        },
+        "title": "Access Audit"
+      },
+      "PageModelOutAccessAuditApiOut": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "description": "A array of returned items",
+            "items": {
+              "$ref": "#/components/schemas/AccessAuditApiOut"
+            }
+          },
+          "links": {
+            "$ref": "#/components/schemas/PageLinksOut",
+            "description": "A collection of page URL links for navigation and iteration"
+          },
+          "page": {
+            "$ref": "#/components/schemas/PageInfoOut",
+            "description": "A collection page metadata"
+          }
+        },
+        "title": "Page (Response)"
+      },
+      "PageModelOutApplicationApiOut": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "description": "A array of returned items",
+            "items": {
+              "$ref": "#/components/schemas/ApplicationApiOut"
+            }
+          },
+          "links": {
+            "$ref": "#/components/schemas/PageLinksOut",
+            "description": "A collection of page URL links for navigation and iteration"
+          },
+          "page": {
+            "$ref": "#/components/schemas/PageInfoOut",
+            "description": "A collection page metadata"
+          }
+        },
+        "title": "Page (Response)"
+      }
+    },
+    "securitySchemes": {
+      "API Token": {
+        "type": "http",
+        "name": "Authorization",
+        "in": "header",
+        "scheme": "bearer",
+        "bearerFormat": "API Token"
+      },
+      "basic": {
+        "type": "http",
+        "name": "Authorization",
+        "in": "header",
+        "scheme": "basic",
+        "bearerFormat": "basic"
+      }
+    }
+  }
+}
