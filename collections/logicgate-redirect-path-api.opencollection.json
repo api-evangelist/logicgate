@@ -1,0 +1,167 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Risk Cloud Access Audit Redirect Path API",
+    "version": "v2026.7.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Redirect Path",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all redirect paths",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{env}.logicgate.com/api/v2/paths/redirect",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "params": [
+              {
+                "name": "step",
+                "value": "",
+                "type": "query",
+                "description": "Providing a step ID returns paths only to or from the identified step."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Results page you want to retrieve (0..N)"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+              }
+            ]
+          },
+          "docs": "Get a list of all redirect paths in the environment that are entitled to the current user. Build user privileges are required."
+        },
+        {
+          "info": {
+            "name": "Create a redirect path",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{env}.logicgate.com/api/v2/paths/redirect",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**Permissions:** [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nCreate a redirect path from a JSON request body."
+        },
+        {
+          "info": {
+            "name": "Retrieve a redirect path",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{env}.logicgate.com/api/v2/paths/redirect/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the redirect path."
+              }
+            ]
+          },
+          "docs": "Find a path by ID. Build user privileges are required."
+        },
+        {
+          "info": {
+            "name": "Update a redirect path",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{env}.logicgate.com/api/v2/paths/redirect/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the redirect path."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "User must be entitled to the path in question, meaning they must have build access and be entitled both the source and target steps."
+        },
+        {
+          "info": {
+            "name": "Delete a redirect path",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{env}.logicgate.com/api/v2/paths/redirect/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the redirect path."
+              }
+            ]
+          },
+          "docs": "Build user privileges are required."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

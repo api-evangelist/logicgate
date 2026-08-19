@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Risk Cloud Access Audit Field API",
+    "version": "v2026.7.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Field",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{env}.logicgate.com/api/v2/fields",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "params": [
+              {
+                "name": "application-id",
+                "value": "a1b2c3d4",
+                "type": "query",
+                "description": "The unique ID of an application where, if provided, the response will only contain fields from the identified application"
+              },
+              {
+                "name": "workflow-id",
+                "value": "a1b2c3d4",
+                "type": "query",
+                "description": "The unique ID of a workflow where, if provided, the response will only contain fields from the identified workflow"
+              },
+              {
+                "name": "step-id",
+                "value": "a1b2c3d4",
+                "type": "query",
+                "description": "The unique ID of a step where, if provided, the response will only contain fields from the identified step"
+              },
+              {
+                "name": "field-type",
+                "value": "SELECT",
+                "type": "query",
+                "description": "A field type where, if provided, the response will only contain fields of the identified field type"
+              },
+              {
+                "name": "scope",
+                "value": "GLOBAL",
+                "type": "query",
+                "description": "A scope where, if provided, the response will only contain fields that have either global or workflow scopes (defaults to ALL)"
+              },
+              {
+                "name": "page",
+                "value": "0",
+                "type": "query",
+                "description": "The zero-indexed page number (must not be less than 0, defaults to 0)"
+              },
+              {
+                "name": "size",
+                "value": "20",
+                "type": "query",
+                "description": "The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)"
+              }
+            ]
+          },
+          "docs": "**Permissions:** [Build Access](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nRetrieve a page of all fields whose parent application the current user has [Build Access](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications) to."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

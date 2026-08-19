@@ -1,0 +1,72 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Risk Cloud Access Audit Authentication API",
+    "version": "v2026.7.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Refresh an API token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{env}.logicgate.com/api/v2/account/token",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Basic {ENCODED}"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Issue a fresh access token and rotated refresh token for a previously-created named API token. The presented refresh token is invalidated."
+        },
+        {
+          "info": {
+            "name": "Create an API Access Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{env}.logicgate.com/api/v1/account/token",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Basic {ENCODED}"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**Permissions:** Authenticated User\n\nGenerates a new, expiring access token from the provided Client and Secret keys."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

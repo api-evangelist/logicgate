@@ -1,0 +1,161 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Risk Cloud Access Audit Workflow Map API",
+    "version": "v2026.7.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workflow Map",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve workflow maps",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{env}.logicgate.com/api/v2/workflow-maps",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "params": [
+              {
+                "name": "workflow-id",
+                "value": "a1b2c3d4",
+                "type": "query",
+                "description": "The unique ID of a workflow where, if provided, the response will only contain workflow maps from the identified workflow"
+              },
+              {
+                "name": "page",
+                "value": "0",
+                "type": "query",
+                "description": "The zero-indexed page number (must not be less than 0, defaults to 0)"
+              },
+              {
+                "name": "size",
+                "value": "20",
+                "type": "query",
+                "description": "The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)"
+              }
+            ]
+          },
+          "docs": "**Permissions:** [Build Access](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nRetrieve a page of all workflow maps that the current user has [Build Access to a parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications) to."
+        },
+        {
+          "info": {
+            "name": "Create a workflow map",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{env}.logicgate.com/api/v2/workflow-maps",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**Permissions:** [Build Access to parent applications](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nCreate a workflow map from a JSON request body."
+        },
+        {
+          "info": {
+            "name": "Retrieve a workflow map",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{env}.logicgate.com/api/v2/workflow-maps/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the workflow map"
+              }
+            ]
+          },
+          "docs": "**Permissions:** [Build Access to a parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nRetrieve a workflow map specified by the ID in the URL path."
+        },
+        {
+          "info": {
+            "name": "Update a workflow map",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{env}.logicgate.com/api/v2/workflow-maps/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the workflow map"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**Permissions:** [Build Access to a parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nUpdate a workflow map specified by the ID in the URL path from a JSON request body. Only present properties with non-empty values are updated."
+        },
+        {
+          "info": {
+            "name": "Delete a workflow map",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{env}.logicgate.com/api/v2/workflow-maps/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the workflow map"
+              }
+            ]
+          },
+          "docs": "**Permissions:** [Build Access to a parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nDelete a workflow map specified by the ID in the URL path."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,155 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Risk Cloud Access Audit Application API",
+    "version": "v2026.7.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Application",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{env}.logicgate.com/api/v2/applications",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "params": [
+              {
+                "name": "page",
+                "value": "0",
+                "type": "query",
+                "description": "The zero-indexed page number (must not be less than 0, defaults to 0)"
+              },
+              {
+                "name": "size",
+                "value": "20",
+                "type": "query",
+                "description": "The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)"
+              }
+            ]
+          },
+          "docs": "**Permissions:** [Build Access](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nRetrieve a page of all applications that the current user has [Build Access](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications) to."
+        },
+        {
+          "info": {
+            "name": "Create an application",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{env}.logicgate.com/api/v2/applications",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**Permissions:** [Build Access](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nCreate an application from a JSON request body."
+        },
+        {
+          "info": {
+            "name": "Retrieve an application",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{env}.logicgate.com/api/v2/applications/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the application"
+              }
+            ]
+          },
+          "docs": "**Permissions:** [Build Access to application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nRetrieve an application specified by the ID in the URL path."
+        },
+        {
+          "info": {
+            "name": "Update an application",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{env}.logicgate.com/api/v2/applications/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the application"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**Permissions:** [Build Access to application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nUpdate an application specified by the ID in the URL path from a JSON request body. Only present properties with non-empty values are updated."
+        },
+        {
+          "info": {
+            "name": "Delete an application",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{env}.logicgate.com/api/v2/applications/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the application"
+              }
+            ]
+          },
+          "docs": "**Permissions:** [Build Access to application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nDelete an application specified by the ID in the URL path."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

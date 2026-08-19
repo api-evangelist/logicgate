@@ -1,0 +1,522 @@
+{
+  "item": [
+    {
+      "id": "839eec1d-e987-41d2-b262-f2030961fbea",
+      "name": "Record",
+      "description": {
+        "content": "A [Record](https://help.logicgate.com/hc/en-us/articles/4402683104020-Complete-a-Record) is a form that can capture information, store cataloged data, and link to other Records as it moves through each Step of a Workflow",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "026b465d-5cc8-4340-b1fa-c34bc694b400",
+          "name": "Retrieve records",
+          "request": {
+            "name": "Retrieve records",
+            "description": {
+              "content": "**Permissions:** Authenticated User\n\nRetrieve a page of all records that the current user has [Read or Write access](https://help.logicgate.com/hc/en-us/articles/4402683227156-Permission-Sets-) to.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "records"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "application-id",
+                  "value": "",
+                  "description": "The unique ID of an application where, if provided, the response will only contain records from the identified application"
+                },
+                {
+                  "disabled": false,
+                  "key": "workflow-id",
+                  "value": "",
+                  "description": "The unique ID of a workflow where, if provided, the response will only contain records from the identified workflow"
+                },
+                {
+                  "disabled": false,
+                  "key": "step-id",
+                  "value": "",
+                  "description": "The unique ID of a step where, if provided, the response will only contain records on the identified step"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated-min",
+                  "value": "<long>",
+                  "description": "A timestamp measured in milliseconds since the Unix epoch where, if provided, the response will only contain records that have been modified since the given timestamp"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The zero-indexed page number (must not be less than 0, defaults to 0)"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)"
+                }
+              ],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{env}}",
+                  "key": "env"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d5042d5c-b2f3-475d-8519-224fe9fb8386",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "records"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "application-id",
+                      "value": "a1b2c3d4"
+                    },
+                    {
+                      "key": "workflow-id",
+                      "value": "a1b2c3d4"
+                    },
+                    {
+                      "key": "step-id",
+                      "value": "a1b2c3d4"
+                    },
+                    {
+                      "key": "updated-min",
+                      "value": "1672552800000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"id\": \"a1b2c3d4\",\n      \"recordName\": \"Assessment-7\",\n      \"name\": \"Medium Risk\",\n      \"status\": \"IN_PROGRESS\",\n      \"sequenceNumber\": 7,\n      \"dates\": {\n        \"created\": \"1955-04-01T18:41:46.399Z\",\n        \"dueDate\": \"1964-11-29T07:29:40.857Z\",\n        \"recordDueDate\": \"2008-06-20T12:44:13.864Z\",\n        \"daysUntilDue\": 3,\n        \"updated\": \"2006-07-04T11:35:53.009Z\",\n        \"completed\": \"1950-08-24T15:33:23.873Z\",\n        \"lastCompleted\": \"1994-09-13T18:34:34.326Z\"\n      },\n      \"assignee\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Jane Doe\",\n        \"email\": \"jane.doe@example.com\",\n        \"object\": \"user\"\n      },\n      \"creator\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Jane Doe\",\n        \"email\": \"jane.doe@example.com\",\n        \"object\": \"user\"\n      },\n      \"application\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Cyber Risk Management Application\",\n        \"type\": \"CONTROLS_COMPLIANCE\",\n        \"object\": \"application\"\n      },\n      \"workflow\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Risk Assessments\",\n        \"recordPrefix\": \"Assessment\",\n        \"object\": \"workflow\"\n      },\n      \"currentStep\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Identify Risk\",\n        \"type\": \"ORIGIN\",\n        \"object\": \"step\"\n      },\n      \"originStep\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Identify Risk\",\n        \"type\": \"ORIGIN\",\n        \"object\": \"step\"\n      },\n      \"fields\": [\n        {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Severity\",\n          \"label\": \"Enter the Risk Severity based on your assessment\",\n          \"global\": false,\n          \"type\": \"SELECT\",\n          \"valueType\": \"OPTION\",\n          \"required\": false,\n          \"values\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"textValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"numericValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"object\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"textValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"numericValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"object\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"object\": \"field\"\n        },\n        {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Severity\",\n          \"label\": \"Enter the Risk Severity based on your assessment\",\n          \"global\": false,\n          \"type\": \"SELECT\",\n          \"valueType\": \"OPTION\",\n          \"required\": false,\n          \"values\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"textValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"numericValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"object\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"textValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"numericValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"object\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"object\": \"field\"\n        }\n      ],\n      \"object\": \"application\"\n    },\n    {\n      \"id\": \"a1b2c3d4\",\n      \"recordName\": \"Assessment-7\",\n      \"name\": \"Medium Risk\",\n      \"status\": \"IN_PROGRESS\",\n      \"sequenceNumber\": 7,\n      \"dates\": {\n        \"created\": \"2022-05-11T00:47:35.879Z\",\n        \"dueDate\": \"1963-08-23T16:11:00.238Z\",\n        \"recordDueDate\": \"1998-08-31T15:56:26.267Z\",\n        \"daysUntilDue\": 3,\n        \"updated\": \"2003-06-28T22:14:45.208Z\",\n        \"completed\": \"1973-06-25T02:00:45.780Z\",\n        \"lastCompleted\": \"1969-09-21T21:38:27.617Z\"\n      },\n      \"assignee\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Jane Doe\",\n        \"email\": \"jane.doe@example.com\",\n        \"object\": \"user\"\n      },\n      \"creator\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Jane Doe\",\n        \"email\": \"jane.doe@example.com\",\n        \"object\": \"user\"\n      },\n      \"application\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Cyber Risk Management Application\",\n        \"type\": \"CONTROLS_COMPLIANCE\",\n        \"object\": \"application\"\n      },\n      \"workflow\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Risk Assessments\",\n        \"recordPrefix\": \"Assessment\",\n        \"object\": \"workflow\"\n      },\n      \"currentStep\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Identify Risk\",\n        \"type\": \"ORIGIN\",\n        \"object\": \"step\"\n      },\n      \"originStep\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Identify Risk\",\n        \"type\": \"ORIGIN\",\n        \"object\": \"step\"\n      },\n      \"fields\": [\n        {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Severity\",\n          \"label\": \"Enter the Risk Severity based on your assessment\",\n          \"global\": false,\n          \"type\": \"SELECT\",\n          \"valueType\": \"OPTION\",\n          \"required\": false,\n          \"values\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"textValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"numericValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"object\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"textValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"numericValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"object\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"object\": \"field\"\n        },\n        {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Severity\",\n          \"label\": \"Enter the Risk Severity based on your assessment\",\n          \"global\": false,\n          \"type\": \"SELECT\",\n          \"valueType\": \"OPTION\",\n          \"required\": false,\n          \"values\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"textValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"numericValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"object\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"textValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"numericValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"object\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"object\": \"field\"\n        }\n      ],\n      \"object\": \"application\"\n    }\n  ],\n  \"links\": {\n    \"first\": \"/api/v2/resource?page=0&size=20\",\n    \"prev\": \"/api/v2/resource?page=2&size=20\",\n    \"self\": \"/api/v2/resource?page=3&size=20\",\n    \"next\": \"/api/v2/resource?page=4&size=20\",\n    \"last\": \"/api/v2/resource?page=6&size=20\"\n  },\n  \"page\": {\n    \"size\": 20,\n    \"totalElements\": 50,\n    \"totalPages\": 3,\n    \"number\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a3d1f489-06b4-4e2e-9266-f376411dd1e2",
+          "name": "Retrieve a record",
+          "request": {
+            "name": "Retrieve a record",
+            "description": {
+              "content": "**Permissions:** [Read or Write access](https://help.logicgate.com/hc/en-us/articles/4402683227156-Permission-Sets-)\n\nRetrieve a record specified by the ID in the URL path.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "records",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the record"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{env}}",
+                  "key": "env"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b61379f3-6d5b-49e5-901b-334dfa8bc954",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "records",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the record"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"a1b2c3d4\",\n  \"recordName\": \"Assessment-7\",\n  \"name\": \"Medium Risk\",\n  \"status\": \"IN_PROGRESS\",\n  \"sequenceNumber\": 7,\n  \"dates\": {\n    \"created\": \"2026-02-03T09:22:49.739Z\",\n    \"dueDate\": \"1950-08-25T08:58:45.257Z\",\n    \"recordDueDate\": \"1984-09-28T17:41:37.068Z\",\n    \"daysUntilDue\": 3,\n    \"updated\": \"1984-04-18T11:08:54.855Z\",\n    \"completed\": \"1999-12-15T15:55:10.064Z\",\n    \"lastCompleted\": \"2020-01-28T07:15:41.645Z\"\n  },\n  \"assignee\": {\n    \"id\": \"a1b2c3d4\",\n    \"name\": \"Jane Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"object\": \"user\"\n  },\n  \"creator\": {\n    \"id\": \"a1b2c3d4\",\n    \"name\": \"Jane Doe\",\n    \"email\": \"jane.doe@example.com\",\n    \"object\": \"user\"\n  },\n  \"application\": {\n    \"id\": \"a1b2c3d4\",\n    \"name\": \"Cyber Risk Management Application\",\n    \"type\": \"CONTROLS_COMPLIANCE\",\n    \"object\": \"application\"\n  },\n  \"workflow\": {\n    \"id\": \"a1b2c3d4\",\n    \"name\": \"Risk Assessments\",\n    \"recordPrefix\": \"Assessment\",\n    \"object\": \"workflow\"\n  },\n  \"currentStep\": {\n    \"id\": \"a1b2c3d4\",\n    \"name\": \"Identify Risk\",\n    \"type\": \"ORIGIN\",\n    \"object\": \"step\"\n  },\n  \"originStep\": {\n    \"id\": \"a1b2c3d4\",\n    \"name\": \"Identify Risk\",\n    \"type\": \"ORIGIN\",\n    \"object\": \"step\"\n  },\n  \"fields\": [\n    {\n      \"id\": \"a1b2c3d4\",\n      \"name\": \"Risk Severity\",\n      \"label\": \"Enter the Risk Severity based on your assessment\",\n      \"global\": false,\n      \"type\": \"SELECT\",\n      \"valueType\": \"OPTION\",\n      \"required\": false,\n      \"values\": [\n        {\n          \"id\": \"a1b2c3d4\",\n          \"type\": \"OPTION\",\n          \"textValue\": \"Medium Risk\",\n          \"numericValue\": 2,\n          \"object\": \"value\"\n        },\n        {\n          \"id\": \"a1b2c3d4\",\n          \"type\": \"OPTION\",\n          \"textValue\": \"Medium Risk\",\n          \"numericValue\": 2,\n          \"object\": \"value\"\n        }\n      ],\n      \"object\": \"field\"\n    },\n    {\n      \"id\": \"a1b2c3d4\",\n      \"name\": \"Risk Severity\",\n      \"label\": \"Enter the Risk Severity based on your assessment\",\n      \"global\": false,\n      \"type\": \"SELECT\",\n      \"valueType\": \"OPTION\",\n      \"required\": false,\n      \"values\": [\n        {\n          \"id\": \"a1b2c3d4\",\n          \"type\": \"OPTION\",\n          \"textValue\": \"Medium Risk\",\n          \"numericValue\": 2,\n          \"object\": \"value\"\n        },\n        {\n          \"id\": \"a1b2c3d4\",\n          \"type\": \"OPTION\",\n          \"textValue\": \"Medium Risk\",\n          \"numericValue\": 2,\n          \"object\": \"value\"\n        }\n      ],\n      \"object\": \"field\"\n    }\n  ],\n  \"object\": \"application\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "32000c80-5bcc-45ec-b548-51f8e2b04e88",
+          "name": "Retrieve all linked records",
+          "request": {
+            "name": "Retrieve all linked records",
+            "description": {
+              "content": "**Permissions:** [Read or Write access](https://help.logicgate.com/hc/en-us/articles/4402683227156-Permission-Sets-)\n\nRetrieve a page of all records that are linked to the record of the given record ID that the current user has [Read or Write access](https://help.logicgate.com/hc/en-us/articles/4402683227156-Permission-Sets-) to. The maximum depth of linked records to return with regards to the relationship between the records can be specified by the `depth` property, which defaults to 10.\n\nThis endpoint reflects the functionality of [Relationship Reports](https://help.logicgate.com/hc/en-us/articles/4402683133972-Display-Data-using-Relationship-Reports-) in the Risk Cloud.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "records",
+                ":id",
+                "linked"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "workflow-id",
+                  "value": "<string>",
+                  "description": "(Required) The unique ID of a workflow where, if provided, the response will only contain linked records from the identified workflow"
+                },
+                {
+                  "disabled": false,
+                  "key": "depth",
+                  "value": "10",
+                  "description": "Specifies the maximum depth of linked records to return with regards to the relationship between the given record's workflow and the workflow specified by `workflow-id` (must not be less than 0, defaults to 10)"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated-min",
+                  "value": "<long>",
+                  "description": "A timestamp measured in milliseconds since the Unix epoch where, if provided, the response will only contain records that have been modified since the given timestamp"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The zero-indexed page number (must not be less than 0, defaults to 0)"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the record"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{env}}",
+                  "key": "env"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "12c92098-b3db-45a1-b18d-03290fcc42a9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "records",
+                    ":id",
+                    "linked"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "workflow-id",
+                      "value": "a1b2c3d4"
+                    },
+                    {
+                      "key": "depth",
+                      "value": "10"
+                    },
+                    {
+                      "key": "updated-min",
+                      "value": "1672552800000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the record"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"id\": \"a1b2c3d4\",\n      \"recordName\": \"Assessment-7\",\n      \"name\": \"Medium Risk\",\n      \"status\": \"IN_PROGRESS\",\n      \"sequenceNumber\": 7,\n      \"dates\": {\n        \"created\": \"1955-04-01T18:41:46.399Z\",\n        \"dueDate\": \"1964-11-29T07:29:40.857Z\",\n        \"recordDueDate\": \"2008-06-20T12:44:13.864Z\",\n        \"daysUntilDue\": 3,\n        \"updated\": \"2006-07-04T11:35:53.009Z\",\n        \"completed\": \"1950-08-24T15:33:23.873Z\",\n        \"lastCompleted\": \"1994-09-13T18:34:34.326Z\"\n      },\n      \"assignee\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Jane Doe\",\n        \"email\": \"jane.doe@example.com\",\n        \"object\": \"user\"\n      },\n      \"creator\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Jane Doe\",\n        \"email\": \"jane.doe@example.com\",\n        \"object\": \"user\"\n      },\n      \"application\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Cyber Risk Management Application\",\n        \"type\": \"CONTROLS_COMPLIANCE\",\n        \"object\": \"application\"\n      },\n      \"workflow\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Risk Assessments\",\n        \"recordPrefix\": \"Assessment\",\n        \"object\": \"workflow\"\n      },\n      \"currentStep\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Identify Risk\",\n        \"type\": \"ORIGIN\",\n        \"object\": \"step\"\n      },\n      \"originStep\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Identify Risk\",\n        \"type\": \"ORIGIN\",\n        \"object\": \"step\"\n      },\n      \"fields\": [\n        {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Severity\",\n          \"label\": \"Enter the Risk Severity based on your assessment\",\n          \"global\": false,\n          \"type\": \"SELECT\",\n          \"valueType\": \"OPTION\",\n          \"required\": false,\n          \"values\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"textValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"numericValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"object\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"textValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"numericValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"object\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"object\": \"field\"\n        },\n        {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Severity\",\n          \"label\": \"Enter the Risk Severity based on your assessment\",\n          \"global\": false,\n          \"type\": \"SELECT\",\n          \"valueType\": \"OPTION\",\n          \"required\": false,\n          \"values\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"textValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"numericValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"object\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"textValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"numericValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"object\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"object\": \"field\"\n        }\n      ],\n      \"object\": \"application\"\n    },\n    {\n      \"id\": \"a1b2c3d4\",\n      \"recordName\": \"Assessment-7\",\n      \"name\": \"Medium Risk\",\n      \"status\": \"IN_PROGRESS\",\n      \"sequenceNumber\": 7,\n      \"dates\": {\n        \"created\": \"2022-05-11T00:47:35.879Z\",\n        \"dueDate\": \"1963-08-23T16:11:00.238Z\",\n        \"recordDueDate\": \"1998-08-31T15:56:26.267Z\",\n        \"daysUntilDue\": 3,\n        \"updated\": \"2003-06-28T22:14:45.208Z\",\n        \"completed\": \"1973-06-25T02:00:45.780Z\",\n        \"lastCompleted\": \"1969-09-21T21:38:27.617Z\"\n      },\n      \"assignee\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Jane Doe\",\n        \"email\": \"jane.doe@example.com\",\n        \"object\": \"user\"\n      },\n      \"creator\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Jane Doe\",\n        \"email\": \"jane.doe@example.com\",\n        \"object\": \"user\"\n      },\n      \"application\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Cyber Risk Management Application\",\n        \"type\": \"CONTROLS_COMPLIANCE\",\n        \"object\": \"application\"\n      },\n      \"workflow\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Risk Assessments\",\n        \"recordPrefix\": \"Assessment\",\n        \"object\": \"workflow\"\n      },\n      \"currentStep\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Identify Risk\",\n        \"type\": \"ORIGIN\",\n        \"object\": \"step\"\n      },\n      \"originStep\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Identify Risk\",\n        \"type\": \"ORIGIN\",\n        \"object\": \"step\"\n      },\n      \"fields\": [\n        {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Severity\",\n          \"label\": \"Enter the Risk Severity based on your assessment\",\n          \"global\": false,\n          \"type\": \"SELECT\",\n          \"valueType\": \"OPTION\",\n          \"required\": false,\n          \"values\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"textValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"numericValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"object\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"textValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"numericValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"object\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"object\": \"field\"\n        },\n        {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Severity\",\n          \"label\": \"Enter the Risk Severity based on your assessment\",\n          \"global\": false,\n          \"type\": \"SELECT\",\n          \"valueType\": \"OPTION\",\n          \"required\": false,\n          \"values\": [\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"textValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"numericValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"object\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"id\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"textValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"numericValue\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"object\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"object\": \"field\"\n        }\n      ],\n      \"object\": \"application\"\n    }\n  ],\n  \"links\": {\n    \"first\": \"/api/v2/resource?page=0&size=20\",\n    \"prev\": \"/api/v2/resource?page=2&size=20\",\n    \"self\": \"/api/v2/resource?page=3&size=20\",\n    \"next\": \"/api/v2/resource?page=4&size=20\",\n    \"last\": \"/api/v2/resource?page=6&size=20\"\n  },\n  \"page\": {\n    \"size\": 20,\n    \"totalElements\": 50,\n    \"totalPages\": 3,\n    \"number\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "qa",
+      "key": "env"
+    },
+    {
+      "type": "string",
+      "value": "https://{{env}}.logicgate.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2c50a9d2-67a8-4265-b88f-af1f50892887",
+    "name": "Risk Cloud Access Audit Record API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the Risk Cloud API v2! This is a collection of new API-first and RESTful API endpoints to streamline the creation of custom integrations with the Risk Cloud.\n\nFor the API documentation of our legacy API v1 endpoints, reference [Risk Cloud API v1](https://docs.logicgate.com/v1/index.html).\n\nContact Support:\n Name: developer-relations@logicgate.com\n Email: developer-relations@logicgate.com",
+      "type": "text/plain"
+    }
+  }
+}

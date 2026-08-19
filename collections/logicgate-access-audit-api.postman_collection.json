@@ -1,0 +1,232 @@
+{
+  "item": [
+    {
+      "id": "0c112872-cdaf-4de1-8b6f-65bff4a5aa40",
+      "name": "Access Audit",
+      "description": {
+        "content": "An Access Audit captures information about access related events such as logins and logouts associated with a user.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c67c6176-68ea-4d2c-bad2-f8b6398af94d",
+          "name": "Retrieve access audits",
+          "request": {
+            "name": "Retrieve access audits",
+            "description": {
+              "content": "**Permissions:** [Productivity Entitlement](https://help.logicgate.com/hc/en-us/articles/4402683139348-Module-Entitlements-for-Roles)\n\nRetrieve a page of all access audits.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "audits",
+                "access"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "user-id",
+                  "value": "<string>",
+                  "description": "Filter by user ID associated with the access audit entry."
+                },
+                {
+                  "disabled": false,
+                  "key": "user-email",
+                  "value": "<string>",
+                  "description": "Filter by email address associated with the access audit entry."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter by type of access event (LOGIN, LOGOUT, LOGIN_FAILED, CREDENTIALS_ROLLED, TOKEN_ROLLED)."
+                },
+                {
+                  "disabled": false,
+                  "key": "created-min",
+                  "value": "<long>",
+                  "description": "Minimum created timestamp of the access audit in milliseconds since the Unix epoch (inclusive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "created-max",
+                  "value": "<long>",
+                  "description": "Maximum created timestamp of the access audit in milliseconds since the Unix epoch (inclusive)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "The zero-indexed page number (must not be less than 0, defaults to 0)"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "<integer>",
+                  "description": "The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)"
+                }
+              ],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{env}}",
+                  "key": "env"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "23fabb29-b39f-4771-9ffd-b0a20e89e5c3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "audits",
+                    "access"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "user-id",
+                      "value": "a1b2c3d4"
+                    },
+                    {
+                      "key": "user-email",
+                      "value": "jane.doe@logicgate.com"
+                    },
+                    {
+                      "key": "type",
+                      "value": "LOGIN"
+                    },
+                    {
+                      "key": "created-min",
+                      "value": "1672552800000"
+                    },
+                    {
+                      "key": "created-max",
+                      "value": "1672552800000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"id\": \"a1b2c3d4\",\n      \"type\": \"LOGIN\",\n      \"user\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Jane Doe\",\n        \"email\": \"jane.doe@example.com\",\n        \"object\": \"user\"\n      },\n      \"remoteAddress\": \"192.168.1.1\",\n      \"details\": \"Login succeeded\",\n      \"created\": \"2000-07-03T09:04:59.349Z\",\n      \"object\": \"access_audit\"\n    },\n    {\n      \"id\": \"a1b2c3d4\",\n      \"type\": \"LOGIN\",\n      \"user\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Jane Doe\",\n        \"email\": \"jane.doe@example.com\",\n        \"object\": \"user\"\n      },\n      \"remoteAddress\": \"192.168.1.1\",\n      \"details\": \"Login succeeded\",\n      \"created\": \"1976-12-07T10:10:03.593Z\",\n      \"object\": \"access_audit\"\n    }\n  ],\n  \"links\": {\n    \"first\": \"/api/v2/resource?page=0&size=20\",\n    \"prev\": \"/api/v2/resource?page=2&size=20\",\n    \"self\": \"/api/v2/resource?page=3&size=20\",\n    \"next\": \"/api/v2/resource?page=4&size=20\",\n    \"last\": \"/api/v2/resource?page=6&size=20\"\n  },\n  \"page\": {\n    \"size\": 20,\n    \"totalElements\": 50,\n    \"totalPages\": 3,\n    \"number\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "qa",
+      "key": "env"
+    },
+    {
+      "type": "string",
+      "value": "https://{{env}}.logicgate.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f45f1062-7e56-4aef-b2ac-d06824d790d4",
+    "name": "Risk Cloud Access Audit API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the Risk Cloud API v2! This is a collection of new API-first and RESTful API endpoints to streamline the creation of custom integrations with the Risk Cloud.\n\nFor the API documentation of our legacy API v1 endpoints, reference [Risk Cloud API v1](https://docs.logicgate.com/v1/index.html).\n\nContact Support:\n Name: developer-relations@logicgate.com\n Email: developer-relations@logicgate.com",
+      "type": "text/plain"
+    }
+  }
+}

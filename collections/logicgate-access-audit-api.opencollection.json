@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Risk Cloud Access Audit API",
+    "version": "v2026.7.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Access Audit",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve access audits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{env}.logicgate.com/api/v2/audits/access",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "params": [
+              {
+                "name": "user-id",
+                "value": "a1b2c3d4",
+                "type": "query",
+                "description": "Filter by user ID associated with the access audit entry."
+              },
+              {
+                "name": "user-email",
+                "value": "jane.doe@logicgate.com",
+                "type": "query",
+                "description": "Filter by email address associated with the access audit entry."
+              },
+              {
+                "name": "type",
+                "value": "LOGIN",
+                "type": "query",
+                "description": "Filter by type of access event (LOGIN, LOGOUT, LOGIN_FAILED, CREDENTIALS_ROLLED, TOKEN_ROLLED)."
+              },
+              {
+                "name": "created-min",
+                "value": "1672552800000",
+                "type": "query",
+                "description": "Minimum created timestamp of the access audit in milliseconds since the Unix epoch (inclusive)."
+              },
+              {
+                "name": "created-max",
+                "value": "1672552800000",
+                "type": "query",
+                "description": "Maximum created timestamp of the access audit in milliseconds since the Unix epoch (inclusive)."
+              },
+              {
+                "name": "page",
+                "value": "0",
+                "type": "query",
+                "description": "The zero-indexed page number (must not be less than 0, defaults to 0)"
+              },
+              {
+                "name": "size",
+                "value": "20",
+                "type": "query",
+                "description": "The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)"
+              }
+            ]
+          },
+          "docs": "**Permissions:** [Productivity Entitlement](https://help.logicgate.com/hc/en-us/articles/4402683139348-Module-Entitlements-for-Roles)\n\nRetrieve a page of all access audits."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

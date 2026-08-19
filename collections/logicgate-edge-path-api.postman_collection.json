@@ -1,0 +1,1756 @@
+{
+  "item": [
+    {
+      "id": "2d162b78-dec5-4563-b573-dbdf3db83b31",
+      "name": "Edge Path",
+      "description": {
+        "content": "A [Conditional Edge Path](https://help.logicgate.com/hc/en-us/articles/4402683114004-Work-with-Paths#conditional-edge-paths) defines an alternative route that a Record might need to follow if specific conditions are met.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fb1c31bb-1bcd-4ad2-aa59-1c21fbfbea1b",
+          "name": "List all conditional edge paths",
+          "request": {
+            "name": "List all conditional edge paths",
+            "description": {
+              "content": "Get a list of all conditional edge paths in the environment that are entitled to the current user. Build user privileges are required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "paths",
+                "edge"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "step",
+                  "value": "",
+                  "description": "Providing a step ID returns paths only to or from the identified step."
+                },
+                {
+                  "description": {
+                    "content": "Results page you want to retrieve (0..N)",
+                    "type": "text/plain"
+                  },
+                  "key": "page",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Number of records per page.",
+                    "type": "text/plain"
+                  },
+                  "key": "size",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+                    "type": "text/plain"
+                  },
+                  "key": "sort",
+                  "value": ""
+                }
+              ],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{env}}",
+                  "key": "env"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "19e93689-f239-4c0d-904b-4cdbf7b4945e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "paths",
+                    "edge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "step",
+                      "value": ""
+                    },
+                    {
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "key": "size",
+                      "value": ""
+                    },
+                    {
+                      "key": "sort",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": [\n    {\n      \"id\": \"a1b2c3d4\",\n      \"from\": \"a1b2c3d4\",\n      \"to\": \"a1b2c3d4\",\n      \"allowInternal\": false,\n      \"allowExternal\": false,\n      \"allowCurrentAssignee\": false,\n      \"description\": \"This describes the path.\",\n      \"requireAssignee\": false,\n      \"object\": \"edge-path\",\n      \"operator\": \"EQUALS\",\n      \"priority\": 0,\n      \"field\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Risk Severity\",\n        \"application\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Cyber Risk Management Application\",\n          \"type\": \"CONTROLS_COMPLIANCE\",\n          \"object\": \"application\"\n        },\n        \"workflow\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Assessments\",\n          \"recordPrefix\": \"Assessment\",\n          \"object\": \"workflow\"\n        },\n        \"label\": \"Enter the Risk Severity based on your assessment\",\n        \"global\": false,\n        \"required\": false,\n        \"tooltip\": \"Select the Risk Severity\",\n        \"helpText\": \"Determine the Risk Severity from your assessment\",\n        \"type\": \"SELECT\",\n        \"valueType\": \"OPTION\",\n        \"optionValues\": [\n          {\n            \"id\": \"a1b2c3d4\",\n            \"type\": \"OPTION\",\n            \"textValue\": \"Medium Risk\",\n            \"numericValue\": 2,\n            \"object\": \"value\"\n          },\n          {\n            \"id\": \"a1b2c3d4\",\n            \"type\": \"OPTION\",\n            \"textValue\": \"Medium Risk\",\n            \"numericValue\": 2,\n            \"object\": \"value\"\n          }\n        ],\n        \"defaultValues\": [\n          {\n            \"id\": \"a1b2c3d4\",\n            \"type\": \"OPTION\",\n            \"textValue\": \"Medium Risk\",\n            \"numericValue\": 2,\n            \"object\": \"value\"\n          },\n          {\n            \"id\": \"a1b2c3d4\",\n            \"type\": \"OPTION\",\n            \"textValue\": \"Medium Risk\",\n            \"numericValue\": 2,\n            \"object\": \"value\"\n          }\n        ],\n        \"pattern\": \"[0-9]{3}-[0-9]{3}-[0-9]{4}$\",\n        \"message\": \"string\",\n        \"expression\": \"%f + %f\",\n        \"nullStrategy\": \"Available options are: null, 0, 1, N/A, a blank space, and an empty String.\",\n        \"logicalHandling\": \"LESS_THAN\",\n        \"labelsEnabled\": true,\n        \"fieldInputs\": [\n          {\n            \"id\": \"string\",\n            \"crossflowReducer\": \"AVERAGE\",\n            \"calcSpecificToStep\": false,\n            \"calcStep\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"systemField\": \"DUE_DATE\",\n            \"fieldWorkflow\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"fieldWorkflowId\": \"string\",\n            \"customField\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"customFieldId\": \"string\",\n            \"priority\": 1021\n          },\n          {\n            \"id\": \"string\",\n            \"crossflowReducer\": \"NEWEST\",\n            \"calcSpecificToStep\": false,\n            \"calcStep\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"systemField\": \"COMPLETED_DATE\",\n            \"fieldWorkflow\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"fieldWorkflowId\": \"string\",\n            \"customField\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"customFieldId\": \"string\",\n            \"priority\": 5647\n          }\n        ],\n        \"linkDepth\": 9000,\n        \"object\": \"field\"\n      },\n      \"option\": {\n        \"id\": \"a1b2c3d4\",\n        \"type\": \"OPTION\",\n        \"textValue\": \"Medium Risk\",\n        \"numericValue\": 2,\n        \"object\": \"value\"\n      }\n    },\n    {\n      \"id\": \"a1b2c3d4\",\n      \"from\": \"a1b2c3d4\",\n      \"to\": \"a1b2c3d4\",\n      \"allowInternal\": false,\n      \"allowExternal\": false,\n      \"allowCurrentAssignee\": false,\n      \"description\": \"This describes the path.\",\n      \"requireAssignee\": false,\n      \"object\": \"edge-path\",\n      \"operator\": \"EQUALS\",\n      \"priority\": 0,\n      \"field\": {\n        \"id\": \"a1b2c3d4\",\n        \"name\": \"Risk Severity\",\n        \"application\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Cyber Risk Management Application\",\n          \"type\": \"CONTROLS_COMPLIANCE\",\n          \"object\": \"application\"\n        },\n        \"workflow\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Assessments\",\n          \"recordPrefix\": \"Assessment\",\n          \"object\": \"workflow\"\n        },\n        \"label\": \"Enter the Risk Severity based on your assessment\",\n        \"global\": false,\n        \"required\": false,\n        \"tooltip\": \"Select the Risk Severity\",\n        \"helpText\": \"Determine the Risk Severity from your assessment\",\n        \"type\": \"SELECT\",\n        \"valueType\": \"OPTION\",\n        \"optionValues\": [\n          {\n            \"id\": \"a1b2c3d4\",\n            \"type\": \"OPTION\",\n            \"textValue\": \"Medium Risk\",\n            \"numericValue\": 2,\n            \"object\": \"value\"\n          },\n          {\n            \"id\": \"a1b2c3d4\",\n            \"type\": \"OPTION\",\n            \"textValue\": \"Medium Risk\",\n            \"numericValue\": 2,\n            \"object\": \"value\"\n          }\n        ],\n        \"defaultValues\": [\n          {\n            \"id\": \"a1b2c3d4\",\n            \"type\": \"OPTION\",\n            \"textValue\": \"Medium Risk\",\n            \"numericValue\": 2,\n            \"object\": \"value\"\n          },\n          {\n            \"id\": \"a1b2c3d4\",\n            \"type\": \"OPTION\",\n            \"textValue\": \"Medium Risk\",\n            \"numericValue\": 2,\n            \"object\": \"value\"\n          }\n        ],\n        \"pattern\": \"[0-9]{3}-[0-9]{3}-[0-9]{4}$\",\n        \"message\": \"string\",\n        \"expression\": \"%f + %f\",\n        \"nullStrategy\": \"Available options are: null, 0, 1, N/A, a blank space, and an empty String.\",\n        \"logicalHandling\": \"IS_NOT\",\n        \"labelsEnabled\": true,\n        \"fieldInputs\": [\n          {\n            \"id\": \"string\",\n            \"crossflowReducer\": \"HIGHEST\",\n            \"calcSpecificToStep\": false,\n            \"calcStep\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"systemField\": \"WORKFLOW_NAME\",\n            \"fieldWorkflow\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"fieldWorkflowId\": \"string\",\n            \"customField\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"customFieldId\": \"string\",\n            \"priority\": 2596\n          },\n          {\n            \"id\": \"string\",\n            \"crossflowReducer\": \"NEWEST\",\n            \"calcSpecificToStep\": true,\n            \"calcStep\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"systemField\": \"ORIGIN_ID\",\n            \"fieldWorkflow\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"fieldWorkflowId\": \"string\",\n            \"customField\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"customFieldId\": \"string\",\n            \"priority\": 4241\n          }\n        ],\n        \"linkDepth\": 5056,\n        \"object\": \"field\"\n      },\n      \"option\": {\n        \"id\": \"a1b2c3d4\",\n        \"type\": \"OPTION\",\n        \"textValue\": \"Medium Risk\",\n        \"numericValue\": 2,\n        \"object\": \"value\"\n      }\n    }\n  ],\n  \"links\": {\n    \"first\": \"/api/v2/resource?page=0&size=20\",\n    \"prev\": \"/api/v2/resource?page=2&size=20\",\n    \"self\": \"/api/v2/resource?page=3&size=20\",\n    \"next\": \"/api/v2/resource?page=4&size=20\",\n    \"last\": \"/api/v2/resource?page=6&size=20\"\n  },\n  \"page\": {\n    \"size\": 20,\n    \"totalElements\": 50,\n    \"totalPages\": 3,\n    \"number\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ea115ea-a13e-4be9-b096-d53f4d8bf27e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "paths",
+                    "edge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "step",
+                      "value": ""
+                    },
+                    {
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "key": "size",
+                      "value": ""
+                    },
+                    {
+                      "key": "sort",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"property\": \"string\",\n  \"value\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d758d48-966d-421d-b611-7aa7c016ef5b",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "paths",
+                    "edge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "step",
+                      "value": ""
+                    },
+                    {
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "key": "size",
+                      "value": ""
+                    },
+                    {
+                      "key": "sort",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"property\": \"string\",\n  \"value\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "768512f9-e1fa-43dd-93d6-e4f80aaaa280",
+          "name": "Create a conditional edge path",
+          "request": {
+            "name": "Create a conditional edge path",
+            "description": {
+              "content": "**Permissions:** [Build Access to parent application](https://help.logicgate.com/hc/en-us/articles/4402683190164-Control-Build-Access-for-Applications)\n\nCreate a conditional edge path from a JSON request body.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "paths",
+                "edge"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{env}}",
+                  "key": "env"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": \"<string>\",\n  \"to\": \"<string>\",\n  \"allowInternal\": \"<boolean>\",\n  \"allowExternal\": \"<boolean>\",\n  \"allowCurrentAssignee\": \"<boolean>\",\n  \"description\": \"<string>\",\n  \"requireAssignee\": \"<boolean>\",\n  \"operator\": \"<string>\",\n  \"priority\": \"<integer>\",\n  \"field\": \"<string>\",\n  \"option\": {\n    \"textValue\": \"<string>\",\n    \"numericValue\": \"<double>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "229e9576-a267-4437-977e-5bec22b05191",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "paths",
+                    "edge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"a1b2c3d4\",\n  \"to\": \"a1b2c3d4\",\n  \"allowInternal\": false,\n  \"allowExternal\": false,\n  \"allowCurrentAssignee\": false,\n  \"description\": \"This describes the path.\",\n  \"requireAssignee\": false,\n  \"operator\": \"EQUALS\",\n  \"priority\": 0,\n  \"field\": \"a1b2c3d4\",\n  \"option\": {\n    \"textValue\": \"Medium Risk\",\n    \"numericValue\": 2\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"a1b2c3d4\",\n  \"from\": \"a1b2c3d4\",\n  \"to\": \"a1b2c3d4\",\n  \"allowInternal\": false,\n  \"allowExternal\": false,\n  \"allowCurrentAssignee\": false,\n  \"description\": \"This describes the path.\",\n  \"requireAssignee\": false,\n  \"object\": \"edge-path\",\n  \"operator\": \"EQUALS\",\n  \"priority\": 0,\n  \"field\": {\n    \"id\": \"a1b2c3d4\",\n    \"name\": \"Risk Severity\",\n    \"application\": {\n      \"id\": \"a1b2c3d4\",\n      \"name\": \"Cyber Risk Management Application\",\n      \"type\": \"CONTROLS_COMPLIANCE\",\n      \"object\": \"application\"\n    },\n    \"workflow\": {\n      \"id\": \"a1b2c3d4\",\n      \"name\": \"Risk Assessments\",\n      \"recordPrefix\": \"Assessment\",\n      \"object\": \"workflow\"\n    },\n    \"label\": \"Enter the Risk Severity based on your assessment\",\n    \"global\": false,\n    \"required\": false,\n    \"tooltip\": \"Select the Risk Severity\",\n    \"helpText\": \"Determine the Risk Severity from your assessment\",\n    \"type\": \"SELECT\",\n    \"valueType\": \"OPTION\",\n    \"optionValues\": [\n      {\n        \"id\": \"a1b2c3d4\",\n        \"type\": \"OPTION\",\n        \"textValue\": \"Medium Risk\",\n        \"numericValue\": 2,\n        \"object\": \"value\"\n      },\n      {\n        \"id\": \"a1b2c3d4\",\n        \"type\": \"OPTION\",\n        \"textValue\": \"Medium Risk\",\n        \"numericValue\": 2,\n        \"object\": \"value\"\n      }\n    ],\n    \"defaultValues\": [\n      {\n        \"id\": \"a1b2c3d4\",\n        \"type\": \"OPTION\",\n        \"textValue\": \"Medium Risk\",\n        \"numericValue\": 2,\n        \"object\": \"value\"\n      },\n      {\n        \"id\": \"a1b2c3d4\",\n        \"type\": \"OPTION\",\n        \"textValue\": \"Medium Risk\",\n        \"numericValue\": 2,\n        \"object\": \"value\"\n      }\n    ],\n    \"pattern\": \"[0-9]{3}-[0-9]{3}-[0-9]{4}$\",\n    \"message\": \"string\",\n    \"expression\": \"%f + %f\",\n    \"nullStrategy\": \"Available options are: null, 0, 1, N/A, a blank space, and an empty String.\",\n    \"logicalHandling\": \"EQUALS\",\n    \"labelsEnabled\": true,\n    \"fieldInputs\": [\n      {\n        \"id\": \"string\",\n        \"crossflowReducer\": \"HIGHEST\",\n        \"calcSpecificToStep\": false,\n        \"calcStep\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Identify Risk\",\n          \"description\": \"This is a description of the step\",\n          \"xpos\": 20,\n          \"ypos\": 20,\n          \"type\": \"ORIGIN\",\n          \"enableComments\": false,\n          \"assignableUserType\": \"APP_USERS\",\n          \"externalUserMfaRequired\": false,\n          \"autofillEnabled\": false,\n          \"workflow\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"recordPrefix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"object\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"object\": \"step\"\n        },\n        \"systemField\": \"WORKFLOW_NAME\",\n        \"fieldWorkflow\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Assessments\",\n          \"recordPrefix\": \"Assessment\",\n          \"object\": \"workflow\"\n        },\n        \"fieldWorkflowId\": \"string\",\n        \"customField\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Severity\",\n          \"label\": \"Enter the Risk Severity based on your assessment\",\n          \"global\": false,\n          \"required\": false,\n          \"tooltip\": \"Select the Risk Severity\",\n          \"helpText\": \"Determine the Risk Severity from your assessment\",\n          \"type\": \"SELECT\",\n          \"valueType\": \"OPTION\",\n          \"pattern\": \"[0-9]{3}-[0-9]{3}-[0-9]{4}$\",\n          \"message\": \"string\",\n          \"expression\": \"%f + %f\",\n          \"nullStrategy\": \"Available options are: null, 0, 1, N/A, a blank space, and an empty String.\",\n          \"logicalHandling\": \"IS_NOT\",\n          \"labelsEnabled\": true,\n          \"linkDepth\": 7364,\n          \"object\": \"field\"\n        },\n        \"customFieldId\": \"string\",\n        \"priority\": 2453\n      },\n      {\n        \"id\": \"string\",\n        \"crossflowReducer\": \"SUM\",\n        \"calcSpecificToStep\": true,\n        \"calcStep\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Identify Risk\",\n          \"description\": \"This is a description of the step\",\n          \"xpos\": 20,\n          \"ypos\": 20,\n          \"type\": \"ORIGIN\",\n          \"enableComments\": false,\n          \"assignableUserType\": \"APP_USERS\",\n          \"externalUserMfaRequired\": false,\n          \"autofillEnabled\": false,\n          \"workflow\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"recordPrefix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"object\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"object\": \"step\"\n        },\n        \"systemField\": \"MATCH_CONFIDENCE\",\n        \"fieldWorkflow\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Assessments\",\n          \"recordPrefix\": \"Assessment\",\n          \"object\": \"workflow\"\n        },\n        \"fieldWorkflowId\": \"string\",\n        \"customField\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Severity\",\n          \"label\": \"Enter the Risk Severity based on your assessment\",\n          \"global\": false,\n          \"required\": false,\n          \"tooltip\": \"Select the Risk Severity\",\n          \"helpText\": \"Determine the Risk Severity from your assessment\",\n          \"type\": \"SELECT\",\n          \"valueType\": \"OPTION\",\n          \"pattern\": \"[0-9]{3}-[0-9]{3}-[0-9]{4}$\",\n          \"message\": \"string\",\n          \"expression\": \"%f + %f\",\n          \"nullStrategy\": \"Available options are: null, 0, 1, N/A, a blank space, and an empty String.\",\n          \"logicalHandling\": \"NULL\",\n          \"labelsEnabled\": true,\n          \"linkDepth\": 6717,\n          \"object\": \"field\"\n        },\n        \"customFieldId\": \"string\",\n        \"priority\": 5893\n      }\n    ],\n    \"linkDepth\": 7816,\n    \"object\": \"field\"\n  },\n  \"option\": {\n    \"id\": \"a1b2c3d4\",\n    \"type\": \"OPTION\",\n    \"textValue\": \"Medium Risk\",\n    \"numericValue\": 2,\n    \"object\": \"value\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36857477-3cfe-42f9-b431-96ce89f0c3d5",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "paths",
+                    "edge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"a1b2c3d4\",\n  \"to\": \"a1b2c3d4\",\n  \"allowInternal\": false,\n  \"allowExternal\": false,\n  \"allowCurrentAssignee\": false,\n  \"description\": \"This describes the path.\",\n  \"requireAssignee\": false,\n  \"operator\": \"EQUALS\",\n  \"priority\": 0,\n  \"field\": \"a1b2c3d4\",\n  \"option\": {\n    \"textValue\": \"Medium Risk\",\n    \"numericValue\": 2\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"property\": \"string\",\n  \"value\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9b62d234-2938-428e-99cb-3ea0b730ec60",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "paths",
+                    "edge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"a1b2c3d4\",\n  \"to\": \"a1b2c3d4\",\n  \"allowInternal\": false,\n  \"allowExternal\": false,\n  \"allowCurrentAssignee\": false,\n  \"description\": \"This describes the path.\",\n  \"requireAssignee\": false,\n  \"operator\": \"EQUALS\",\n  \"priority\": 0,\n  \"field\": \"a1b2c3d4\",\n  \"option\": {\n    \"textValue\": \"Medium Risk\",\n    \"numericValue\": 2\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"property\": \"string\",\n  \"value\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d60bd4d-137f-42e4-82ec-6b68352b8f1d",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "paths",
+                    "edge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"a1b2c3d4\",\n  \"to\": \"a1b2c3d4\",\n  \"allowInternal\": false,\n  \"allowExternal\": false,\n  \"allowCurrentAssignee\": false,\n  \"description\": \"This describes the path.\",\n  \"requireAssignee\": false,\n  \"operator\": \"EQUALS\",\n  \"priority\": 0,\n  \"field\": \"a1b2c3d4\",\n  \"option\": {\n    \"textValue\": \"Medium Risk\",\n    \"numericValue\": 2\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ace4e18d-3681-4abc-95d3-09f19e194140",
+          "name": "Retrieve a conditional edge path",
+          "request": {
+            "name": "Retrieve a conditional edge path",
+            "description": {
+              "content": "Find a path by ID. Build user privileges are required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "paths",
+                "edge",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique ID of the conditional edge path."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{env}}",
+                  "key": "env"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b4c3cbc9-584c-4f00-8f93-4814778a7118",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "paths",
+                    "edge",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the conditional edge path."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"a1b2c3d4\",\n  \"from\": \"a1b2c3d4\",\n  \"to\": \"a1b2c3d4\",\n  \"allowInternal\": false,\n  \"allowExternal\": false,\n  \"allowCurrentAssignee\": false,\n  \"description\": \"This describes the path.\",\n  \"requireAssignee\": false,\n  \"object\": \"edge-path\",\n  \"operator\": \"EQUALS\",\n  \"priority\": 0,\n  \"field\": {\n    \"id\": \"a1b2c3d4\",\n    \"name\": \"Risk Severity\",\n    \"application\": {\n      \"id\": \"a1b2c3d4\",\n      \"name\": \"Cyber Risk Management Application\",\n      \"type\": \"CONTROLS_COMPLIANCE\",\n      \"object\": \"application\"\n    },\n    \"workflow\": {\n      \"id\": \"a1b2c3d4\",\n      \"name\": \"Risk Assessments\",\n      \"recordPrefix\": \"Assessment\",\n      \"object\": \"workflow\"\n    },\n    \"label\": \"Enter the Risk Severity based on your assessment\",\n    \"global\": false,\n    \"required\": false,\n    \"tooltip\": \"Select the Risk Severity\",\n    \"helpText\": \"Determine the Risk Severity from your assessment\",\n    \"type\": \"SELECT\",\n    \"valueType\": \"OPTION\",\n    \"optionValues\": [\n      {\n        \"id\": \"a1b2c3d4\",\n        \"type\": \"OPTION\",\n        \"textValue\": \"Medium Risk\",\n        \"numericValue\": 2,\n        \"object\": \"value\"\n      },\n      {\n        \"id\": \"a1b2c3d4\",\n        \"type\": \"OPTION\",\n        \"textValue\": \"Medium Risk\",\n        \"numericValue\": 2,\n        \"object\": \"value\"\n      }\n    ],\n    \"defaultValues\": [\n      {\n        \"id\": \"a1b2c3d4\",\n        \"type\": \"OPTION\",\n        \"textValue\": \"Medium Risk\",\n        \"numericValue\": 2,\n        \"object\": \"value\"\n      },\n      {\n        \"id\": \"a1b2c3d4\",\n        \"type\": \"OPTION\",\n        \"textValue\": \"Medium Risk\",\n        \"numericValue\": 2,\n        \"object\": \"value\"\n      }\n    ],\n    \"pattern\": \"[0-9]{3}-[0-9]{3}-[0-9]{4}$\",\n    \"message\": \"string\",\n    \"expression\": \"%f + %f\",\n    \"nullStrategy\": \"Available options are: null, 0, 1, N/A, a blank space, and an empty String.\",\n    \"logicalHandling\": \"EQUALS\",\n    \"labelsEnabled\": true,\n    \"fieldInputs\": [\n      {\n        \"id\": \"string\",\n        \"crossflowReducer\": \"HIGHEST\",\n        \"calcSpecificToStep\": false,\n        \"calcStep\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Identify Risk\",\n          \"description\": \"This is a description of the step\",\n          \"xpos\": 20,\n          \"ypos\": 20,\n          \"type\": \"ORIGIN\",\n          \"enableComments\": false,\n          \"assignableUserType\": \"APP_USERS\",\n          \"externalUserMfaRequired\": false,\n          \"autofillEnabled\": false,\n          \"workflow\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"recordPrefix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"object\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"object\": \"step\"\n        },\n        \"systemField\": \"WORKFLOW_NAME\",\n        \"fieldWorkflow\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Assessments\",\n          \"recordPrefix\": \"Assessment\",\n          \"object\": \"workflow\"\n        },\n        \"fieldWorkflowId\": \"string\",\n        \"customField\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Severity\",\n          \"label\": \"Enter the Risk Severity based on your assessment\",\n          \"global\": false,\n          \"required\": false,\n          \"tooltip\": \"Select the Risk Severity\",\n          \"helpText\": \"Determine the Risk Severity from your assessment\",\n          \"type\": \"SELECT\",\n          \"valueType\": \"OPTION\",\n          \"pattern\": \"[0-9]{3}-[0-9]{3}-[0-9]{4}$\",\n          \"message\": \"string\",\n          \"expression\": \"%f + %f\",\n          \"nullStrategy\": \"Available options are: null, 0, 1, N/A, a blank space, and an empty String.\",\n          \"logicalHandling\": \"IS_NOT\",\n          \"labelsEnabled\": true,\n          \"linkDepth\": 7364,\n          \"object\": \"field\"\n        },\n        \"customFieldId\": \"string\",\n        \"priority\": 2453\n      },\n      {\n        \"id\": \"string\",\n        \"crossflowReducer\": \"SUM\",\n        \"calcSpecificToStep\": true,\n        \"calcStep\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Identify Risk\",\n          \"description\": \"This is a description of the step\",\n          \"xpos\": 20,\n          \"ypos\": 20,\n          \"type\": \"ORIGIN\",\n          \"enableComments\": false,\n          \"assignableUserType\": \"APP_USERS\",\n          \"externalUserMfaRequired\": false,\n          \"autofillEnabled\": false,\n          \"workflow\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"recordPrefix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"object\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"object\": \"step\"\n        },\n        \"systemField\": \"MATCH_CONFIDENCE\",\n        \"fieldWorkflow\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Assessments\",\n          \"recordPrefix\": \"Assessment\",\n          \"object\": \"workflow\"\n        },\n        \"fieldWorkflowId\": \"string\",\n        \"customField\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Severity\",\n          \"label\": \"Enter the Risk Severity based on your assessment\",\n          \"global\": false,\n          \"required\": false,\n          \"tooltip\": \"Select the Risk Severity\",\n          \"helpText\": \"Determine the Risk Severity from your assessment\",\n          \"type\": \"SELECT\",\n          \"valueType\": \"OPTION\",\n          \"pattern\": \"[0-9]{3}-[0-9]{3}-[0-9]{4}$\",\n          \"message\": \"string\",\n          \"expression\": \"%f + %f\",\n          \"nullStrategy\": \"Available options are: null, 0, 1, N/A, a blank space, and an empty String.\",\n          \"logicalHandling\": \"NULL\",\n          \"labelsEnabled\": true,\n          \"linkDepth\": 6717,\n          \"object\": \"field\"\n        },\n        \"customFieldId\": \"string\",\n        \"priority\": 5893\n      }\n    ],\n    \"linkDepth\": 7816,\n    \"object\": \"field\"\n  },\n  \"option\": {\n    \"id\": \"a1b2c3d4\",\n    \"type\": \"OPTION\",\n    \"textValue\": \"Medium Risk\",\n    \"numericValue\": 2,\n    \"object\": \"value\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81c56e26-c211-418b-ba9a-9639e81b0c5f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "paths",
+                    "edge",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the conditional edge path."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"property\": \"string\",\n  \"value\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e8b00e5-e995-4890-b83c-7c5f6301378e",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "paths",
+                    "edge",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the conditional edge path."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"property\": \"string\",\n  \"value\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8aac2e1c-5662-4c00-bbff-7574cdd6b8d6",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "paths",
+                    "edge",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the conditional edge path."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "21ec80be-e09b-4807-84fd-e071e9fe2836",
+          "name": "Delete a conditional edge path",
+          "request": {
+            "name": "Delete a conditional edge path",
+            "description": {
+              "content": "Build user privileges are required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "paths",
+                "edge",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique ID of the conditional edge path."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{env}}",
+                  "key": "env"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e7471152-58e8-4982-a6c8-f79afbf5c97b",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "paths",
+                    "edge",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the conditional edge path."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7c1f9039-5378-49d9-aa1e-df16a7ff7b46",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "paths",
+                    "edge",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the conditional edge path."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"property\": \"string\",\n  \"value\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "723a4824-8648-41b1-b2c1-7bb1e3078d41",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "paths",
+                    "edge",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the conditional edge path."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"property\": \"string\",\n  \"value\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae690f6a-9474-41d0-9a99-a6f32ad26ed5",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "paths",
+                    "edge",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the conditional edge path."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "124f059d-a92b-417d-a9d9-05febda09fa9",
+          "name": "Update a conditional edge path",
+          "request": {
+            "name": "Update a conditional edge path",
+            "description": {
+              "content": "User must be entitled to the path in question, meaning they must have build access and be entitled both the source and target steps.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v2",
+                "paths",
+                "edge",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique ID of the conditional edge path."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{env}}",
+                  "key": "env"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"allowInternal\": \"<boolean>\",\n  \"allowExternal\": \"<boolean>\",\n  \"allowCurrentAssignee\": \"<boolean>\",\n  \"description\": \"<string>\",\n  \"requireAssignee\": \"<boolean>\",\n  \"operator\": \"<string>\",\n  \"priority\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cf9133db-cac4-497e-bb45-8a6807f22432",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "paths",
+                    "edge",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the conditional edge path."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"allowInternal\": false,\n  \"allowExternal\": false,\n  \"allowCurrentAssignee\": false,\n  \"description\": \"This describes the path.\",\n  \"requireAssignee\": false,\n  \"operator\": \"EQUALS\",\n  \"priority\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"a1b2c3d4\",\n  \"from\": \"a1b2c3d4\",\n  \"to\": \"a1b2c3d4\",\n  \"allowInternal\": false,\n  \"allowExternal\": false,\n  \"allowCurrentAssignee\": false,\n  \"description\": \"This describes the path.\",\n  \"requireAssignee\": false,\n  \"object\": \"edge-path\",\n  \"operator\": \"EQUALS\",\n  \"priority\": 0,\n  \"field\": {\n    \"id\": \"a1b2c3d4\",\n    \"name\": \"Risk Severity\",\n    \"application\": {\n      \"id\": \"a1b2c3d4\",\n      \"name\": \"Cyber Risk Management Application\",\n      \"type\": \"CONTROLS_COMPLIANCE\",\n      \"object\": \"application\"\n    },\n    \"workflow\": {\n      \"id\": \"a1b2c3d4\",\n      \"name\": \"Risk Assessments\",\n      \"recordPrefix\": \"Assessment\",\n      \"object\": \"workflow\"\n    },\n    \"label\": \"Enter the Risk Severity based on your assessment\",\n    \"global\": false,\n    \"required\": false,\n    \"tooltip\": \"Select the Risk Severity\",\n    \"helpText\": \"Determine the Risk Severity from your assessment\",\n    \"type\": \"SELECT\",\n    \"valueType\": \"OPTION\",\n    \"optionValues\": [\n      {\n        \"id\": \"a1b2c3d4\",\n        \"type\": \"OPTION\",\n        \"textValue\": \"Medium Risk\",\n        \"numericValue\": 2,\n        \"object\": \"value\"\n      },\n      {\n        \"id\": \"a1b2c3d4\",\n        \"type\": \"OPTION\",\n        \"textValue\": \"Medium Risk\",\n        \"numericValue\": 2,\n        \"object\": \"value\"\n      }\n    ],\n    \"defaultValues\": [\n      {\n        \"id\": \"a1b2c3d4\",\n        \"type\": \"OPTION\",\n        \"textValue\": \"Medium Risk\",\n        \"numericValue\": 2,\n        \"object\": \"value\"\n      },\n      {\n        \"id\": \"a1b2c3d4\",\n        \"type\": \"OPTION\",\n        \"textValue\": \"Medium Risk\",\n        \"numericValue\": 2,\n        \"object\": \"value\"\n      }\n    ],\n    \"pattern\": \"[0-9]{3}-[0-9]{3}-[0-9]{4}$\",\n    \"message\": \"string\",\n    \"expression\": \"%f + %f\",\n    \"nullStrategy\": \"Available options are: null, 0, 1, N/A, a blank space, and an empty String.\",\n    \"logicalHandling\": \"EQUALS\",\n    \"labelsEnabled\": true,\n    \"fieldInputs\": [\n      {\n        \"id\": \"string\",\n        \"crossflowReducer\": \"HIGHEST\",\n        \"calcSpecificToStep\": false,\n        \"calcStep\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Identify Risk\",\n          \"description\": \"This is a description of the step\",\n          \"xpos\": 20,\n          \"ypos\": 20,\n          \"type\": \"ORIGIN\",\n          \"enableComments\": false,\n          \"assignableUserType\": \"APP_USERS\",\n          \"externalUserMfaRequired\": false,\n          \"autofillEnabled\": false,\n          \"workflow\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"recordPrefix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"object\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"object\": \"step\"\n        },\n        \"systemField\": \"WORKFLOW_NAME\",\n        \"fieldWorkflow\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Assessments\",\n          \"recordPrefix\": \"Assessment\",\n          \"object\": \"workflow\"\n        },\n        \"fieldWorkflowId\": \"string\",\n        \"customField\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Severity\",\n          \"label\": \"Enter the Risk Severity based on your assessment\",\n          \"global\": false,\n          \"required\": false,\n          \"tooltip\": \"Select the Risk Severity\",\n          \"helpText\": \"Determine the Risk Severity from your assessment\",\n          \"type\": \"SELECT\",\n          \"valueType\": \"OPTION\",\n          \"pattern\": \"[0-9]{3}-[0-9]{3}-[0-9]{4}$\",\n          \"message\": \"string\",\n          \"expression\": \"%f + %f\",\n          \"nullStrategy\": \"Available options are: null, 0, 1, N/A, a blank space, and an empty String.\",\n          \"logicalHandling\": \"IS_NOT\",\n          \"labelsEnabled\": true,\n          \"linkDepth\": 7364,\n          \"object\": \"field\"\n        },\n        \"customFieldId\": \"string\",\n        \"priority\": 2453\n      },\n      {\n        \"id\": \"string\",\n        \"crossflowReducer\": \"SUM\",\n        \"calcSpecificToStep\": true,\n        \"calcStep\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Identify Risk\",\n          \"description\": \"This is a description of the step\",\n          \"xpos\": 20,\n          \"ypos\": 20,\n          \"type\": \"ORIGIN\",\n          \"enableComments\": false,\n          \"assignableUserType\": \"APP_USERS\",\n          \"externalUserMfaRequired\": false,\n          \"autofillEnabled\": false,\n          \"workflow\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"recordPrefix\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"object\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"object\": \"step\"\n        },\n        \"systemField\": \"MATCH_CONFIDENCE\",\n        \"fieldWorkflow\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Assessments\",\n          \"recordPrefix\": \"Assessment\",\n          \"object\": \"workflow\"\n        },\n        \"fieldWorkflowId\": \"string\",\n        \"customField\": {\n          \"id\": \"a1b2c3d4\",\n          \"name\": \"Risk Severity\",\n          \"label\": \"Enter the Risk Severity based on your assessment\",\n          \"global\": false,\n          \"required\": false,\n          \"tooltip\": \"Select the Risk Severity\",\n          \"helpText\": \"Determine the Risk Severity from your assessment\",\n          \"type\": \"SELECT\",\n          \"valueType\": \"OPTION\",\n          \"pattern\": \"[0-9]{3}-[0-9]{3}-[0-9]{4}$\",\n          \"message\": \"string\",\n          \"expression\": \"%f + %f\",\n          \"nullStrategy\": \"Available options are: null, 0, 1, N/A, a blank space, and an empty String.\",\n          \"logicalHandling\": \"NULL\",\n          \"labelsEnabled\": true,\n          \"linkDepth\": 6717,\n          \"object\": \"field\"\n        },\n        \"customFieldId\": \"string\",\n        \"priority\": 5893\n      }\n    ],\n    \"linkDepth\": 7816,\n    \"object\": \"field\"\n  },\n  \"option\": {\n    \"id\": \"a1b2c3d4\",\n    \"type\": \"OPTION\",\n    \"textValue\": \"Medium Risk\",\n    \"numericValue\": 2,\n    \"object\": \"value\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8673eb3c-e558-459e-8562-fc89926311bb",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "paths",
+                    "edge",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the conditional edge path."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"allowInternal\": false,\n  \"allowExternal\": false,\n  \"allowCurrentAssignee\": false,\n  \"description\": \"This describes the path.\",\n  \"requireAssignee\": false,\n  \"operator\": \"EQUALS\",\n  \"priority\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"property\": \"string\",\n  \"value\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9453263f-2c0f-4ad9-a3a0-e4bc37e33652",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "paths",
+                    "edge",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the conditional edge path."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"allowInternal\": false,\n  \"allowExternal\": false,\n  \"allowCurrentAssignee\": false,\n  \"description\": \"This describes the path.\",\n  \"requireAssignee\": false,\n  \"operator\": \"EQUALS\",\n  \"priority\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"property\": \"string\",\n  \"value\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "efb4b350-590e-46be-913e-203d2025f267",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v2",
+                    "paths",
+                    "edge",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the conditional edge path."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{env}}",
+                      "key": "env"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) A bearer authorization header containing a Risk Cloud API access token in the format `Authorization: Bearer {TOKEN}`.\n\nTo obtain a Risk Cloud API access token, refer to [Obtain an API Access Token](https://www.logicgate.com/developer/risk-cloud-api-authentication/) in the [LogicGate Help Center](https://help.logicgate.com/hc/en-us).",
+                    "key": "Authorization",
+                    "value": "Bearer {TOKEN}"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"allowInternal\": false,\n  \"allowExternal\": false,\n  \"allowCurrentAssignee\": false,\n  \"description\": \"This describes the path.\",\n  \"requireAssignee\": false,\n  \"operator\": \"EQUALS\",\n  \"priority\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "qa",
+      "key": "env"
+    },
+    {
+      "type": "string",
+      "value": "https://{{env}}.logicgate.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "db4ac777-e324-4593-93ea-b7fdb09c66e2",
+    "name": "Risk Cloud Access Audit Edge Path API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Welcome to the Risk Cloud API v2! This is a collection of new API-first and RESTful API endpoints to streamline the creation of custom integrations with the Risk Cloud.\n\nFor the API documentation of our legacy API v1 endpoints, reference [Risk Cloud API v1](https://docs.logicgate.com/v1/index.html).\n\nContact Support:\n Name: developer-relations@logicgate.com\n Email: developer-relations@logicgate.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Risk Cloud Access Audit Next Path API",
+    "version": "v2026.7.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Next Path",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all default next paths",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{env}.logicgate.com/api/v2/paths/next",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "params": [
+              {
+                "name": "step",
+                "value": "a1b2c3d4",
+                "type": "query",
+                "description": "Providing a step ID returns paths only to or from the identified step."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Results page you want to retrieve (0..N)"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sorting criteria in the format: property(,asc|desc). Default sort order is ascending. Multiple sort criteria are supported."
+              }
+            ]
+          },
+          "docs": "Get a list of all default next paths in the environment that are entitled to the current user. Build user privileges are required."
+        },
+        {
+          "info": {
+            "name": "Create a default next path",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{env}.logicgate.com/api/v2/paths/next",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Build privileges and step access are required."
+        },
+        {
+          "info": {
+            "name": "Update a default next path",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{env}.logicgate.com/api/v2/paths/next/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the default next path."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "User must be entitled to the path in question, meaning they must have build access and be entitled both the source and target steps."
+        },
+        {
+          "info": {
+            "name": "Create a default next path",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{env}.logicgate.com/api/v2/paths/next/:next-path",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "params": [
+              {
+                "name": "next-path",
+                "value": "a1b2c3d4",
+                "type": "path",
+                "description": "Providing a step ID returns paths only to or from the identified step."
+              }
+            ]
+          },
+          "docs": "Build privileges and step access are required."
+        },
+        {
+          "info": {
+            "name": "Delete a default next path",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{env}.logicgate.com/api/v2/paths/next/:next-path",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "params": [
+              {
+                "name": "next-path",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the default next path."
+              }
+            ]
+          },
+          "docs": "Build user privileges are required."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

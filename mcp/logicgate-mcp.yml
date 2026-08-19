@@ -2,8 +2,8 @@ generated: '2026-07-20'
 method: derived
 status: candidate
 source: openapi/logicgate-risk-cloud-openapi-original.json
-note: Candidate tool list derived from Risk Cloud API v2 OpenAPI operations. LogicGate
-  publishes no official hosted MCP server as of this pass.
+note: Candidate tool list derived from Risk Cloud API v2 OpenAPI operations. LogicGate publishes no official
+  hosted MCP server as of this pass.
 server:
   name: logicgate-risk-cloud
   transport: http
@@ -137,3 +137,9 @@ tools:
 - name: readAllAccessAudits
   description: Retrieve access audits
   source_operation: openapi/logicgate-risk-cloud-openapi-original.json#readAllAccessAudits
+deployment:
+  mode: none
+  verified: derived
+  tools: 43
+  checked: '2026-08-12'
+  source: catalog MCP census

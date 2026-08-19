@@ -1,0 +1,159 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Risk Cloud Access Audit Record API",
+    "version": "v2026.7.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Record",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{env}.logicgate.com/api/v2/records",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "params": [
+              {
+                "name": "application-id",
+                "value": "a1b2c3d4",
+                "type": "query",
+                "description": "The unique ID of an application where, if provided, the response will only contain records from the identified application"
+              },
+              {
+                "name": "workflow-id",
+                "value": "a1b2c3d4",
+                "type": "query",
+                "description": "The unique ID of a workflow where, if provided, the response will only contain records from the identified workflow"
+              },
+              {
+                "name": "step-id",
+                "value": "a1b2c3d4",
+                "type": "query",
+                "description": "The unique ID of a step where, if provided, the response will only contain records on the identified step"
+              },
+              {
+                "name": "updated-min",
+                "value": "1672552800000",
+                "type": "query",
+                "description": "A timestamp measured in milliseconds since the Unix epoch where, if provided, the response will only contain records that have been modified since the given timestamp"
+              },
+              {
+                "name": "page",
+                "value": "0",
+                "type": "query",
+                "description": "The zero-indexed page number (must not be less than 0, defaults to 0)"
+              },
+              {
+                "name": "size",
+                "value": "20",
+                "type": "query",
+                "description": "The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)"
+              }
+            ]
+          },
+          "docs": "**Permissions:** Authenticated User\n\nRetrieve a page of all records that the current user has [Read or Write access](https://help.logicgate.com/hc/en-us/articles/4402683227156-Permission-Sets-) to."
+        },
+        {
+          "info": {
+            "name": "Retrieve a record",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{env}.logicgate.com/api/v2/records/:id",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the record"
+              }
+            ]
+          },
+          "docs": "**Permissions:** [Read or Write access](https://help.logicgate.com/hc/en-us/articles/4402683227156-Permission-Sets-)\n\nRetrieve a record specified by the ID in the URL path."
+        },
+        {
+          "info": {
+            "name": "Retrieve all linked records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{env}.logicgate.com/api/v2/records/:id/linked",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": "Bearer {TOKEN}"
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the record"
+              },
+              {
+                "name": "workflow-id",
+                "value": "a1b2c3d4",
+                "type": "query",
+                "description": "The unique ID of a workflow where, if provided, the response will only contain linked records from the identified workflow"
+              },
+              {
+                "name": "depth",
+                "value": "10",
+                "type": "query",
+                "description": "Specifies the maximum depth of linked records to return with regards to the relationship between the given record's workflow and the workflow specified by `workflow-id` (must not be less than 0, defaults to 10)"
+              },
+              {
+                "name": "updated-min",
+                "value": "1672552800000",
+                "type": "query",
+                "description": "A timestamp measured in milliseconds since the Unix epoch where, if provided, the response will only contain records that have been modified since the given timestamp"
+              },
+              {
+                "name": "page",
+                "value": "0",
+                "type": "query",
+                "description": "The zero-indexed page number (must not be less than 0, defaults to 0)"
+              },
+              {
+                "name": "size",
+                "value": "20",
+                "type": "query",
+                "description": "The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)"
+              }
+            ]
+          },
+          "docs": "**Permissions:** [Read or Write access](https://help.logicgate.com/hc/en-us/articles/4402683227156-Permission-Sets-)\n\nRetrieve a page of all records that are linked to the record of the given record ID that the current user has [Read or Write access](https://help.logicgate.com/hc/en-us/articles/4402683227156-Permission-Sets-) to. The maximum depth of linked records to return with regards to the relationship between the records can be specified by the `depth` property, which defaults to 10.\n\nThis"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
