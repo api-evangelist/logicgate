@@ -40,6 +40,15 @@ tags:
 - Governance Risk and Compliance
 - Risk Management
 - Compliance
+- Workflow-Automation
+- Audit
+- No-Code
+tags_raw:
+- Company
+- GRC
+- Governance Risk and Compliance
+- Risk Management
+- Compliance
 - Workflow Automation
 - Audit
 - No-Code
@@ -202,6 +211,8 @@ apis:
   humanURL: https://docs.logicgate.com/v2/index.html
   baseURL: https://logicgate.com
   tags:
+  - Workflows
+  tags_raw:
   - Workflow
   properties:
   - type: OpenAPI
