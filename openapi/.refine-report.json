@@ -1,17 +1,7 @@
 {
   "provider": "logicgate",
   "sources": [
-    "logicgate-access-audit-api-openapi.yml",
-    "logicgate-application-api-openapi.yml",
-    "logicgate-authentication-api-openapi.yml",
-    "logicgate-edge-path-api-openapi.yml",
-    "logicgate-field-api-openapi.yml",
-    "logicgate-next-path-api-openapi.yml",
-    "logicgate-record-api-openapi.yml",
-    "logicgate-redirect-path-api-openapi.yml",
-    "logicgate-step-api-openapi.yml",
-    "logicgate-workflow-api-openapi.yml",
-    "logicgate-workflow-map-api-openapi.yml"
+    "_original/logicgate-risk-cloud-openapi-original.json"
   ],
   "outputs": [
     "logicgate-access-audit-api-openapi.yml",
@@ -29,6 +19,22 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "logicgate-risk-cloud-openapi-original.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0; renamed 2 component key(s) illegal in 3.x (e.g. Crossflow (Response))",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "logicgate-access-audit-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "logicgate-application-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "logicgate-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "logicgate-edge-path-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "logicgate-field-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "logicgate-next-path-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "logicgate-record-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "logicgate-redirect-path-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "logicgate-step-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "logicgate-workflow-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "logicgate-workflow-map-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

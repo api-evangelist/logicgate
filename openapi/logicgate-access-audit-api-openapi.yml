@@ -1,10 +1,10 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Risk Cloud Access Audit API
   description: 'Welcome to the Risk Cloud API v2! This is a collection of new API-first and RESTful API endpoints to streamline the creation of custom integrations with the Risk Cloud.
 
 
-    For the API documentation of our legacy API v1 endpoints, reference [Risk Cloud API v1](https://docs.logicgate.com/v1/index.html).'
+    For the API documentation of our legacy API v1 endpoints, reference Risk Cloud API v1.'
   contact:
     name: developer-relations@logicgate.com
     email: developer-relations@logicgate.com
@@ -27,7 +27,7 @@ paths:
       tags:
       - Access Audit
       summary: Retrieve access audits
-      description: '**Permissions:** [Productivity Entitlement](https://help.logicgate.com/hc/en-us/articles/4402683139348-Module-Entitlements-for-Roles)
+      description: '**Permissions:** Productivity Entitlement
 
 
         Retrieve a page of all access audits.'
@@ -116,54 +116,6 @@ paths:
       x-beta: 'true'
 components:
   schemas:
-    PageLinksOut:
-      type: object
-      properties:
-        first:
-          type: string
-          description: A URL path to the first page of requested data
-          example: /api/v2/resource?page=0&size=20
-        prev:
-          type: string
-          description: A URL path to the next page of requested data or `null` if currently on first page
-          example: /api/v2/resource?page=2&size=20
-        self:
-          type: string
-          description: A URL path to the current page of requested data
-          example: /api/v2/resource?page=3&size=20
-        next:
-          type: string
-          description: A URL link to the next page of requested data or `null` if currently on last page
-          example: /api/v2/resource?page=4&size=20
-        last:
-          type: string
-          description: A URL link to the last page of requested data
-          example: /api/v2/resource?page=6&size=20
-      title: Page Links
-    PageInfoOut:
-      type: object
-      properties:
-        size:
-          type: integer
-          format: int64
-          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
-          example: 20
-        totalElements:
-          type: integer
-          format: int64
-          description: The total number of items available
-          example: 50
-        totalPages:
-          type: integer
-          format: int64
-          description: The total number of pages available based on the size
-          example: 3
-        number:
-          type: integer
-          format: int64
-          description: The zero-indexed page number (must not be less than 0, defaults to 0)
-          example: 0
-      title: Page Info
     PageModelOutAccessAuditApiOut:
       type: object
       properties:
@@ -219,6 +171,54 @@ components:
           description: Identifies the type of object this data represents
           example: access_audit
       title: Access Audit
+    PageInfoOut:
+      type: object
+      properties:
+        size:
+          type: integer
+          format: int64
+          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
+          example: 20
+        totalElements:
+          type: integer
+          format: int64
+          description: The total number of items available
+          example: 50
+        totalPages:
+          type: integer
+          format: int64
+          description: The total number of pages available based on the size
+          example: 3
+        number:
+          type: integer
+          format: int64
+          description: The zero-indexed page number (must not be less than 0, defaults to 0)
+          example: 0
+      title: Page Info
+    PageLinksOut:
+      type: object
+      properties:
+        first:
+          type: string
+          description: A URL path to the first page of requested data
+          example: /api/v2/resource?page=0&size=20
+        prev:
+          type: string
+          description: A URL path to the next page of requested data or `null` if currently on first page
+          example: /api/v2/resource?page=2&size=20
+        self:
+          type: string
+          description: A URL path to the current page of requested data
+          example: /api/v2/resource?page=3&size=20
+        next:
+          type: string
+          description: A URL link to the next page of requested data or `null` if currently on last page
+          example: /api/v2/resource?page=4&size=20
+        last:
+          type: string
+          description: A URL link to the last page of requested data
+          example: /api/v2/resource?page=6&size=20
+      title: Page Links
     UserPropertyApiOut:
       type: object
       properties:
@@ -240,7 +240,7 @@ components:
           example: user
       title: User (Property)
   securitySchemes:
-    API Token:
+    API_Token:
       type: http
       name: Authorization
       in: header
