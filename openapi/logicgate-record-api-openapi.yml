@@ -219,7 +219,108 @@ paths:
       x-beta: 'true'
 components:
   schemas:
-    ApplicationPropertyApiOut:
+    ValuePropertyApiOut:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this Risk Cloud resource
+          example: a1b2c3d4
+        type:
+          type: string
+          description: The type of the value
+          enum:
+          - NUMBER
+          - CALCULATION
+          - ATTACHMENT
+          - DATE
+          - OPTION
+          - USER
+          - TEXT
+          - OTHER
+          example: OPTION
+        textValue:
+          type: string
+          description: 'The text representation of the record value, with the format varying by value type:
+
+            - `NUMBER`: a string representation of the number, with currency if specified on the field (example: `"42"`)
+
+            - `CALCULATION`: a string representation of the label if specified on the field, otherwise the number (example: `"Highest Risk"`)
+
+            - `ATTACHMENT`: the name of the attachment file (example: `"my-evidence.pdf"`)
+
+            - `DATE`: the date formatted according to the requesting user''s settings (example: `"1/1/23, 12:00 PM"`)
+
+            - `OPTION`: the text value of the option (example: `"Medium Risk"`)
+
+            - `USER`: the full name and email of the user (example: `"First Last (first.last@example.com)"`)
+
+            - `TEXT`: the text value (example: `"Data Theft"`)'
+          example: Medium Risk
+        numericValue:
+          type: number
+          format: double
+          description: 'The numeric representation of the record value, with the format varying by value type:
+
+            - `NUMBER`: the numeric value of the number (example: `42.0`)
+
+            - `CALCULATION`: the numeric value of the calculation (example: `42.0`)
+
+            - `ATTACHMENT`: the version count of the attachment (example: `2.0`)
+
+            - `DATE`: the date measured in milliseconds since the Unix epoch (example: `1672552800000.0`)
+
+            - `OPTION`: the numeric value of the option (example: `2.0`)
+
+            - `USER`: a null value (example: `null`)
+
+            - `TEXT`: a null value (example: `null`)'
+          example: 2.0
+        object:
+          type: string
+          description: Identifies the type of object this data represents
+          example: value
+      title: Value (Property)
+    RecordDatesApiOut:
+      type: object
+      properties:
+        created:
+          type: string
+          format: date-time
+          description: The moment this Risk Cloud resource was created measured in milliseconds since the Unix epoch.
+          example: 1672552800000
+        dueDate:
+          type: string
+          format: date-time
+          description: The due date of this record and step SLA measured in milliseconds since the Unix epoch
+          example: 1672552800000
+        recordDueDate:
+          type: string
+          format: date-time
+          description: The due date of this record measured in milliseconds since the Unix epoch
+          example: 1672552800000
+        daysUntilDue:
+          type: integer
+          format: int64
+          description: The number of days until this record is due
+          example: 3
+        updated:
+          type: string
+          format: date-time
+          description: The moment this Risk Cloud resource was last updated measured in milliseconds since the Unix epoch.
+          example: 1672552800000
+        completed:
+          type: string
+          format: date-time
+          description: The moment this record was completed if the record is currently in an end step measured in milliseconds since the Unix epoch
+          example: 1672552800000
+        lastCompleted:
+          type: string
+          format: date-time
+          description: The moment this record was last completed regardless of if the record has transitioned from an end step measured in milliseconds since the Unix epoch
+          example: 1672552800000
+      title: Record Dates
+    FieldRecordApiOut:
       type: object
       properties:
         id:
@@ -228,54 +329,66 @@ components:
           example: a1b2c3d4
         name:
           type: string
-          description: The name of the application
-          example: Cyber Risk Management Application
+          description: The name of the field
+          example: Risk Severity
+        label:
+          type: string
+          description: The label of the field as shown on the record
+          example: Enter the Risk Severity based on your assessment
+        global:
+          type: boolean
+          description: Whether the field is global
+          example: false
         type:
           type: string
-          description: The type of Risk Cloud application
+          description: The type of the field
           enum:
-          - ACCESS_MANAGEMENT
-          - AML_KYC
-          - ASSET_MANAGEMENT
-          - AUDIT_MANAGEMENT
-          - BUSINESS_CONTINUITY_PLANNING
-          - CHANGE_MANAGEMENT
-          - COMPLAINT_MANAGEMENT
-          - COMPLIANCE_MANAGEMENT
-          - CONTRACT_MANAGEMENT
-          - CONTROLS_COMPLIANCE
-          - CONTROLS_MANAGEMENT
-          - CRISIS_MANAGEMENT
-          - CUSTOM
-          - CUSTOM_GRC_USE_CASE
-          - CYBER_RISK_MANAGEMENT
-          - DATA_PRIVACY_MANAGEMENT
-          - EMPLOYEE_COMPLIANCE
-          - ENTERPRISE_RISK_MANAGEMENT
-          - ESG
-          - INCIDENT_MANAGEMENT
-          - INTERNAL_AUDIT_MANAGEMENT
-          - IT_RISK_MANAGEMENT
-          - NONE
-          - OPERATIONAL_RESILIENCY
+          - DATE
+          - USER
+          - EXTERNAL_USER
+          - TEXT
+          - TEXT_AREA
+          - NUMBER
+          - E_SIGNATURE
+          - CHECKBOX
+          - MULTI_SELECT
+          - RADIO
+          - SELECT
+          - ATTACHMENT
+          - CALCULATION
+          - TEXT_CONCATENATION
+          - LINKED_RECORDS_COUNT
+          - DATE_CALCULATION
           - OTHER
-          - POLICY_AND_PROCEDURE_MANAGEMENT
-          - POLICY_MANAGEMENT
-          - PRIVACY_MANAGEMENT
-          - QUANTIFY
-          - REGULATORY_COMPLIANCE
-          - REPOSITORY
-          - RISK_QUANTIFICATION
-          - SOX_TESTING
-          - STANDARDS_REGULATIONS
-          - SURVEY
-          - THIRD_PARTY_RISK_MANAGEMENT
-          example: CONTROLS_COMPLIANCE
+          example: SELECT
+          title: Field Type
+        valueType:
+          type: string
+          description: The type of the field value
+          enum:
+          - NUMBER
+          - CALCULATION
+          - ATTACHMENT
+          - DATE
+          - OPTION
+          - USER
+          - TEXT
+          - OTHER
+          example: OPTION
+        required:
+          type: boolean
+          description: Whether the field is required for the current step
+          example: false
+        values:
+          type: array
+          description: The values of the record field
+          items:
+            $ref: '#/components/schemas/ValuePropertyApiOut'
         object:
           type: string
           description: Identifies the type of object this data represents
-          example: application
-      title: Application (Property)
+          example: field
+      title: Field (Record)
     RecordApiOut:
       type: object
       properties:
@@ -357,22 +470,7 @@ components:
           description: Identifies the type of object this data represents
           example: workflow
       title: Workflow (Property)
-    PageModelOutRecordApiOut:
-      type: object
-      properties:
-        content:
-          type: array
-          description: A array of returned items
-          items:
-            $ref: '#/components/schemas/RecordApiOut'
-        links:
-          $ref: '#/components/schemas/PageLinksOut'
-          description: A collection of page URL links for navigation and iteration
-        page:
-          $ref: '#/components/schemas/PageInfoOut'
-          description: A collection page metadata
-      title: Page (Response)
-    FieldRecordApiOut:
+    ApplicationPropertyApiOut:
       type: object
       properties:
         id:
@@ -381,66 +479,54 @@ components:
           example: a1b2c3d4
         name:
           type: string
-          description: The name of the field
-          example: Risk Severity
-        label:
-          type: string
-          description: The label of the field as shown on the record
-          example: Enter the Risk Severity based on your assessment
-        global:
-          type: boolean
-          description: Whether the field is global
-          example: false
+          description: The name of the application
+          example: Cyber Risk Management Application
         type:
           type: string
-          description: The type of the field
+          description: The type of Risk Cloud application
           enum:
-          - DATE
-          - USER
-          - EXTERNAL_USER
-          - TEXT
-          - TEXT_AREA
-          - NUMBER
-          - E_SIGNATURE
-          - CHECKBOX
-          - MULTI_SELECT
-          - RADIO
-          - SELECT
-          - ATTACHMENT
-          - CALCULATION
-          - TEXT_CONCATENATION
-          - LINKED_RECORDS_COUNT
-          - DATE_CALCULATION
+          - ACCESS_MANAGEMENT
+          - AML_KYC
+          - ASSET_MANAGEMENT
+          - AUDIT_MANAGEMENT
+          - BUSINESS_CONTINUITY_PLANNING
+          - CHANGE_MANAGEMENT
+          - COMPLAINT_MANAGEMENT
+          - COMPLIANCE_MANAGEMENT
+          - CONTRACT_MANAGEMENT
+          - CONTROLS_COMPLIANCE
+          - CONTROLS_MANAGEMENT
+          - CRISIS_MANAGEMENT
+          - CUSTOM
+          - CUSTOM_GRC_USE_CASE
+          - CYBER_RISK_MANAGEMENT
+          - DATA_PRIVACY_MANAGEMENT
+          - EMPLOYEE_COMPLIANCE
+          - ENTERPRISE_RISK_MANAGEMENT
+          - ESG
+          - INCIDENT_MANAGEMENT
+          - INTERNAL_AUDIT_MANAGEMENT
+          - IT_RISK_MANAGEMENT
+          - NONE
+          - OPERATIONAL_RESILIENCY
           - OTHER
-          example: SELECT
-          title: Field Type
-        valueType:
-          type: string
-          description: The type of the field value
-          enum:
-          - NUMBER
-          - CALCULATION
-          - ATTACHMENT
-          - DATE
-          - OPTION
-          - USER
-          - TEXT
-          - OTHER
-          example: OPTION
-        required:
-          type: boolean
-          description: Whether the field is required for the current step
-          example: false
-        values:
-          type: array
-          description: The values of the record field
-          items:
-            $ref: '#/components/schemas/ValuePropertyApiOut'
+          - POLICY_AND_PROCEDURE_MANAGEMENT
+          - POLICY_MANAGEMENT
+          - PRIVACY_MANAGEMENT
+          - QUANTIFY
+          - REGULATORY_COMPLIANCE
+          - REPOSITORY
+          - RISK_QUANTIFICATION
+          - SOX_TESTING
+          - STANDARDS_REGULATIONS
+          - SURVEY
+          - THIRD_PARTY_RISK_MANAGEMENT
+          example: CONTROLS_COMPLIANCE
         object:
           type: string
           description: Identifies the type of object this data represents
-          example: field
-      title: Field (Record)
+          example: application
+      title: Application (Property)
     StepPropertyApiOut:
       type: object
       properties:
@@ -465,151 +551,6 @@ components:
           description: Identifies the type of object this data represents
           example: step
       title: Step (Property)
-    PageInfoOut:
-      type: object
-      properties:
-        size:
-          type: integer
-          format: int64
-          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
-          example: 20
-        totalElements:
-          type: integer
-          format: int64
-          description: The total number of items available
-          example: 50
-        totalPages:
-          type: integer
-          format: int64
-          description: The total number of pages available based on the size
-          example: 3
-        number:
-          type: integer
-          format: int64
-          description: The zero-indexed page number (must not be less than 0, defaults to 0)
-          example: 0
-      title: Page Info
-    RecordDatesApiOut:
-      type: object
-      properties:
-        created:
-          type: string
-          format: date-time
-          description: The moment this Risk Cloud resource was created measured in milliseconds since the Unix epoch.
-          example: 1672552800000
-        dueDate:
-          type: string
-          format: date-time
-          description: The due date of this record and step SLA measured in milliseconds since the Unix epoch
-          example: 1672552800000
-        recordDueDate:
-          type: string
-          format: date-time
-          description: The due date of this record measured in milliseconds since the Unix epoch
-          example: 1672552800000
-        daysUntilDue:
-          type: integer
-          format: int64
-          description: The number of days until this record is due
-          example: 3
-        updated:
-          type: string
-          format: date-time
-          description: The moment this Risk Cloud resource was last updated measured in milliseconds since the Unix epoch.
-          example: 1672552800000
-        completed:
-          type: string
-          format: date-time
-          description: The moment this record was completed if the record is currently in an end step measured in milliseconds since the Unix epoch
-          example: 1672552800000
-        lastCompleted:
-          type: string
-          format: date-time
-          description: The moment this record was last completed regardless of if the record has transitioned from an end step measured in milliseconds since the Unix epoch
-          example: 1672552800000
-      title: Record Dates
-    UserPropertyApiOut:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique ID of this Risk Cloud resource
-          example: a1b2c3d4
-        name:
-          type: string
-          description: The name of the user
-          example: Jane Doe
-        email:
-          type: string
-          description: The email of the user
-          example: jane.doe@example.com
-        object:
-          type: string
-          description: Identifies the type of object this data represents
-          example: user
-      title: User (Property)
-    ValuePropertyApiOut:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique ID of this Risk Cloud resource
-          example: a1b2c3d4
-        type:
-          type: string
-          description: The type of the value
-          enum:
-          - NUMBER
-          - CALCULATION
-          - ATTACHMENT
-          - DATE
-          - OPTION
-          - USER
-          - TEXT
-          - OTHER
-          example: OPTION
-        textValue:
-          type: string
-          description: 'The text representation of the record value, with the format varying by value type:
-
-            - `NUMBER`: a string representation of the number, with currency if specified on the field (example: `"42"`)
-
-            - `CALCULATION`: a string representation of the label if specified on the field, otherwise the number (example: `"Highest Risk"`)
-
-            - `ATTACHMENT`: the name of the attachment file (example: `"my-evidence.pdf"`)
-
-            - `DATE`: the date formatted according to the requesting user''s settings (example: `"1/1/23, 12:00 PM"`)
-
-            - `OPTION`: the text value of the option (example: `"Medium Risk"`)
-
-            - `USER`: the full name and email of the user (example: `"First Last (first.last@example.com)"`)
-
-            - `TEXT`: the text value (example: `"Data Theft"`)'
-          example: Medium Risk
-        numericValue:
-          type: number
-          format: double
-          description: 'The numeric representation of the record value, with the format varying by value type:
-
-            - `NUMBER`: the numeric value of the number (example: `42.0`)
-
-            - `CALCULATION`: the numeric value of the calculation (example: `42.0`)
-
-            - `ATTACHMENT`: the version count of the attachment (example: `2.0`)
-
-            - `DATE`: the date measured in milliseconds since the Unix epoch (example: `1672552800000.0`)
-
-            - `OPTION`: the numeric value of the option (example: `2.0`)
-
-            - `USER`: a null value (example: `null`)
-
-            - `TEXT`: a null value (example: `null`)'
-          example: 2.0
-        object:
-          type: string
-          description: Identifies the type of object this data represents
-          example: value
-      title: Value (Property)
     PageLinksOut:
       type: object
       properties:
@@ -634,6 +575,65 @@ components:
           description: A URL link to the last page of requested data
           example: /api/v2/resource?page=6&size=20
       title: Page Links
+    PageInfoOut:
+      type: object
+      properties:
+        size:
+          type: integer
+          format: int64
+          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
+          example: 20
+        totalElements:
+          type: integer
+          format: int64
+          description: The total number of items available
+          example: 50
+        totalPages:
+          type: integer
+          format: int64
+          description: The total number of pages available based on the size
+          example: 3
+        number:
+          type: integer
+          format: int64
+          description: The zero-indexed page number (must not be less than 0, defaults to 0)
+          example: 0
+      title: Page Info
+    UserPropertyApiOut:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this Risk Cloud resource
+          example: a1b2c3d4
+        name:
+          type: string
+          description: The name of the user
+          example: Jane Doe
+        email:
+          type: string
+          description: The email of the user
+          example: jane.doe@example.com
+        object:
+          type: string
+          description: Identifies the type of object this data represents
+          example: user
+      title: User (Property)
+    PageModelOutRecordApiOut:
+      type: object
+      properties:
+        content:
+          type: array
+          description: A array of returned items
+          items:
+            $ref: '#/components/schemas/RecordApiOut'
+        links:
+          $ref: '#/components/schemas/PageLinksOut'
+          description: A collection of page URL links for navigation and iteration
+        page:
+          $ref: '#/components/schemas/PageInfoOut'
+          description: A collection page metadata
+      title: Page (Response)
   securitySchemes:
     API_Token:
       type: http

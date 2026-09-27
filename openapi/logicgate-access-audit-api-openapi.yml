@@ -171,30 +171,6 @@ components:
           description: Identifies the type of object this data represents
           example: access_audit
       title: Access Audit
-    PageInfoOut:
-      type: object
-      properties:
-        size:
-          type: integer
-          format: int64
-          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
-          example: 20
-        totalElements:
-          type: integer
-          format: int64
-          description: The total number of items available
-          example: 50
-        totalPages:
-          type: integer
-          format: int64
-          description: The total number of pages available based on the size
-          example: 3
-        number:
-          type: integer
-          format: int64
-          description: The zero-indexed page number (must not be less than 0, defaults to 0)
-          example: 0
-      title: Page Info
     PageLinksOut:
       type: object
       properties:
@@ -219,6 +195,30 @@ components:
           description: A URL link to the last page of requested data
           example: /api/v2/resource?page=6&size=20
       title: Page Links
+    PageInfoOut:
+      type: object
+      properties:
+        size:
+          type: integer
+          format: int64
+          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
+          example: 20
+        totalElements:
+          type: integer
+          format: int64
+          description: The total number of items available
+          example: 50
+        totalPages:
+          type: integer
+          format: int64
+          description: The total number of pages available based on the size
+          example: 3
+        number:
+          type: integer
+          format: int64
+          description: The zero-indexed page number (must not be less than 0, defaults to 0)
+          example: 0
+      title: Page Info
     UserPropertyApiOut:
       type: object
       properties:

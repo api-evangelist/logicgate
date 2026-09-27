@@ -258,6 +258,113 @@ paths:
       x-beta: 'true'
 components:
   schemas:
+    ApplicationApiOut:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this Risk Cloud resource
+          example: a1b2c3d4
+        name:
+          type: string
+          description: The name of the application
+          example: Cyber Risk Management Application
+        description:
+          type: string
+          description: The description of the application
+          example: Cyber Risk Management Description Text
+        color:
+          type: string
+          description: The hex representation of the icon color of the application
+          example: '#00a3de'
+        icon:
+          type: string
+          description: The icon type of the application
+          enum:
+          - BOOKMARK
+          - BOLT
+          - BULLHORN
+          - CERTIFICATE
+          - CHECK_SQUARE_O
+          - CLOUD
+          - COMMENTS
+          - CUBES
+          - DOLLAR
+          - EXCLAMATION_TRIANGLE
+          - TEXT_O
+          - FOLDER
+          - GIFT
+          - GLOBE
+          - HEARTBEAT
+          - LEAF
+          - LEGAL
+          - LIFE_RING
+          - MEDKIT
+          - MONEY
+          - PERCENT
+          - ROCKET
+          - SIGNAL
+          - UNIVERSITY
+          - USER_CIRCLE
+          example: CUBES
+        type:
+          type: string
+          description: The type of Risk Cloud application
+          enum:
+          - ACCESS_MANAGEMENT
+          - AML_KYC
+          - ASSET_MANAGEMENT
+          - AUDIT_MANAGEMENT
+          - BUSINESS_CONTINUITY_PLANNING
+          - CHANGE_MANAGEMENT
+          - COMPLAINT_MANAGEMENT
+          - COMPLIANCE_MANAGEMENT
+          - CONTRACT_MANAGEMENT
+          - CONTROLS_COMPLIANCE
+          - CONTROLS_MANAGEMENT
+          - CRISIS_MANAGEMENT
+          - CUSTOM
+          - CUSTOM_GRC_USE_CASE
+          - CYBER_RISK_MANAGEMENT
+          - DATA_PRIVACY_MANAGEMENT
+          - EMPLOYEE_COMPLIANCE
+          - ENTERPRISE_RISK_MANAGEMENT
+          - ESG
+          - INCIDENT_MANAGEMENT
+          - INTERNAL_AUDIT_MANAGEMENT
+          - IT_RISK_MANAGEMENT
+          - NONE
+          - OPERATIONAL_RESILIENCY
+          - OTHER
+          - POLICY_AND_PROCEDURE_MANAGEMENT
+          - POLICY_MANAGEMENT
+          - PRIVACY_MANAGEMENT
+          - QUANTIFY
+          - REGULATORY_COMPLIANCE
+          - REPOSITORY
+          - RISK_QUANTIFICATION
+          - SOX_TESTING
+          - STANDARDS_REGULATIONS
+          - SURVEY
+          - THIRD_PARTY_RISK_MANAGEMENT
+          example: CONTROLS_COMPLIANCE
+        live:
+          type: boolean
+          description: Whether the application is live
+          example: false
+        restrictBuildAccess:
+          type: boolean
+          description: Whether users with the Build entitlement must be explicitly granted permission to edit this application
+          example: false
+        shortCode:
+          type: string
+          description: Short display code for the application
+          example: TPRM
+        object:
+          type: string
+          description: Identifies the type of object this data represents
+          example: application
+      title: Application (Response)
     AppBadRequestResponse:
       type: object
       properties:
@@ -267,6 +374,21 @@ components:
           type: string
         message:
           type: string
+    PageModelOutApplicationApiOut:
+      type: object
+      properties:
+        content:
+          type: array
+          description: A array of returned items
+          items:
+            $ref: '#/components/schemas/ApplicationApiOut'
+        links:
+          $ref: '#/components/schemas/PageLinksOut'
+          description: A collection of page URL links for navigation and iteration
+        page:
+          $ref: '#/components/schemas/PageInfoOut'
+          description: A collection page metadata
+      title: Page (Response)
     ApplicationApiUpdateIn:
       type: object
       properties:
@@ -462,21 +584,6 @@ components:
       required:
       - name
       title: Application (Create)
-    PageModelOutApplicationApiOut:
-      type: object
-      properties:
-        content:
-          type: array
-          description: A array of returned items
-          items:
-            $ref: '#/components/schemas/ApplicationApiOut'
-        links:
-          $ref: '#/components/schemas/PageLinksOut'
-          description: A collection of page URL links for navigation and iteration
-        page:
-          $ref: '#/components/schemas/PageInfoOut'
-          description: A collection page metadata
-      title: Page (Response)
     AppStatusResponse:
       type: object
       properties:
@@ -484,30 +591,6 @@ components:
           type: string
         message:
           type: string
-    PageInfoOut:
-      type: object
-      properties:
-        size:
-          type: integer
-          format: int64
-          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
-          example: 20
-        totalElements:
-          type: integer
-          format: int64
-          description: The total number of items available
-          example: 50
-        totalPages:
-          type: integer
-          format: int64
-          description: The total number of pages available based on the size
-          example: 3
-        number:
-          type: integer
-          format: int64
-          description: The zero-indexed page number (must not be less than 0, defaults to 0)
-          example: 0
-      title: Page Info
     PageLinksOut:
       type: object
       properties:
@@ -532,113 +615,30 @@ components:
           description: A URL link to the last page of requested data
           example: /api/v2/resource?page=6&size=20
       title: Page Links
-    ApplicationApiOut:
+    PageInfoOut:
       type: object
       properties:
-        id:
-          type: string
-          description: The unique ID of this Risk Cloud resource
-          example: a1b2c3d4
-        name:
-          type: string
-          description: The name of the application
-          example: Cyber Risk Management Application
-        description:
-          type: string
-          description: The description of the application
-          example: Cyber Risk Management Description Text
-        color:
-          type: string
-          description: The hex representation of the icon color of the application
-          example: '#00a3de'
-        icon:
-          type: string
-          description: The icon type of the application
-          enum:
-          - BOOKMARK
-          - BOLT
-          - BULLHORN
-          - CERTIFICATE
-          - CHECK_SQUARE_O
-          - CLOUD
-          - COMMENTS
-          - CUBES
-          - DOLLAR
-          - EXCLAMATION_TRIANGLE
-          - TEXT_O
-          - FOLDER
-          - GIFT
-          - GLOBE
-          - HEARTBEAT
-          - LEAF
-          - LEGAL
-          - LIFE_RING
-          - MEDKIT
-          - MONEY
-          - PERCENT
-          - ROCKET
-          - SIGNAL
-          - UNIVERSITY
-          - USER_CIRCLE
-          example: CUBES
-        type:
-          type: string
-          description: The type of Risk Cloud application
-          enum:
-          - ACCESS_MANAGEMENT
-          - AML_KYC
-          - ASSET_MANAGEMENT
-          - AUDIT_MANAGEMENT
-          - BUSINESS_CONTINUITY_PLANNING
-          - CHANGE_MANAGEMENT
-          - COMPLAINT_MANAGEMENT
-          - COMPLIANCE_MANAGEMENT
-          - CONTRACT_MANAGEMENT
-          - CONTROLS_COMPLIANCE
-          - CONTROLS_MANAGEMENT
-          - CRISIS_MANAGEMENT
-          - CUSTOM
-          - CUSTOM_GRC_USE_CASE
-          - CYBER_RISK_MANAGEMENT
-          - DATA_PRIVACY_MANAGEMENT
-          - EMPLOYEE_COMPLIANCE
-          - ENTERPRISE_RISK_MANAGEMENT
-          - ESG
-          - INCIDENT_MANAGEMENT
-          - INTERNAL_AUDIT_MANAGEMENT
-          - IT_RISK_MANAGEMENT
-          - NONE
-          - OPERATIONAL_RESILIENCY
-          - OTHER
-          - POLICY_AND_PROCEDURE_MANAGEMENT
-          - POLICY_MANAGEMENT
-          - PRIVACY_MANAGEMENT
-          - QUANTIFY
-          - REGULATORY_COMPLIANCE
-          - REPOSITORY
-          - RISK_QUANTIFICATION
-          - SOX_TESTING
-          - STANDARDS_REGULATIONS
-          - SURVEY
-          - THIRD_PARTY_RISK_MANAGEMENT
-          example: CONTROLS_COMPLIANCE
-        live:
-          type: boolean
-          description: Whether the application is live
-          example: false
-        restrictBuildAccess:
-          type: boolean
-          description: Whether users with the Build entitlement must be explicitly granted permission to edit this application
-          example: false
-        shortCode:
-          type: string
-          description: Short display code for the application
-          example: TPRM
-        object:
-          type: string
-          description: Identifies the type of object this data represents
-          example: application
-      title: Application (Response)
+        size:
+          type: integer
+          format: int64
+          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
+          example: 20
+        totalElements:
+          type: integer
+          format: int64
+          description: The total number of items available
+          example: 50
+        totalPages:
+          type: integer
+          format: int64
+          description: The total number of pages available based on the size
+          example: 3
+        number:
+          type: integer
+          format: int64
+          description: The zero-indexed page number (must not be less than 0, defaults to 0)
+          example: 0
+      title: Page Info
   securitySchemes:
     API_Token:
       type: http

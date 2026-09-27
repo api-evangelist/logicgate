@@ -277,6 +277,15 @@ paths:
       x-beta: 'true'
 components:
   schemas:
+    AppBadRequestResponse:
+      type: object
+      properties:
+        property:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
     WorkflowMapApiCreateIn:
       type: object
       description: Workflow Map (Create)
@@ -305,55 +314,6 @@ components:
       - relationship
       - to
       title: Workflow Map (Create)
-    AppBadRequestResponse:
-      type: object
-      properties:
-        property:
-          type: string
-        value:
-          type: string
-        message:
-          type: string
-    WorkflowMapApiUpdateIn:
-      type: object
-      description: Workflow (Update)
-      properties:
-        relationship:
-          type: string
-          description: The type of the relationship between workflows
-          enum:
-          - OneToOne
-          - OneToMany
-          - ManyToOne
-          - ManyToMany
-          example: ONE_TO_MANY
-      required:
-      - relationship
-      title: Workflow Map (Update)
-    PageInfoOut:
-      type: object
-      properties:
-        size:
-          type: integer
-          format: int64
-          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
-          example: 20
-        totalElements:
-          type: integer
-          format: int64
-          description: The total number of items available
-          example: 50
-        totalPages:
-          type: integer
-          format: int64
-          description: The total number of pages available based on the size
-          example: 3
-        number:
-          type: integer
-          format: int64
-          description: The zero-indexed page number (must not be less than 0, defaults to 0)
-          example: 0
-      title: Page Info
     PageLinksOut:
       type: object
       properties:
@@ -407,6 +367,46 @@ components:
           description: Identifies the type of object this data represents
           example: workflow-map
       title: Workflow Map (Response)
+    WorkflowMapApiUpdateIn:
+      type: object
+      description: Workflow (Update)
+      properties:
+        relationship:
+          type: string
+          description: The type of the relationship between workflows
+          enum:
+          - OneToOne
+          - OneToMany
+          - ManyToOne
+          - ManyToMany
+          example: ONE_TO_MANY
+      required:
+      - relationship
+      title: Workflow Map (Update)
+    PageInfoOut:
+      type: object
+      properties:
+        size:
+          type: integer
+          format: int64
+          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
+          example: 20
+        totalElements:
+          type: integer
+          format: int64
+          description: The total number of items available
+          example: 50
+        totalPages:
+          type: integer
+          format: int64
+          description: The total number of pages available based on the size
+          example: 3
+        number:
+          type: integer
+          format: int64
+          description: The zero-indexed page number (must not be less than 0, defaults to 0)
+          example: 0
+      title: Page Info
     PageModelOutWorkflowMapApiOut:
       type: object
       properties:

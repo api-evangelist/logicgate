@@ -281,6 +281,30 @@ components:
           $ref: '#/components/schemas/PageInfoOut'
           description: A collection page metadata
       title: Page (Response)
+    PathApiUpdateIn:
+      type: object
+      description: Default next path (Update).
+      properties:
+        allowInternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to any user with access to the target step on submission.
+          example: false
+        allowExternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to external email addresses on submission.
+          example: false
+        allowCurrentAssignee:
+          type: boolean
+          description: Allow a step's current assignee to submit without assigning
+          example: false
+        description:
+          type: string
+          description: Description of the path.
+          example: This describes the path.
+        requireAssignee:
+          type: boolean
+          description: Require an assignee to be chosen
+          example: false
     NextPathApiOut:
       type: object
       properties:
@@ -321,30 +345,6 @@ components:
           description: Identifies the type of object this data represents
           example: next-path
       title: Path (Response).
-    PathApiUpdateIn:
-      type: object
-      description: Default next path (Update).
-      properties:
-        allowInternal:
-          type: boolean
-          description: Whether a step's current assignee may assign this record to any user with access to the target step on submission.
-          example: false
-        allowExternal:
-          type: boolean
-          description: Whether a step's current assignee may assign this record to external email addresses on submission.
-          example: false
-        allowCurrentAssignee:
-          type: boolean
-          description: Allow a step's current assignee to submit without assigning
-          example: false
-        description:
-          type: string
-          description: Description of the path.
-          example: This describes the path.
-        requireAssignee:
-          type: boolean
-          description: Require an assignee to be chosen
-          example: false
     AppStatusResponse:
       type: object
       properties:
@@ -352,30 +352,6 @@ components:
           type: string
         message:
           type: string
-    PageInfoOut:
-      type: object
-      properties:
-        size:
-          type: integer
-          format: int64
-          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
-          example: 20
-        totalElements:
-          type: integer
-          format: int64
-          description: The total number of items available
-          example: 50
-        totalPages:
-          type: integer
-          format: int64
-          description: The total number of pages available based on the size
-          example: 3
-        number:
-          type: integer
-          format: int64
-          description: The zero-indexed page number (must not be less than 0, defaults to 0)
-          example: 0
-      title: Page Info
     PageLinksOut:
       type: object
       properties:
@@ -436,6 +412,30 @@ components:
       - from
       - to
       title: Default next path (Create).
+    PageInfoOut:
+      type: object
+      properties:
+        size:
+          type: integer
+          format: int64
+          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
+          example: 20
+        totalElements:
+          type: integer
+          format: int64
+          description: The total number of items available
+          example: 50
+        totalPages:
+          type: integer
+          format: int64
+          description: The total number of pages available based on the size
+          example: 3
+        number:
+          type: integer
+          format: int64
+          description: The zero-indexed page number (must not be less than 0, defaults to 0)
+          example: 0
+      title: Page Info
   securitySchemes:
     API_Token:
       type: http
