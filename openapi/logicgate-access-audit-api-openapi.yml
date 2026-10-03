@@ -116,21 +116,30 @@ paths:
       x-beta: 'true'
 components:
   schemas:
-    PageModelOutAccessAuditApiOut:
+    PageInfoOut:
       type: object
       properties:
-        content:
-          type: array
-          description: A array of returned items
-          items:
-            $ref: '#/components/schemas/AccessAuditApiOut'
-        links:
-          $ref: '#/components/schemas/PageLinksOut'
-          description: A collection of page URL links for navigation and iteration
-        page:
-          $ref: '#/components/schemas/PageInfoOut'
-          description: A collection page metadata
-      title: Page (Response)
+        size:
+          type: integer
+          format: int64
+          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
+          example: 20
+        totalElements:
+          type: integer
+          format: int64
+          description: The total number of items available
+          example: 50
+        totalPages:
+          type: integer
+          format: int64
+          description: The total number of pages available based on the size
+          example: 3
+        number:
+          type: integer
+          format: int64
+          description: The zero-indexed page number (must not be less than 0, defaults to 0)
+          example: 0
+      title: Page Info
     AccessAuditApiOut:
       type: object
       properties:
@@ -171,6 +180,26 @@ components:
           description: Identifies the type of object this data represents
           example: access_audit
       title: Access Audit
+    UserPropertyApiOut:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this Risk Cloud resource
+          example: a1b2c3d4
+        name:
+          type: string
+          description: The name of the user
+          example: Jane Doe
+        email:
+          type: string
+          description: The email of the user
+          example: jane.doe@example.com
+        object:
+          type: string
+          description: Identifies the type of object this data represents
+          example: user
+      title: User (Property)
     PageLinksOut:
       type: object
       properties:
@@ -195,50 +224,21 @@ components:
           description: A URL link to the last page of requested data
           example: /api/v2/resource?page=6&size=20
       title: Page Links
-    PageInfoOut:
+    PageModelOutAccessAuditApiOut:
       type: object
       properties:
-        size:
-          type: integer
-          format: int64
-          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
-          example: 20
-        totalElements:
-          type: integer
-          format: int64
-          description: The total number of items available
-          example: 50
-        totalPages:
-          type: integer
-          format: int64
-          description: The total number of pages available based on the size
-          example: 3
-        number:
-          type: integer
-          format: int64
-          description: The zero-indexed page number (must not be less than 0, defaults to 0)
-          example: 0
-      title: Page Info
-    UserPropertyApiOut:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique ID of this Risk Cloud resource
-          example: a1b2c3d4
-        name:
-          type: string
-          description: The name of the user
-          example: Jane Doe
-        email:
-          type: string
-          description: The email of the user
-          example: jane.doe@example.com
-        object:
-          type: string
-          description: Identifies the type of object this data represents
-          example: user
-      title: User (Property)
+        content:
+          type: array
+          description: A array of returned items
+          items:
+            $ref: '#/components/schemas/AccessAuditApiOut'
+        links:
+          $ref: '#/components/schemas/PageLinksOut'
+          description: A collection of page URL links for navigation and iteration
+        page:
+          $ref: '#/components/schemas/PageInfoOut'
+          description: A collection page metadata
+      title: Page (Response)
   securitySchemes:
     API_Token:
       type: http

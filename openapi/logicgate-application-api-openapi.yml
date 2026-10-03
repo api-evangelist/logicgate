@@ -258,6 +258,125 @@ paths:
       x-beta: 'true'
 components:
   schemas:
+    ApplicationApiCreateIn:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the application
+          example: Cyber Risk Management Application
+          minLength: 1
+        description:
+          type: string
+          description: The description of the application
+          example: Cyber Risk Management Description Text
+        color:
+          type: string
+          description: 'The hex representation of the icon color of the application (defaults to #00a3de)'
+          example: '#00a3de'
+        icon:
+          type: string
+          description: The icon type of the application (defaults to CUBES)
+          enum:
+          - BOOKMARK
+          - BOLT
+          - BULLHORN
+          - CERTIFICATE
+          - CHECK_SQUARE_O
+          - CLOUD
+          - COMMENTS
+          - CUBES
+          - DOLLAR
+          - EXCLAMATION_TRIANGLE
+          - TEXT_O
+          - FOLDER
+          - GIFT
+          - GLOBE
+          - HEARTBEAT
+          - LEAF
+          - LEGAL
+          - LIFE_RING
+          - MEDKIT
+          - MONEY
+          - PERCENT
+          - ROCKET
+          - SIGNAL
+          - UNIVERSITY
+          - USER_CIRCLE
+          example: CUBES
+        type:
+          type: string
+          description: The type of Risk Cloud application (defaults to NONE)
+          enum:
+          - ACCESS_MANAGEMENT
+          - AML_KYC
+          - ASSET_MANAGEMENT
+          - AUDIT_MANAGEMENT
+          - BUSINESS_CONTINUITY_PLANNING
+          - CHANGE_MANAGEMENT
+          - COMPLAINT_MANAGEMENT
+          - COMPLIANCE_MANAGEMENT
+          - CONTRACT_MANAGEMENT
+          - CONTROLS_COMPLIANCE
+          - CONTROLS_MANAGEMENT
+          - CRISIS_MANAGEMENT
+          - CUSTOM
+          - CUSTOM_GRC_USE_CASE
+          - CYBER_RISK_MANAGEMENT
+          - DATA_PRIVACY_MANAGEMENT
+          - EMPLOYEE_COMPLIANCE
+          - ENTERPRISE_RISK_MANAGEMENT
+          - ESG
+          - INCIDENT_MANAGEMENT
+          - INTERNAL_AUDIT_MANAGEMENT
+          - IT_RISK_MANAGEMENT
+          - NONE
+          - OPERATIONAL_RESILIENCY
+          - OTHER
+          - POLICY_AND_PROCEDURE_MANAGEMENT
+          - POLICY_MANAGEMENT
+          - PRIVACY_MANAGEMENT
+          - QUANTIFY
+          - REGULATORY_COMPLIANCE
+          - REPOSITORY
+          - RISK_QUANTIFICATION
+          - SOX_TESTING
+          - STANDARDS_REGULATIONS
+          - SURVEY
+          - THIRD_PARTY_RISK_MANAGEMENT
+          example: CONTROLS_COMPLIANCE
+        shortCode:
+          type: string
+          description: Short display code for the application
+          example: TPRM
+          pattern: ^(?! +$)[a-zA-Z0-9 ]{1,10}$
+      required:
+      - name
+      title: Application (Create)
+    PageInfoOut:
+      type: object
+      properties:
+        size:
+          type: integer
+          format: int64
+          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
+          example: 20
+        totalElements:
+          type: integer
+          format: int64
+          description: The total number of items available
+          example: 50
+        totalPages:
+          type: integer
+          format: int64
+          description: The total number of pages available based on the size
+          example: 3
+        number:
+          type: integer
+          format: int64
+          description: The zero-indexed page number (must not be less than 0, defaults to 0)
+          example: 0
+      title: Page Info
     ApplicationApiOut:
       type: object
       properties:
@@ -365,30 +484,30 @@ components:
           description: Identifies the type of object this data represents
           example: application
       title: Application (Response)
-    AppBadRequestResponse:
+    PageLinksOut:
       type: object
       properties:
-        property:
+        first:
           type: string
-        value:
+          description: A URL path to the first page of requested data
+          example: /api/v2/resource?page=0&size=20
+        prev:
           type: string
-        message:
+          description: A URL path to the next page of requested data or `null` if currently on first page
+          example: /api/v2/resource?page=2&size=20
+        self:
           type: string
-    PageModelOutApplicationApiOut:
-      type: object
-      properties:
-        content:
-          type: array
-          description: A array of returned items
-          items:
-            $ref: '#/components/schemas/ApplicationApiOut'
-        links:
-          $ref: '#/components/schemas/PageLinksOut'
-          description: A collection of page URL links for navigation and iteration
-        page:
-          $ref: '#/components/schemas/PageInfoOut'
-          description: A collection page metadata
-      title: Page (Response)
+          description: A URL path to the current page of requested data
+          example: /api/v2/resource?page=3&size=20
+        next:
+          type: string
+          description: A URL link to the next page of requested data or `null` if currently on last page
+          example: /api/v2/resource?page=4&size=20
+        last:
+          type: string
+          description: A URL link to the last page of requested data
+          example: /api/v2/resource?page=6&size=20
+      title: Page Links
     ApplicationApiUpdateIn:
       type: object
       properties:
@@ -489,101 +608,30 @@ components:
           example: TPRM
           pattern: ^(?! +$)[a-zA-Z0-9 ]{1,10}$
       title: Application (Update)
-    ApplicationApiCreateIn:
+    AppBadRequestResponse:
       type: object
       properties:
-        name:
+        property:
           type: string
-          description: The name of the application
-          example: Cyber Risk Management Application
-          minLength: 1
-        description:
+        value:
           type: string
-          description: The description of the application
-          example: Cyber Risk Management Description Text
-        color:
+        message:
           type: string
-          description: 'The hex representation of the icon color of the application (defaults to #00a3de)'
-          example: '#00a3de'
-        icon:
-          type: string
-          description: The icon type of the application (defaults to CUBES)
-          enum:
-          - BOOKMARK
-          - BOLT
-          - BULLHORN
-          - CERTIFICATE
-          - CHECK_SQUARE_O
-          - CLOUD
-          - COMMENTS
-          - CUBES
-          - DOLLAR
-          - EXCLAMATION_TRIANGLE
-          - TEXT_O
-          - FOLDER
-          - GIFT
-          - GLOBE
-          - HEARTBEAT
-          - LEAF
-          - LEGAL
-          - LIFE_RING
-          - MEDKIT
-          - MONEY
-          - PERCENT
-          - ROCKET
-          - SIGNAL
-          - UNIVERSITY
-          - USER_CIRCLE
-          example: CUBES
-        type:
-          type: string
-          description: The type of Risk Cloud application (defaults to NONE)
-          enum:
-          - ACCESS_MANAGEMENT
-          - AML_KYC
-          - ASSET_MANAGEMENT
-          - AUDIT_MANAGEMENT
-          - BUSINESS_CONTINUITY_PLANNING
-          - CHANGE_MANAGEMENT
-          - COMPLAINT_MANAGEMENT
-          - COMPLIANCE_MANAGEMENT
-          - CONTRACT_MANAGEMENT
-          - CONTROLS_COMPLIANCE
-          - CONTROLS_MANAGEMENT
-          - CRISIS_MANAGEMENT
-          - CUSTOM
-          - CUSTOM_GRC_USE_CASE
-          - CYBER_RISK_MANAGEMENT
-          - DATA_PRIVACY_MANAGEMENT
-          - EMPLOYEE_COMPLIANCE
-          - ENTERPRISE_RISK_MANAGEMENT
-          - ESG
-          - INCIDENT_MANAGEMENT
-          - INTERNAL_AUDIT_MANAGEMENT
-          - IT_RISK_MANAGEMENT
-          - NONE
-          - OPERATIONAL_RESILIENCY
-          - OTHER
-          - POLICY_AND_PROCEDURE_MANAGEMENT
-          - POLICY_MANAGEMENT
-          - PRIVACY_MANAGEMENT
-          - QUANTIFY
-          - REGULATORY_COMPLIANCE
-          - REPOSITORY
-          - RISK_QUANTIFICATION
-          - SOX_TESTING
-          - STANDARDS_REGULATIONS
-          - SURVEY
-          - THIRD_PARTY_RISK_MANAGEMENT
-          example: CONTROLS_COMPLIANCE
-        shortCode:
-          type: string
-          description: Short display code for the application
-          example: TPRM
-          pattern: ^(?! +$)[a-zA-Z0-9 ]{1,10}$
-      required:
-      - name
-      title: Application (Create)
+    PageModelOutApplicationApiOut:
+      type: object
+      properties:
+        content:
+          type: array
+          description: A array of returned items
+          items:
+            $ref: '#/components/schemas/ApplicationApiOut'
+        links:
+          $ref: '#/components/schemas/PageLinksOut'
+          description: A collection of page URL links for navigation and iteration
+        page:
+          $ref: '#/components/schemas/PageInfoOut'
+          description: A collection page metadata
+      title: Page (Response)
     AppStatusResponse:
       type: object
       properties:
@@ -591,54 +639,6 @@ components:
           type: string
         message:
           type: string
-    PageLinksOut:
-      type: object
-      properties:
-        first:
-          type: string
-          description: A URL path to the first page of requested data
-          example: /api/v2/resource?page=0&size=20
-        prev:
-          type: string
-          description: A URL path to the next page of requested data or `null` if currently on first page
-          example: /api/v2/resource?page=2&size=20
-        self:
-          type: string
-          description: A URL path to the current page of requested data
-          example: /api/v2/resource?page=3&size=20
-        next:
-          type: string
-          description: A URL link to the next page of requested data or `null` if currently on last page
-          example: /api/v2/resource?page=4&size=20
-        last:
-          type: string
-          description: A URL link to the last page of requested data
-          example: /api/v2/resource?page=6&size=20
-      title: Page Links
-    PageInfoOut:
-      type: object
-      properties:
-        size:
-          type: integer
-          format: int64
-          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
-          example: 20
-        totalElements:
-          type: integer
-          format: int64
-          description: The total number of items available
-          example: 50
-        totalPages:
-          type: integer
-          format: int64
-          description: The total number of pages available based on the size
-          example: 3
-        number:
-          type: integer
-          format: int64
-          description: The zero-indexed page number (must not be less than 0, defaults to 0)
-          example: 0
-      title: Page Info
   securitySchemes:
     API_Token:
       type: http

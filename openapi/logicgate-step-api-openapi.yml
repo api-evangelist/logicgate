@@ -259,85 +259,30 @@ paths:
       x-beta: 'true'
 components:
   schemas:
-    StepPositionUpdateIn:
-      type: object
-      description: Step (Update)
-      properties:
-        xpos:
-          type: integer
-          format: int32
-          description: The x-coordinate of the step in the application builder (must not be less than 0)
-          example: 20
-        ypos:
-          type: integer
-          format: int32
-          description: The y-coordinate of the step in the application builder (must not be less than 0)
-          example: 20
-      required:
-      - xpos
-      - ypos
-      title: Step Position (Update)
-    StepApiOut:
+    PageInfoOut:
       type: object
       properties:
-        id:
-          type: string
-          description: The unique ID of this Risk Cloud resource
-          example: a1b2c3d4
-        name:
-          type: string
-          description: The name of the step
-          example: Identify Risk
-        description:
-          type: string
-          description: The description of the step
-          example: This is a description of the step
-        xpos:
+        size:
           type: integer
-          format: int32
-          description: The x-coordinate of the step in the application builder
+          format: int64
+          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
           example: 20
-        ypos:
+        totalElements:
           type: integer
-          format: int32
-          description: The y-coordinate of the step in the application builder
-          example: 20
-        type:
-          type: string
-          description: The type of the step
-          enum:
-          - ORIGIN
-          - CHAIN
-          - END
-          example: ORIGIN
-        enableComments:
-          type: boolean
-          description: Whether comments are displayed on a step
-          example: false
-        assignableUserType:
-          type: string
-          description: Indicates which users are allowed to be assigned this step on a record
-          enum:
-          - APP_AND_EXTERNAL_USERS
-          - APP_USERS
-          - EXTERNAL_USERS
-          example: APP_USERS
-        externalUserMfaRequired:
-          type: boolean
-          description: Whether MFA is required for external users to access this step.
-          example: false
-        autofillEnabled:
-          type: boolean
-          description: Whether or not to enable autofill on the step.
-          example: false
-        workflow:
-          $ref: '#/components/schemas/WorkflowPropertyApiOut'
-          description: The parent workflow of the step
-        object:
-          type: string
-          description: Identifies the type of object this data represents
-          example: step
-      title: Step (Response)
+          format: int64
+          description: The total number of items available
+          example: 50
+        totalPages:
+          type: integer
+          format: int64
+          description: The total number of pages available based on the size
+          example: 3
+        number:
+          type: integer
+          format: int64
+          description: The zero-indexed page number (must not be less than 0, defaults to 0)
+          example: 0
+      title: Page Info
     StepApiCreateIn:
       type: object
       description: Step (Create)
@@ -400,26 +345,63 @@ components:
       - name
       - workflowId
       title: Step (Create)
-    WorkflowPropertyApiOut:
+    StepPositionUpdateIn:
+      type: object
+      description: Step (Update)
+      properties:
+        xpos:
+          type: integer
+          format: int32
+          description: The x-coordinate of the step in the application builder (must not be less than 0)
+          example: 20
+        ypos:
+          type: integer
+          format: int32
+          description: The y-coordinate of the step in the application builder (must not be less than 0)
+          example: 20
+      required:
+      - xpos
+      - ypos
+      title: Step Position (Update)
+    PageModelOutStepApiOut:
       type: object
       properties:
-        id:
+        content:
+          type: array
+          description: A array of returned items
+          items:
+            $ref: '#/components/schemas/StepApiOut'
+        links:
+          $ref: '#/components/schemas/PageLinksOut'
+          description: A collection of page URL links for navigation and iteration
+        page:
+          $ref: '#/components/schemas/PageInfoOut'
+          description: A collection page metadata
+      title: Page (Response)
+    PageLinksOut:
+      type: object
+      properties:
+        first:
           type: string
-          description: The unique ID of this Risk Cloud resource
-          example: a1b2c3d4
-        name:
+          description: A URL path to the first page of requested data
+          example: /api/v2/resource?page=0&size=20
+        prev:
           type: string
-          description: The name of the workflow
-          example: Risk Assessments
-        recordPrefix:
+          description: A URL path to the next page of requested data or `null` if currently on first page
+          example: /api/v2/resource?page=2&size=20
+        self:
           type: string
-          description: The prefix to be used in the name of every record created from this workflow
-          example: Assessment
-        object:
+          description: A URL path to the current page of requested data
+          example: /api/v2/resource?page=3&size=20
+        next:
           type: string
-          description: Identifies the type of object this data represents
-          example: workflow
-      title: Workflow (Property)
+          description: A URL link to the next page of requested data or `null` if currently on last page
+          example: /api/v2/resource?page=4&size=20
+        last:
+          type: string
+          description: A URL link to the last page of requested data
+          example: /api/v2/resource?page=6&size=20
+      title: Page Links
     StepApiUpdateIn:
       type: object
       description: Step (Update)
@@ -471,69 +453,87 @@ components:
           description: Whether or not to enable autofill on the step.
           example: false
       title: Step (Update)
-    PageLinksOut:
+    StepApiOut:
       type: object
       properties:
-        first:
+        id:
           type: string
-          description: A URL path to the first page of requested data
-          example: /api/v2/resource?page=0&size=20
-        prev:
+          description: The unique ID of this Risk Cloud resource
+          example: a1b2c3d4
+        name:
           type: string
-          description: A URL path to the next page of requested data or `null` if currently on first page
-          example: /api/v2/resource?page=2&size=20
-        self:
+          description: The name of the step
+          example: Identify Risk
+        description:
           type: string
-          description: A URL path to the current page of requested data
-          example: /api/v2/resource?page=3&size=20
-        next:
-          type: string
-          description: A URL link to the next page of requested data or `null` if currently on last page
-          example: /api/v2/resource?page=4&size=20
-        last:
-          type: string
-          description: A URL link to the last page of requested data
-          example: /api/v2/resource?page=6&size=20
-      title: Page Links
-    PageInfoOut:
-      type: object
-      properties:
-        size:
+          description: The description of the step
+          example: This is a description of the step
+        xpos:
           type: integer
-          format: int64
-          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
+          format: int32
+          description: The x-coordinate of the step in the application builder
           example: 20
-        totalElements:
+        ypos:
           type: integer
-          format: int64
-          description: The total number of items available
-          example: 50
-        totalPages:
-          type: integer
-          format: int64
-          description: The total number of pages available based on the size
-          example: 3
-        number:
-          type: integer
-          format: int64
-          description: The zero-indexed page number (must not be less than 0, defaults to 0)
-          example: 0
-      title: Page Info
-    PageModelOutStepApiOut:
+          format: int32
+          description: The y-coordinate of the step in the application builder
+          example: 20
+        type:
+          type: string
+          description: The type of the step
+          enum:
+          - ORIGIN
+          - CHAIN
+          - END
+          example: ORIGIN
+        enableComments:
+          type: boolean
+          description: Whether comments are displayed on a step
+          example: false
+        assignableUserType:
+          type: string
+          description: Indicates which users are allowed to be assigned this step on a record
+          enum:
+          - APP_AND_EXTERNAL_USERS
+          - APP_USERS
+          - EXTERNAL_USERS
+          example: APP_USERS
+        externalUserMfaRequired:
+          type: boolean
+          description: Whether MFA is required for external users to access this step.
+          example: false
+        autofillEnabled:
+          type: boolean
+          description: Whether or not to enable autofill on the step.
+          example: false
+        workflow:
+          $ref: '#/components/schemas/WorkflowPropertyApiOut'
+          description: The parent workflow of the step
+        object:
+          type: string
+          description: Identifies the type of object this data represents
+          example: step
+      title: Step (Response)
+    WorkflowPropertyApiOut:
       type: object
       properties:
-        content:
-          type: array
-          description: A array of returned items
-          items:
-            $ref: '#/components/schemas/StepApiOut'
-        links:
-          $ref: '#/components/schemas/PageLinksOut'
-          description: A collection of page URL links for navigation and iteration
-        page:
-          $ref: '#/components/schemas/PageInfoOut'
-          description: A collection page metadata
-      title: Page (Response)
+        id:
+          type: string
+          description: The unique ID of this Risk Cloud resource
+          example: a1b2c3d4
+        name:
+          type: string
+          description: The name of the workflow
+          example: Risk Assessments
+        recordPrefix:
+          type: string
+          description: The prefix to be used in the name of every record created from this workflow
+          example: Assessment
+        object:
+          type: string
+          description: Identifies the type of object this data represents
+          example: workflow
+      title: Workflow (Property)
   securitySchemes:
     API_Token:
       type: http

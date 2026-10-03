@@ -277,106 +277,30 @@ paths:
                 $ref: '#/components/schemas/AppBadRequestResponse'
 components:
   schemas:
-    AppBadRequestResponse:
+    PageInfoOut:
       type: object
       properties:
-        property:
-          type: string
-        value:
-          type: string
-        message:
-          type: string
-    PageModelOutWorkflowApiOut:
-      type: object
-      properties:
-        content:
-          type: array
-          description: A array of returned items
-          items:
-            $ref: '#/components/schemas/WorkflowApiOut'
-        links:
-          $ref: '#/components/schemas/PageLinksOut'
-          description: A collection of page URL links for navigation and iteration
-        page:
-          $ref: '#/components/schemas/PageInfoOut'
-          description: A collection page metadata
-      title: Page (Response)
-    WorkflowApiCreateIn:
-      type: object
-      description: Workflow (Create)
-      properties:
-        name:
-          type: string
-          description: The name of the workflow
-          example: Risk Assessments
-          minLength: 1
-        description:
-          type: string
-          description: The description of the workflow
-          example: Risk Assessment Description Text
-        recordPrefix:
-          type: string
-          description: The prefix to be used in the name of every record created from this workflow
-          example: Assessment
-          minLength: 1
-        applicationId:
-          type: string
-          description: The unique ID of the parent application of the workflow
-          example: a1b2c3d4
-          minLength: 1
-        xpos:
+        size:
           type: integer
-          format: int32
-          description: The x-coordinate of the workflow in the application builder (must not be less than 0, defaults to 0)
+          format: int64
+          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
           example: 20
-          minimum: 0
-        ypos:
+        totalElements:
           type: integer
-          format: int32
-          description: The y-coordinate of the workflow in the application builder (must not be less than 0, defaults to 0)
-          example: 20
-          minimum: 0
-      required:
-      - applicationId
-      - name
-      - recordPrefix
-      title: Workflow (Create)
-    WorkflowApiUpdateIn:
-      type: object
-      description: Workflow (Update)
-      properties:
-        name:
-          type: string
-          description: The name of the workflow
-          example: Risk Assessments
-        description:
-          type: string
-          description: The description of the workflow
-          example: Risk Assessment Description Text
-        recordPrefix:
-          type: string
-          description: The prefix to be used in the name of every record created from this workflow
-          example: Assessment
-        xpos:
+          format: int64
+          description: The total number of items available
+          example: 50
+        totalPages:
           type: integer
-          format: int32
-          description: The x-coordinate of the workflow in the application builder (must not be less than 0)
-          example: 20
-          minimum: 0
-        ypos:
+          format: int64
+          description: The total number of pages available based on the size
+          example: 3
+        number:
           type: integer
-          format: int32
-          description: The y-coordinate of the workflow in the application builder (must not be less than 0)
-          example: 20
-          minimum: 0
-      title: Workflow (Update)
-    AppStatusResponse:
-      type: object
-      properties:
-        status:
-          type: string
-        message:
-          type: string
+          format: int64
+          description: The zero-indexed page number (must not be less than 0, defaults to 0)
+          example: 0
+      title: Page Info
     WorkflowApiOut:
       type: object
       properties:
@@ -424,6 +348,61 @@ components:
           description: Identifies the type of object this data represents
           example: workflow
       title: Workflow (Response)
+    WorkflowApiCreateIn:
+      type: object
+      description: Workflow (Create)
+      properties:
+        name:
+          type: string
+          description: The name of the workflow
+          example: Risk Assessments
+          minLength: 1
+        description:
+          type: string
+          description: The description of the workflow
+          example: Risk Assessment Description Text
+        recordPrefix:
+          type: string
+          description: The prefix to be used in the name of every record created from this workflow
+          example: Assessment
+          minLength: 1
+        applicationId:
+          type: string
+          description: The unique ID of the parent application of the workflow
+          example: a1b2c3d4
+          minLength: 1
+        xpos:
+          type: integer
+          format: int32
+          description: The x-coordinate of the workflow in the application builder (must not be less than 0, defaults to 0)
+          example: 20
+          minimum: 0
+        ypos:
+          type: integer
+          format: int32
+          description: The y-coordinate of the workflow in the application builder (must not be less than 0, defaults to 0)
+          example: 20
+          minimum: 0
+      required:
+      - applicationId
+      - name
+      - recordPrefix
+      title: Workflow (Create)
+    PageModelOutWorkflowApiOut:
+      type: object
+      properties:
+        content:
+          type: array
+          description: A array of returned items
+          items:
+            $ref: '#/components/schemas/WorkflowApiOut'
+        links:
+          $ref: '#/components/schemas/PageLinksOut'
+          description: A collection of page URL links for navigation and iteration
+        page:
+          $ref: '#/components/schemas/PageInfoOut'
+          description: A collection page metadata
+      title: Page (Response)
     PageLinksOut:
       type: object
       properties:
@@ -448,30 +427,51 @@ components:
           description: A URL link to the last page of requested data
           example: /api/v2/resource?page=6&size=20
       title: Page Links
-    PageInfoOut:
+    AppBadRequestResponse:
       type: object
       properties:
-        size:
+        property:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+    AppStatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+    WorkflowApiUpdateIn:
+      type: object
+      description: Workflow (Update)
+      properties:
+        name:
+          type: string
+          description: The name of the workflow
+          example: Risk Assessments
+        description:
+          type: string
+          description: The description of the workflow
+          example: Risk Assessment Description Text
+        recordPrefix:
+          type: string
+          description: The prefix to be used in the name of every record created from this workflow
+          example: Assessment
+        xpos:
           type: integer
-          format: int64
-          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
+          format: int32
+          description: The x-coordinate of the workflow in the application builder (must not be less than 0)
           example: 20
-        totalElements:
+          minimum: 0
+        ypos:
           type: integer
-          format: int64
-          description: The total number of items available
-          example: 50
-        totalPages:
-          type: integer
-          format: int64
-          description: The total number of pages available based on the size
-          example: 3
-        number:
-          type: integer
-          format: int64
-          description: The zero-indexed page number (must not be less than 0, defaults to 0)
-          example: 0
-      title: Page Info
+          format: int32
+          description: The y-coordinate of the workflow in the application builder (must not be less than 0)
+          example: 20
+          minimum: 0
+      title: Workflow (Update)
   securitySchemes:
     API_Token:
       type: http

@@ -257,54 +257,54 @@ paths:
                 $ref: '#/components/schemas/AppStatusResponse'
 components:
   schemas:
-    AppBadRequestResponse:
+    PageInfoOut:
       type: object
       properties:
-        property:
-          type: string
-        value:
-          type: string
-        message:
-          type: string
-    PageModelOutNextPathApiOut:
+        size:
+          type: integer
+          format: int64
+          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
+          example: 20
+        totalElements:
+          type: integer
+          format: int64
+          description: The total number of items available
+          example: 50
+        totalPages:
+          type: integer
+          format: int64
+          description: The total number of pages available based on the size
+          example: 3
+        number:
+          type: integer
+          format: int64
+          description: The zero-indexed page number (must not be less than 0, defaults to 0)
+          example: 0
+      title: Page Info
+    PageLinksOut:
       type: object
       properties:
-        content:
-          type: array
-          description: A array of returned items
-          items:
-            $ref: '#/components/schemas/NextPathApiOut'
-        links:
-          $ref: '#/components/schemas/PageLinksOut'
-          description: A collection of page URL links for navigation and iteration
-        page:
-          $ref: '#/components/schemas/PageInfoOut'
-          description: A collection page metadata
-      title: Page (Response)
-    PathApiUpdateIn:
-      type: object
-      description: Default next path (Update).
-      properties:
-        allowInternal:
-          type: boolean
-          description: Whether a step's current assignee may assign this record to any user with access to the target step on submission.
-          example: false
-        allowExternal:
-          type: boolean
-          description: Whether a step's current assignee may assign this record to external email addresses on submission.
-          example: false
-        allowCurrentAssignee:
-          type: boolean
-          description: Allow a step's current assignee to submit without assigning
-          example: false
-        description:
+        first:
           type: string
-          description: Description of the path.
-          example: This describes the path.
-        requireAssignee:
-          type: boolean
-          description: Require an assignee to be chosen
-          example: false
+          description: A URL path to the first page of requested data
+          example: /api/v2/resource?page=0&size=20
+        prev:
+          type: string
+          description: A URL path to the next page of requested data or `null` if currently on first page
+          example: /api/v2/resource?page=2&size=20
+        self:
+          type: string
+          description: A URL path to the current page of requested data
+          example: /api/v2/resource?page=3&size=20
+        next:
+          type: string
+          description: A URL link to the next page of requested data or `null` if currently on last page
+          example: /api/v2/resource?page=4&size=20
+        last:
+          type: string
+          description: A URL link to the last page of requested data
+          example: /api/v2/resource?page=6&size=20
+      title: Page Links
     NextPathApiOut:
       type: object
       properties:
@@ -345,6 +345,54 @@ components:
           description: Identifies the type of object this data represents
           example: next-path
       title: Path (Response).
+    PageModelOutNextPathApiOut:
+      type: object
+      properties:
+        content:
+          type: array
+          description: A array of returned items
+          items:
+            $ref: '#/components/schemas/NextPathApiOut'
+        links:
+          $ref: '#/components/schemas/PageLinksOut'
+          description: A collection of page URL links for navigation and iteration
+        page:
+          $ref: '#/components/schemas/PageInfoOut'
+          description: A collection page metadata
+      title: Page (Response)
+    AppBadRequestResponse:
+      type: object
+      properties:
+        property:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
+    PathApiUpdateIn:
+      type: object
+      description: Default next path (Update).
+      properties:
+        allowInternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to any user with access to the target step on submission.
+          example: false
+        allowExternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to external email addresses on submission.
+          example: false
+        allowCurrentAssignee:
+          type: boolean
+          description: Allow a step's current assignee to submit without assigning
+          example: false
+        description:
+          type: string
+          description: Description of the path.
+          example: This describes the path.
+        requireAssignee:
+          type: boolean
+          description: Require an assignee to be chosen
+          example: false
     AppStatusResponse:
       type: object
       properties:
@@ -352,30 +400,6 @@ components:
           type: string
         message:
           type: string
-    PageLinksOut:
-      type: object
-      properties:
-        first:
-          type: string
-          description: A URL path to the first page of requested data
-          example: /api/v2/resource?page=0&size=20
-        prev:
-          type: string
-          description: A URL path to the next page of requested data or `null` if currently on first page
-          example: /api/v2/resource?page=2&size=20
-        self:
-          type: string
-          description: A URL path to the current page of requested data
-          example: /api/v2/resource?page=3&size=20
-        next:
-          type: string
-          description: A URL link to the next page of requested data or `null` if currently on last page
-          example: /api/v2/resource?page=4&size=20
-        last:
-          type: string
-          description: A URL link to the last page of requested data
-          example: /api/v2/resource?page=6&size=20
-      title: Page Links
     NextApiCreateIn:
       type: object
       description: Default next path (Create).
@@ -412,30 +436,6 @@ components:
       - from
       - to
       title: Default next path (Create).
-    PageInfoOut:
-      type: object
-      properties:
-        size:
-          type: integer
-          format: int64
-          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
-          example: 20
-        totalElements:
-          type: integer
-          format: int64
-          description: The total number of items available
-          example: 50
-        totalPages:
-          type: integer
-          format: int64
-          description: The total number of pages available based on the size
-          example: 3
-        number:
-          type: integer
-          format: int64
-          description: The zero-indexed page number (must not be less than 0, defaults to 0)
-          example: 0
-      title: Page Info
   securitySchemes:
     API_Token:
       type: http

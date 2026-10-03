@@ -277,67 +277,30 @@ paths:
       x-beta: 'true'
 components:
   schemas:
-    AppBadRequestResponse:
+    PageInfoOut:
       type: object
       properties:
-        property:
-          type: string
-        value:
-          type: string
-        message:
-          type: string
-    WorkflowMapApiCreateIn:
-      type: object
-      description: Workflow Map (Create)
-      properties:
-        from:
-          type: string
-          description: The unique ID of the source workflow of the workflow map relationship
-          example: a1b2c3d4
-          minLength: 1
-        to:
-          type: string
-          description: The unique ID of the destination workflow of the workflow map relationship
-          example: a1b2c3d4
-          minLength: 1
-        relationship:
-          type: string
-          description: The type of the relationship between workflows
-          enum:
-          - OneToOne
-          - OneToMany
-          - ManyToOne
-          - ManyToMany
-          example: ONE_TO_MANY
-      required:
-      - from
-      - relationship
-      - to
-      title: Workflow Map (Create)
-    PageLinksOut:
-      type: object
-      properties:
-        first:
-          type: string
-          description: A URL path to the first page of requested data
-          example: /api/v2/resource?page=0&size=20
-        prev:
-          type: string
-          description: A URL path to the next page of requested data or `null` if currently on first page
-          example: /api/v2/resource?page=2&size=20
-        self:
-          type: string
-          description: A URL path to the current page of requested data
-          example: /api/v2/resource?page=3&size=20
-        next:
-          type: string
-          description: A URL link to the next page of requested data or `null` if currently on last page
-          example: /api/v2/resource?page=4&size=20
-        last:
-          type: string
-          description: A URL link to the last page of requested data
-          example: /api/v2/resource?page=6&size=20
-      title: Page Links
+        size:
+          type: integer
+          format: int64
+          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
+          example: 20
+        totalElements:
+          type: integer
+          format: int64
+          description: The total number of items available
+          example: 50
+        totalPages:
+          type: integer
+          format: int64
+          description: The total number of pages available based on the size
+          example: 3
+        number:
+          type: integer
+          format: int64
+          description: The zero-indexed page number (must not be less than 0, defaults to 0)
+          example: 0
+      title: Page Info
     WorkflowMapApiOut:
       type: object
       properties:
@@ -367,6 +330,58 @@ components:
           description: Identifies the type of object this data represents
           example: workflow-map
       title: Workflow Map (Response)
+    PageLinksOut:
+      type: object
+      properties:
+        first:
+          type: string
+          description: A URL path to the first page of requested data
+          example: /api/v2/resource?page=0&size=20
+        prev:
+          type: string
+          description: A URL path to the next page of requested data or `null` if currently on first page
+          example: /api/v2/resource?page=2&size=20
+        self:
+          type: string
+          description: A URL path to the current page of requested data
+          example: /api/v2/resource?page=3&size=20
+        next:
+          type: string
+          description: A URL link to the next page of requested data or `null` if currently on last page
+          example: /api/v2/resource?page=4&size=20
+        last:
+          type: string
+          description: A URL link to the last page of requested data
+          example: /api/v2/resource?page=6&size=20
+      title: Page Links
+    WorkflowMapApiCreateIn:
+      type: object
+      description: Workflow Map (Create)
+      properties:
+        from:
+          type: string
+          description: The unique ID of the source workflow of the workflow map relationship
+          example: a1b2c3d4
+          minLength: 1
+        to:
+          type: string
+          description: The unique ID of the destination workflow of the workflow map relationship
+          example: a1b2c3d4
+          minLength: 1
+        relationship:
+          type: string
+          description: The type of the relationship between workflows
+          enum:
+          - OneToOne
+          - OneToMany
+          - ManyToOne
+          - ManyToMany
+          example: ONE_TO_MANY
+      required:
+      - from
+      - relationship
+      - to
+      title: Workflow Map (Create)
     WorkflowMapApiUpdateIn:
       type: object
       description: Workflow (Update)
@@ -383,30 +398,6 @@ components:
       required:
       - relationship
       title: Workflow Map (Update)
-    PageInfoOut:
-      type: object
-      properties:
-        size:
-          type: integer
-          format: int64
-          description: The size of the page and maximum number of items to be returned (must not be less than 1, defaults to 20)
-          example: 20
-        totalElements:
-          type: integer
-          format: int64
-          description: The total number of items available
-          example: 50
-        totalPages:
-          type: integer
-          format: int64
-          description: The total number of pages available based on the size
-          example: 3
-        number:
-          type: integer
-          format: int64
-          description: The zero-indexed page number (must not be less than 0, defaults to 0)
-          example: 0
-      title: Page Info
     PageModelOutWorkflowMapApiOut:
       type: object
       properties:
@@ -422,6 +413,15 @@ components:
           $ref: '#/components/schemas/PageInfoOut'
           description: A collection page metadata
       title: Page (Response)
+    AppBadRequestResponse:
+      type: object
+      properties:
+        property:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
   securitySchemes:
     API_Token:
       type: http

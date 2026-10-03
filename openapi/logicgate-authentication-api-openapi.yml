@@ -87,6 +87,34 @@ paths:
       - basic: []
 components:
   schemas:
+    LegacyApiTokenOut:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: An API access token to be used within the bearer authorization header of subsequent Risk Cloud API requests
+        token_type:
+          type: string
+          description: The token type, expected to be "bearer" for the Risk Cloud API
+        expires_in:
+          type: integer
+          format: int64
+          description: The remaining time in seconds until the token expires
+        scope:
+          type: string
+          description: The privilege scope of the token, expected to be "read write" for the Risk Cloud API
+      title: Api Token
+    RefreshTokenIn:
+      type: object
+      description: Refresh-token-bearing request to issue a fresh access token.
+      properties:
+        refresh_token:
+          type: string
+          description: The refresh token plaintext returned at token creation time.
+          minLength: 1
+      required:
+      - refresh_token
+      title: Refresh Token Request
     ApiTokenRefreshedOut:
       type: object
       properties:
@@ -107,34 +135,6 @@ components:
           type: string
           description: The privilege scope of the token, expected to be "read write" for the Risk Cloud API
       title: Refreshed Api Token
-    RefreshTokenIn:
-      type: object
-      description: Refresh-token-bearing request to issue a fresh access token.
-      properties:
-        refresh_token:
-          type: string
-          description: The refresh token plaintext returned at token creation time.
-          minLength: 1
-      required:
-      - refresh_token
-      title: Refresh Token Request
-    LegacyApiTokenOut:
-      type: object
-      properties:
-        access_token:
-          type: string
-          description: An API access token to be used within the bearer authorization header of subsequent Risk Cloud API requests
-        token_type:
-          type: string
-          description: The token type, expected to be "bearer" for the Risk Cloud API
-        expires_in:
-          type: integer
-          format: int64
-          description: The remaining time in seconds until the token expires
-        scope:
-          type: string
-          description: The privilege scope of the token, expected to be "read write" for the Risk Cloud API
-      title: Api Token
   securitySchemes:
     API_Token:
       type: http
