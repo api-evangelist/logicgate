@@ -257,6 +257,15 @@ paths:
                 $ref: '#/components/schemas/AppStatusResponse'
 components:
   schemas:
+    AppBadRequestResponse:
+      type: object
+      properties:
+        property:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
     PageInfoOut:
       type: object
       properties:
@@ -281,6 +290,37 @@ components:
           description: The zero-indexed page number (must not be less than 0, defaults to 0)
           example: 0
       title: Page Info
+    PathApiUpdateIn:
+      type: object
+      description: Default next path (Update).
+      properties:
+        allowInternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to any user with access to the target step on submission.
+          example: false
+        allowExternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to external email addresses on submission.
+          example: false
+        allowCurrentAssignee:
+          type: boolean
+          description: Allow a step's current assignee to submit without assigning
+          example: false
+        description:
+          type: string
+          description: Description of the path.
+          example: This describes the path.
+        requireAssignee:
+          type: boolean
+          description: Require an assignee to be chosen
+          example: false
+    AppStatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
     PageLinksOut:
       type: object
       properties:
@@ -305,6 +345,21 @@ components:
           description: A URL link to the last page of requested data
           example: /api/v2/resource?page=6&size=20
       title: Page Links
+    PageModelOutNextPathApiOut:
+      type: object
+      properties:
+        content:
+          type: array
+          description: A array of returned items
+          items:
+            $ref: '#/components/schemas/NextPathApiOut'
+        links:
+          $ref: '#/components/schemas/PageLinksOut'
+          description: A collection of page URL links for navigation and iteration
+        page:
+          $ref: '#/components/schemas/PageInfoOut'
+          description: A collection page metadata
+      title: Page (Response)
     NextPathApiOut:
       type: object
       properties:
@@ -345,61 +400,6 @@ components:
           description: Identifies the type of object this data represents
           example: next-path
       title: Path (Response).
-    PageModelOutNextPathApiOut:
-      type: object
-      properties:
-        content:
-          type: array
-          description: A array of returned items
-          items:
-            $ref: '#/components/schemas/NextPathApiOut'
-        links:
-          $ref: '#/components/schemas/PageLinksOut'
-          description: A collection of page URL links for navigation and iteration
-        page:
-          $ref: '#/components/schemas/PageInfoOut'
-          description: A collection page metadata
-      title: Page (Response)
-    AppBadRequestResponse:
-      type: object
-      properties:
-        property:
-          type: string
-        value:
-          type: string
-        message:
-          type: string
-    PathApiUpdateIn:
-      type: object
-      description: Default next path (Update).
-      properties:
-        allowInternal:
-          type: boolean
-          description: Whether a step's current assignee may assign this record to any user with access to the target step on submission.
-          example: false
-        allowExternal:
-          type: boolean
-          description: Whether a step's current assignee may assign this record to external email addresses on submission.
-          example: false
-        allowCurrentAssignee:
-          type: boolean
-          description: Allow a step's current assignee to submit without assigning
-          example: false
-        description:
-          type: string
-          description: Description of the path.
-          example: This describes the path.
-        requireAssignee:
-          type: boolean
-          description: Require an assignee to be chosen
-          example: false
-    AppStatusResponse:
-      type: object
-      properties:
-        status:
-          type: string
-        message:
-          type: string
     NextApiCreateIn:
       type: object
       description: Default next path (Create).

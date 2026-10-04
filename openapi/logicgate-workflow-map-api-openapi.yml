@@ -277,6 +277,15 @@ paths:
       x-beta: 'true'
 components:
   schemas:
+    AppBadRequestResponse:
+      type: object
+      properties:
+        property:
+          type: string
+        value:
+          type: string
+        message:
+          type: string
     PageInfoOut:
       type: object
       properties:
@@ -301,35 +310,21 @@ components:
           description: The zero-indexed page number (must not be less than 0, defaults to 0)
           example: 0
       title: Page Info
-    WorkflowMapApiOut:
+    PageModelOutWorkflowMapApiOut:
       type: object
       properties:
-        id:
-          type: string
-          description: The unique ID of this Risk Cloud resource
-          example: a1b2c3d4
-        from:
-          type: string
-          description: The unique ID of the source workflow of the workflow map relationship
-          example: a1b2c3d4
-        to:
-          type: string
-          description: The unique ID of the destination workflow of the workflow map relationship
-          example: a1b2c3d4
-        relationship:
-          type: string
-          description: The type of the relationship between workflows
-          enum:
-          - OneToOne
-          - OneToMany
-          - ManyToOne
-          - ManyToMany
-          example: ONE_TO_MANY
-        object:
-          type: string
-          description: Identifies the type of object this data represents
-          example: workflow-map
-      title: Workflow Map (Response)
+        content:
+          type: array
+          description: A array of returned items
+          items:
+            $ref: '#/components/schemas/WorkflowMapApiOut'
+        links:
+          $ref: '#/components/schemas/PageLinksOut'
+          description: A collection of page URL links for navigation and iteration
+        page:
+          $ref: '#/components/schemas/PageInfoOut'
+          description: A collection page metadata
+      title: Page (Response)
     PageLinksOut:
       type: object
       properties:
@@ -382,6 +377,35 @@ components:
       - relationship
       - to
       title: Workflow Map (Create)
+    WorkflowMapApiOut:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this Risk Cloud resource
+          example: a1b2c3d4
+        from:
+          type: string
+          description: The unique ID of the source workflow of the workflow map relationship
+          example: a1b2c3d4
+        to:
+          type: string
+          description: The unique ID of the destination workflow of the workflow map relationship
+          example: a1b2c3d4
+        relationship:
+          type: string
+          description: The type of the relationship between workflows
+          enum:
+          - OneToOne
+          - OneToMany
+          - ManyToOne
+          - ManyToMany
+          example: ONE_TO_MANY
+        object:
+          type: string
+          description: Identifies the type of object this data represents
+          example: workflow-map
+      title: Workflow Map (Response)
     WorkflowMapApiUpdateIn:
       type: object
       description: Workflow (Update)
@@ -398,30 +422,6 @@ components:
       required:
       - relationship
       title: Workflow Map (Update)
-    PageModelOutWorkflowMapApiOut:
-      type: object
-      properties:
-        content:
-          type: array
-          description: A array of returned items
-          items:
-            $ref: '#/components/schemas/WorkflowMapApiOut'
-        links:
-          $ref: '#/components/schemas/PageLinksOut'
-          description: A collection of page URL links for navigation and iteration
-        page:
-          $ref: '#/components/schemas/PageInfoOut'
-          description: A collection page metadata
-      title: Page (Response)
-    AppBadRequestResponse:
-      type: object
-      properties:
-        property:
-          type: string
-        value:
-          type: string
-        message:
-          type: string
   securitySchemes:
     API_Token:
       type: http

@@ -116,6 +116,26 @@ paths:
       x-beta: 'true'
 components:
   schemas:
+    UserPropertyApiOut:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this Risk Cloud resource
+          example: a1b2c3d4
+        name:
+          type: string
+          description: The name of the user
+          example: Jane Doe
+        email:
+          type: string
+          description: The email of the user
+          example: jane.doe@example.com
+        object:
+          type: string
+          description: Identifies the type of object this data represents
+          example: user
+      title: User (Property)
     PageInfoOut:
       type: object
       properties:
@@ -140,6 +160,45 @@ components:
           description: The zero-indexed page number (must not be less than 0, defaults to 0)
           example: 0
       title: Page Info
+    PageLinksOut:
+      type: object
+      properties:
+        first:
+          type: string
+          description: A URL path to the first page of requested data
+          example: /api/v2/resource?page=0&size=20
+        prev:
+          type: string
+          description: A URL path to the next page of requested data or `null` if currently on first page
+          example: /api/v2/resource?page=2&size=20
+        self:
+          type: string
+          description: A URL path to the current page of requested data
+          example: /api/v2/resource?page=3&size=20
+        next:
+          type: string
+          description: A URL link to the next page of requested data or `null` if currently on last page
+          example: /api/v2/resource?page=4&size=20
+        last:
+          type: string
+          description: A URL link to the last page of requested data
+          example: /api/v2/resource?page=6&size=20
+      title: Page Links
+    PageModelOutAccessAuditApiOut:
+      type: object
+      properties:
+        content:
+          type: array
+          description: A array of returned items
+          items:
+            $ref: '#/components/schemas/AccessAuditApiOut'
+        links:
+          $ref: '#/components/schemas/PageLinksOut'
+          description: A collection of page URL links for navigation and iteration
+        page:
+          $ref: '#/components/schemas/PageInfoOut'
+          description: A collection page metadata
+      title: Page (Response)
     AccessAuditApiOut:
       type: object
       properties:
@@ -180,65 +239,6 @@ components:
           description: Identifies the type of object this data represents
           example: access_audit
       title: Access Audit
-    UserPropertyApiOut:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique ID of this Risk Cloud resource
-          example: a1b2c3d4
-        name:
-          type: string
-          description: The name of the user
-          example: Jane Doe
-        email:
-          type: string
-          description: The email of the user
-          example: jane.doe@example.com
-        object:
-          type: string
-          description: Identifies the type of object this data represents
-          example: user
-      title: User (Property)
-    PageLinksOut:
-      type: object
-      properties:
-        first:
-          type: string
-          description: A URL path to the first page of requested data
-          example: /api/v2/resource?page=0&size=20
-        prev:
-          type: string
-          description: A URL path to the next page of requested data or `null` if currently on first page
-          example: /api/v2/resource?page=2&size=20
-        self:
-          type: string
-          description: A URL path to the current page of requested data
-          example: /api/v2/resource?page=3&size=20
-        next:
-          type: string
-          description: A URL link to the next page of requested data or `null` if currently on last page
-          example: /api/v2/resource?page=4&size=20
-        last:
-          type: string
-          description: A URL link to the last page of requested data
-          example: /api/v2/resource?page=6&size=20
-      title: Page Links
-    PageModelOutAccessAuditApiOut:
-      type: object
-      properties:
-        content:
-          type: array
-          description: A array of returned items
-          items:
-            $ref: '#/components/schemas/AccessAuditApiOut'
-        links:
-          $ref: '#/components/schemas/PageLinksOut'
-          description: A collection of page URL links for navigation and iteration
-        page:
-          $ref: '#/components/schemas/PageInfoOut'
-          description: A collection page metadata
-      title: Page (Response)
   securitySchemes:
     API_Token:
       type: http
