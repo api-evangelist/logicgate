@@ -47,6 +47,9 @@ specificationVersion: '0.23'
 created: '2026-07-17'
 modified: '2026-07-20'
 image: https://www.logicgate.com/wp-content/uploads/img-grid-01.png
+x-docs-platform: swagger-ui
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
 tags:
 - Company
 - GRC
