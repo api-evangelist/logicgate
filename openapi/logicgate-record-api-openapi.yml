@@ -219,26 +219,6 @@ paths:
       x-beta: 'true'
 components:
   schemas:
-    UserPropertyApiOut:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique ID of this Risk Cloud resource
-          example: a1b2c3d4
-        name:
-          type: string
-          description: The name of the user
-          example: Jane Doe
-        email:
-          type: string
-          description: The email of the user
-          example: jane.doe@example.com
-        object:
-          type: string
-          description: Identifies the type of object this data represents
-          example: user
-      title: User (Property)
     ValuePropertyApiOut:
       type: object
       properties:
@@ -301,78 +281,106 @@ components:
           description: Identifies the type of object this data represents
           example: value
       title: Value (Property)
-    PageModelOutRecordApiOut:
+    RecordDatesApiOut:
       type: object
       properties:
-        content:
-          type: array
-          description: A array of returned items
-          items:
-            $ref: '#/components/schemas/RecordApiOut'
-        links:
-          $ref: '#/components/schemas/PageLinksOut'
-          description: A collection of page URL links for navigation and iteration
-        page:
-          $ref: '#/components/schemas/PageInfoOut'
-          description: A collection page metadata
-      title: Page (Response)
-    ApplicationPropertyApiOut:
+        created:
+          type: string
+          format: date-time
+          description: The moment this Risk Cloud resource was created measured in milliseconds since the Unix epoch.
+          example: 1672552800000
+        dueDate:
+          type: string
+          format: date-time
+          description: The due date of this record and step SLA measured in milliseconds since the Unix epoch
+          example: 1672552800000
+        recordDueDate:
+          type: string
+          format: date-time
+          description: The due date of this record measured in milliseconds since the Unix epoch
+          example: 1672552800000
+        daysUntilDue:
+          type: integer
+          format: int64
+          description: The number of days until this record is due
+          example: 3
+        updated:
+          type: string
+          format: date-time
+          description: The moment this Risk Cloud resource was last updated measured in milliseconds since the Unix epoch.
+          example: 1672552800000
+        completed:
+          type: string
+          format: date-time
+          description: The moment this record was completed if the record is currently in an end step measured in milliseconds since the Unix epoch
+          example: 1672552800000
+        lastCompleted:
+          type: string
+          format: date-time
+          description: The moment this record was last completed regardless of if the record has transitioned from an end step measured in milliseconds since the Unix epoch
+          example: 1672552800000
+      title: Record Dates
+    RecordApiOut:
       type: object
       properties:
         id:
           type: string
           description: The unique ID of this Risk Cloud resource
           example: a1b2c3d4
+        recordName:
+          type: string
+          description: The workflow prefix and sequence number of the record
+          example: Assessment-7
         name:
           type: string
-          description: The name of the application
-          example: Cyber Risk Management Application
-        type:
+          description: The text value of the primary field of the record, otherwise the workflow prefix and sequence number of the record
+          example: Medium Risk
+        status:
           type: string
-          description: The type of Risk Cloud application
+          description: The status of the record
           enum:
-          - ACCESS_MANAGEMENT
-          - AML_KYC
-          - ASSET_MANAGEMENT
-          - AUDIT_MANAGEMENT
-          - BUSINESS_CONTINUITY_PLANNING
-          - CHANGE_MANAGEMENT
-          - COMPLAINT_MANAGEMENT
-          - COMPLIANCE_MANAGEMENT
-          - CONTRACT_MANAGEMENT
-          - CONTROLS_COMPLIANCE
-          - CONTROLS_MANAGEMENT
-          - CRISIS_MANAGEMENT
-          - CUSTOM
-          - CUSTOM_GRC_USE_CASE
-          - CYBER_RISK_MANAGEMENT
-          - DATA_PRIVACY_MANAGEMENT
-          - EMPLOYEE_COMPLIANCE
-          - ENTERPRISE_RISK_MANAGEMENT
-          - ESG
-          - INCIDENT_MANAGEMENT
-          - INTERNAL_AUDIT_MANAGEMENT
-          - IT_RISK_MANAGEMENT
-          - NONE
-          - OPERATIONAL_RESILIENCY
-          - OTHER
-          - POLICY_AND_PROCEDURE_MANAGEMENT
-          - POLICY_MANAGEMENT
-          - PRIVACY_MANAGEMENT
-          - QUANTIFY
-          - REGULATORY_COMPLIANCE
-          - REPOSITORY
-          - RISK_QUANTIFICATION
-          - SOX_TESTING
-          - STANDARDS_REGULATIONS
-          - SURVEY
-          - THIRD_PARTY_RISK_MANAGEMENT
-          example: CONTROLS_COMPLIANCE
+          - INACTIVE
+          - NOT_ASSIGNED
+          - ASSIGNED
+          - IN_PROGRESS
+          - COMPLETE
+          example: IN_PROGRESS
+        sequenceNumber:
+          type: integer
+          format: int64
+          description: The sequence number of the record
+          example: 7
+        dates:
+          $ref: '#/components/schemas/RecordDatesApiOut'
+          description: Date information associated with the record
+        assignee:
+          $ref: '#/components/schemas/UserPropertyApiOut'
+          description: The current assignee of the record
+        creator:
+          $ref: '#/components/schemas/UserPropertyApiOut'
+          description: The creator of the record
+        application:
+          $ref: '#/components/schemas/ApplicationPropertyApiOut'
+          description: The parent application of the record
+        workflow:
+          $ref: '#/components/schemas/WorkflowPropertyApiOut'
+          description: The parent workflow of the record
+        currentStep:
+          $ref: '#/components/schemas/StepPropertyApiOut'
+          description: The current step of the record
+        originStep:
+          $ref: '#/components/schemas/StepPropertyApiOut'
+          description: The origin step of the record
+        fields:
+          type: array
+          description: The fields and values of the record
+          items:
+            $ref: '#/components/schemas/FieldRecordApiOut'
         object:
           type: string
           description: Identifies the type of object this data represents
           example: application
-      title: Application (Property)
+      title: Record (Response)
     PageInfoOut:
       type: object
       properties:
@@ -486,6 +494,78 @@ components:
           description: Identifies the type of object this data represents
           example: field
       title: Field (Record)
+    ApplicationPropertyApiOut:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this Risk Cloud resource
+          example: a1b2c3d4
+        name:
+          type: string
+          description: The name of the application
+          example: Cyber Risk Management Application
+        type:
+          type: string
+          description: The type of Risk Cloud application
+          enum:
+          - ACCESS_MANAGEMENT
+          - AML_KYC
+          - ASSET_MANAGEMENT
+          - AUDIT_MANAGEMENT
+          - BUSINESS_CONTINUITY_PLANNING
+          - CHANGE_MANAGEMENT
+          - COMPLAINT_MANAGEMENT
+          - COMPLIANCE_MANAGEMENT
+          - CONTRACT_MANAGEMENT
+          - CONTROLS_COMPLIANCE
+          - CONTROLS_MANAGEMENT
+          - CRISIS_MANAGEMENT
+          - CUSTOM
+          - CUSTOM_GRC_USE_CASE
+          - CYBER_RISK_MANAGEMENT
+          - DATA_PRIVACY_MANAGEMENT
+          - EMPLOYEE_COMPLIANCE
+          - ENTERPRISE_RISK_MANAGEMENT
+          - ESG
+          - INCIDENT_MANAGEMENT
+          - INTERNAL_AUDIT_MANAGEMENT
+          - IT_RISK_MANAGEMENT
+          - NONE
+          - OPERATIONAL_RESILIENCY
+          - OTHER
+          - POLICY_AND_PROCEDURE_MANAGEMENT
+          - POLICY_MANAGEMENT
+          - PRIVACY_MANAGEMENT
+          - QUANTIFY
+          - REGULATORY_COMPLIANCE
+          - REPOSITORY
+          - RISK_QUANTIFICATION
+          - SOX_TESTING
+          - STANDARDS_REGULATIONS
+          - SURVEY
+          - THIRD_PARTY_RISK_MANAGEMENT
+          example: CONTROLS_COMPLIANCE
+        object:
+          type: string
+          description: Identifies the type of object this data represents
+          example: application
+      title: Application (Property)
+    PageModelOutRecordApiOut:
+      type: object
+      properties:
+        content:
+          type: array
+          description: A array of returned items
+          items:
+            $ref: '#/components/schemas/RecordApiOut'
+        links:
+          $ref: '#/components/schemas/PageLinksOut'
+          description: A collection of page URL links for navigation and iteration
+        page:
+          $ref: '#/components/schemas/PageInfoOut'
+          description: A collection page metadata
+      title: Page (Response)
     StepPropertyApiOut:
       type: object
       properties:
@@ -510,67 +590,26 @@ components:
           description: Identifies the type of object this data represents
           example: step
       title: Step (Property)
-    RecordApiOut:
+    UserPropertyApiOut:
       type: object
       properties:
         id:
           type: string
           description: The unique ID of this Risk Cloud resource
           example: a1b2c3d4
-        recordName:
-          type: string
-          description: The workflow prefix and sequence number of the record
-          example: Assessment-7
         name:
           type: string
-          description: The text value of the primary field of the record, otherwise the workflow prefix and sequence number of the record
-          example: Medium Risk
-        status:
+          description: The name of the user
+          example: Jane Doe
+        email:
           type: string
-          description: The status of the record
-          enum:
-          - INACTIVE
-          - NOT_ASSIGNED
-          - ASSIGNED
-          - IN_PROGRESS
-          - COMPLETE
-          example: IN_PROGRESS
-        sequenceNumber:
-          type: integer
-          format: int64
-          description: The sequence number of the record
-          example: 7
-        dates:
-          $ref: '#/components/schemas/RecordDatesApiOut'
-          description: Date information associated with the record
-        assignee:
-          $ref: '#/components/schemas/UserPropertyApiOut'
-          description: The current assignee of the record
-        creator:
-          $ref: '#/components/schemas/UserPropertyApiOut'
-          description: The creator of the record
-        application:
-          $ref: '#/components/schemas/ApplicationPropertyApiOut'
-          description: The parent application of the record
-        workflow:
-          $ref: '#/components/schemas/WorkflowPropertyApiOut'
-          description: The parent workflow of the record
-        currentStep:
-          $ref: '#/components/schemas/StepPropertyApiOut'
-          description: The current step of the record
-        originStep:
-          $ref: '#/components/schemas/StepPropertyApiOut'
-          description: The origin step of the record
-        fields:
-          type: array
-          description: The fields and values of the record
-          items:
-            $ref: '#/components/schemas/FieldRecordApiOut'
+          description: The email of the user
+          example: jane.doe@example.com
         object:
           type: string
           description: Identifies the type of object this data represents
-          example: application
-      title: Record (Response)
+          example: user
+      title: User (Property)
     PageLinksOut:
       type: object
       properties:
@@ -595,45 +634,6 @@ components:
           description: A URL link to the last page of requested data
           example: /api/v2/resource?page=6&size=20
       title: Page Links
-    RecordDatesApiOut:
-      type: object
-      properties:
-        created:
-          type: string
-          format: date-time
-          description: The moment this Risk Cloud resource was created measured in milliseconds since the Unix epoch.
-          example: 1672552800000
-        dueDate:
-          type: string
-          format: date-time
-          description: The due date of this record and step SLA measured in milliseconds since the Unix epoch
-          example: 1672552800000
-        recordDueDate:
-          type: string
-          format: date-time
-          description: The due date of this record measured in milliseconds since the Unix epoch
-          example: 1672552800000
-        daysUntilDue:
-          type: integer
-          format: int64
-          description: The number of days until this record is due
-          example: 3
-        updated:
-          type: string
-          format: date-time
-          description: The moment this Risk Cloud resource was last updated measured in milliseconds since the Unix epoch.
-          example: 1672552800000
-        completed:
-          type: string
-          format: date-time
-          description: The moment this record was completed if the record is currently in an end step measured in milliseconds since the Unix epoch
-          example: 1672552800000
-        lastCompleted:
-          type: string
-          format: date-time
-          description: The moment this record was last completed regardless of if the record has transitioned from an end step measured in milliseconds since the Unix epoch
-          example: 1672552800000
-      title: Record Dates
   securitySchemes:
     API_Token:
       type: http

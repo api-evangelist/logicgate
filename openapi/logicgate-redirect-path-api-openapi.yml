@@ -280,12 +280,110 @@ paths:
       x-beta: 'true'
 components:
   schemas:
+    PageModelOutRedirectPathApiOut:
+      type: object
+      properties:
+        content:
+          type: array
+          description: A array of returned items
+          items:
+            $ref: '#/components/schemas/RedirectPathApiOut'
+        links:
+          $ref: '#/components/schemas/PageLinksOut'
+          description: A collection of page URL links for navigation and iteration
+        page:
+          $ref: '#/components/schemas/PageInfoOut'
+          description: A collection page metadata
+      title: Page (Response)
     AppBadRequestResponse:
       type: object
       properties:
         property:
           type: string
         value:
+          type: string
+        message:
+          type: string
+    RedirectPathApiOut:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique ID of this Risk Cloud resource
+          example: a1b2c3d4
+        from:
+          type: string
+          description: The ID of the source step.
+          example: a1b2c3d4
+        to:
+          type: string
+          description: The ID of the destination step.
+          example: a1b2c3d4
+        allowInternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to any user with access to the target step on submission.
+          example: false
+        allowExternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to external email addresses on submission.
+          example: false
+        allowCurrentAssignee:
+          type: boolean
+          description: Allow a step's current assignee to submit without assigning
+          example: false
+        description:
+          type: string
+          description: Description of the path.
+          example: This describes the path.
+        requireAssignee:
+          type: boolean
+          description: Require an assignee to be chosen
+          example: false
+        object:
+          type: string
+          description: Identifies the type of object this data represents
+          example: redirect-path
+      title: Path (Response).
+    RedirectApiCreateIn:
+      type: object
+      description: Redirect path (Create).
+      properties:
+        from:
+          type: string
+          description: The ID of the source step.
+          example: a1b2c3d4
+        to:
+          type: string
+          description: The ID of the destination step.
+          example: a1b2c3d4
+        allowInternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to any user with access to the target step on submission.
+          example: false
+        allowExternal:
+          type: boolean
+          description: Whether a step's current assignee may assign this record to external email addresses on submission.
+          example: false
+        allowCurrentAssignee:
+          type: boolean
+          description: Allow a step's current assignee to submit without assigning
+          example: false
+        description:
+          type: string
+          description: Description of the path.
+          example: This describes the path.
+        requireAssignee:
+          type: boolean
+          description: Require an assignee to be chosen
+          example: false
+      required:
+      - from
+      - to
+      title: Redirect path (Create).
+    AppStatusResponse:
+      type: object
+      properties:
+        status:
           type: string
         message:
           type: string
@@ -337,49 +435,6 @@ components:
           type: boolean
           description: Require an assignee to be chosen
           example: false
-    RedirectApiCreateIn:
-      type: object
-      description: Redirect path (Create).
-      properties:
-        from:
-          type: string
-          description: The ID of the source step.
-          example: a1b2c3d4
-        to:
-          type: string
-          description: The ID of the destination step.
-          example: a1b2c3d4
-        allowInternal:
-          type: boolean
-          description: Whether a step's current assignee may assign this record to any user with access to the target step on submission.
-          example: false
-        allowExternal:
-          type: boolean
-          description: Whether a step's current assignee may assign this record to external email addresses on submission.
-          example: false
-        allowCurrentAssignee:
-          type: boolean
-          description: Allow a step's current assignee to submit without assigning
-          example: false
-        description:
-          type: string
-          description: Description of the path.
-          example: This describes the path.
-        requireAssignee:
-          type: boolean
-          description: Require an assignee to be chosen
-          example: false
-      required:
-      - from
-      - to
-      title: Redirect path (Create).
-    AppStatusResponse:
-      type: object
-      properties:
-        status:
-          type: string
-        message:
-          type: string
     PageLinksOut:
       type: object
       properties:
@@ -404,61 +459,6 @@ components:
           description: A URL link to the last page of requested data
           example: /api/v2/resource?page=6&size=20
       title: Page Links
-    PageModelOutRedirectPathApiOut:
-      type: object
-      properties:
-        content:
-          type: array
-          description: A array of returned items
-          items:
-            $ref: '#/components/schemas/RedirectPathApiOut'
-        links:
-          $ref: '#/components/schemas/PageLinksOut'
-          description: A collection of page URL links for navigation and iteration
-        page:
-          $ref: '#/components/schemas/PageInfoOut'
-          description: A collection page metadata
-      title: Page (Response)
-    RedirectPathApiOut:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The unique ID of this Risk Cloud resource
-          example: a1b2c3d4
-        from:
-          type: string
-          description: The ID of the source step.
-          example: a1b2c3d4
-        to:
-          type: string
-          description: The ID of the destination step.
-          example: a1b2c3d4
-        allowInternal:
-          type: boolean
-          description: Whether a step's current assignee may assign this record to any user with access to the target step on submission.
-          example: false
-        allowExternal:
-          type: boolean
-          description: Whether a step's current assignee may assign this record to external email addresses on submission.
-          example: false
-        allowCurrentAssignee:
-          type: boolean
-          description: Allow a step's current assignee to submit without assigning
-          example: false
-        description:
-          type: string
-          description: Description of the path.
-          example: This describes the path.
-        requireAssignee:
-          type: boolean
-          description: Require an assignee to be chosen
-          example: false
-        object:
-          type: string
-          description: Identifies the type of object this data represents
-          example: redirect-path
-      title: Path (Response).
   securitySchemes:
     API_Token:
       type: http
